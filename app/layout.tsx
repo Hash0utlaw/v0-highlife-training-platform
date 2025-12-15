@@ -9,9 +9,35 @@ const _inter = Inter({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Highlife Training",
-  description: "Employee training platform for Highlife retail",
-    generator: 'v0.app'
+  title: {
+    default: "Highlife Training",
+    template: "%s | Highlife Training",
+  },
+  description: "Employee training platform for Highlife retail - product knowledge, compliance, and sales excellence",
+  keywords: ["training", "employee", "retail", "highlife", "learning", "compliance"],
+  authors: [{ name: "Highlife Retail" }],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Highlife Training",
+    title: "Highlife Training Platform",
+    description: "Employee training platform for Highlife retail - product knowledge, compliance, and sales excellence",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Highlife Training Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Highlife Training Platform",
+    description: "Employee training platform for Highlife retail",
+    images: ["/og-image.jpg"],
+  },
+  generator: "v0.app",
 }
 
 export const viewport = {
