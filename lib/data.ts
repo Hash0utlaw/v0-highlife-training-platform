@@ -1987,6 +1987,7 @@ When your drawer has too much cash:
 - If you feel unsafe, return to the store and try later
 
 **At the Bank**
+- Use the commercial teller or night drop as instructed
 - Get a receipt for EVERY transaction
 - Verify your change order is correct before leaving
 - Count change at the bank, not in your car
@@ -2008,7 +2009,7 @@ When your drawer has too much cash:
       },
     ],
   },
-  // ADDED MODULE: Phase 3: Policies & Conduct
+  // MODULE 9: POLICIES & CONDUCT
   {
     id: "m9",
     title: "Policies & Conduct",
@@ -2199,7 +2200,7 @@ If you witness violations, report to your manager or HR. High Life prohibits ret
       },
     ],
   },
-  // ADDED MODULE: Phase 3: Compliance & Legal
+  // MODULE 10: COMPLIANCE & LEGAL
   {
     id: "m10",
     title: "Compliance & Legal",
@@ -2419,6 +2420,616 @@ If a customer reports a bad reaction:
           "Share what 'customers commonly report' instead",
           "Always recommend starting with lower doses",
           "Document any reported adverse reactions",
+        ],
+        completed: false,
+      },
+    ],
+  },
+  {
+    id: "m11",
+    title: "Money Handling & Banking",
+    description: "Register operations, bank runs, deposits, petty cash, ENR procedures, and counterfeit detection",
+    estimatedTime: "40 min",
+    completed: false,
+    progress: 0,
+    quizId: "q11",
+    lessons: [
+      {
+        id: "m11-l1",
+        title: "Register Operations & Cash Handling",
+        content: `Proper cash handling protects both you and the company. Every dollar must be accounted for accurately.
+
+**Opening the Register:**
+1. Count your starting drawer (should be $200 standard)
+2. Verify the count matches the previous close-out
+3. Sign the drawer verification slip
+4. Report any discrepancies IMMEDIATELY to management
+
+**During Your Shift:**
+- Keep large bills under the cash tray, not in the slots
+- Face all bills the same direction (facing up, same way)
+- Count change back to customers out loud
+- Never leave the register drawer open
+- Close the drawer between every transaction
+
+**Counting Back Change:**
+Always count change back to the customer starting from the purchase amount:
+- Sale is $17.43, customer pays $20
+- Say: "17.43, 17.50 (give 7 cents), 18 (give 50 cents), 19, 20 (give two $1 bills)"
+
+**Cash Drops:**
+When your drawer exceeds $300, perform a cash drop:
+1. Count the excess (keep $200 in drawer)
+2. Fill out the drop slip completely
+3. Have another employee verify and sign
+4. Place in the safe immediately
+5. Never leave cash unattended during a drop
+
+**End of Shift:**
+- Count your entire drawer
+- Complete the close-out sheet
+- Document any discrepancies with explanation
+- Place drawer in safe or hand off to next shift`,
+        keyPoints: [
+          "Starting drawer is $200 - verify and sign",
+          "Large bills go under the tray, not in slots",
+          "Count change back out loud to customers",
+          "Cash drop when drawer exceeds $300",
+          "Never leave register drawer open or cash unattended",
+        ],
+        completed: false,
+      },
+      {
+        id: "m11-l2",
+        title: "Bank Runs & Deposits",
+        content: `Bank runs are a critical responsibility. You're carrying company money and must follow strict procedures.
+
+**Before Leaving the Store:**
+1. Count all cash being deposited - twice
+2. Fill out the deposit slip completely
+3. Have a manager verify and sign
+4. Place everything in the bank bag
+5. Seal the bag and record the seal number
+
+**Safety During Bank Runs:**
+- Go directly to the bank - no stops
+- Vary your route and times when possible
+- Keep the bag concealed, not visible
+- Be aware of your surroundings
+- If followed, drive to a police station - do not go to the bank
+- Never make deposits after dark alone
+
+**At the Bank:**
+- Use the commercial teller or night drop as instructed
+- Get a receipt for EVERY transaction
+- Bring the receipt back immediately
+- Never leave receipts in your car
+
+**Night Drops:**
+When using the night drop:
+1. Verify the location is well-lit
+2. Have the bag ready before exiting your vehicle
+3. Make the drop quickly
+4. Do not count money in the parking lot
+5. Leave immediately after the drop
+
+**Documentation:**
+Keep all deposit records:
+- Bank receipts
+- Deposit slip copies
+- Manager verification signatures
+- Any discrepancy notes`,
+        keyPoints: [
+          "Count cash twice before leaving, get manager verification",
+          "Go directly to bank - no stops, vary routes",
+          "Keep bank bag concealed, be aware of surroundings",
+          "Always get and return with a receipt",
+          "If followed, go to police station instead of bank",
+        ],
+        completed: false,
+      },
+      {
+        id: "m11-l3",
+        title: "Petty Cash & Small Expenses",
+        content: `Petty cash is for small, unexpected business expenses. It's not your personal fund - every penny must be documented.
+
+**What Petty Cash Is For:**
+- Emergency supplies (cleaning products, paper goods)
+- Small equipment repairs
+- Shipping supplies when needed urgently
+- Minor office supplies
+
+**What Petty Cash Is NOT For:**
+- Personal purchases (even if you plan to pay back)
+- Food for yourself
+- Any purchase over $50 without manager approval
+- Regular/recurring expenses
+
+**Using Petty Cash:**
+1. Get manager approval BEFORE the purchase
+2. Keep the original receipt
+3. Fill out the petty cash voucher completely
+4. Attach the receipt to the voucher
+5. Get manager signature on the voucher
+6. Return the voucher and any change to the safe
+
+**Petty Cash Voucher Must Include:**
+- Date of purchase
+- Amount spent
+- What was purchased and why
+- Store/vendor name
+- Your signature
+- Manager approval signature
+
+**Reconciliation:**
+Petty cash is counted and reconciled weekly:
+- Cash on hand + vouchers must equal the fund total
+- Discrepancies are investigated
+- Missing funds without documentation is a serious issue
+
+**Pro Tip:**
+When in doubt, ask first. It's much easier to get approval before a purchase than to explain an unauthorized expense after.`,
+        keyPoints: [
+          "Always get manager approval BEFORE purchases",
+          "Keep original receipts - no receipt, no reimbursement",
+          "Fill out vouchers completely with all required info",
+          "Petty cash is NOT for personal purchases, ever",
+          "Cash + vouchers must always equal the fund total",
+        ],
+        completed: false,
+      },
+      {
+        id: "m11-l4",
+        title: "ENR (End of Night Report) Procedures",
+        content: `The ENR is a critical document that reconciles all financial activity for the day. Accuracy is essential.
+
+**What the ENR Documents:**
+- All register transactions
+- Cash deposits prepared
+- Credit/debit card totals
+- Any discrepancies (over/short)
+- Petty cash activity
+- Safe counts
+
+**Completing the ENR - Step by Step:**
+1. Run end-of-day reports from VelaPOS
+2. Count each register drawer individually
+3. Calculate: Drawer total minus $200 bank = cash sales
+4. Compare cash sales to VelaPOS cash report
+5. Record any over/short amounts
+6. Count and verify credit card batch totals
+7. Prepare deposit and record amount
+8. Complete safe count
+9. Sign and date the ENR
+
+**Common Discrepancy Causes:**
+- Mis-counted change to customers
+- Transaction not rung up properly
+- Drop slips not recorded
+- Math errors on manual calculations
+
+**If You're Over:**
+- Document the exact amount
+- Note possible causes if known
+- Do NOT pocket the overage
+- Report to manager
+
+**If You're Short:**
+- Document the exact amount
+- Note what you think may have caused it
+- Do NOT cover from personal funds
+- Report to manager
+- Repeated shortages trigger investigation
+
+**Manager Review:**
+The ENR is reviewed by management daily. Patterns are tracked. Consistent accuracy builds trust; consistent problems raise concerns.`,
+        keyPoints: [
+          "ENR reconciles all daily financial activity",
+          "Compare drawer counts to VelaPOS reports",
+          "Document all overages and shortages honestly",
+          "Never pocket overages or cover shortages personally",
+          "Consistent accuracy builds trust with management",
+        ],
+        completed: false,
+      },
+      {
+        id: "m11-l5",
+        title: "Counterfeit Detection",
+        content: `Accepting counterfeit bills costs the company real money. Every large bill should be checked.
+
+**Bills to Always Check:**
+- $50 bills - always
+- $100 bills - always
+- $20 bills - if they look suspicious or customer is acting nervous
+
+**Detection Methods:**
+
+**1. The Pen Test:**
+- Swipe the counterfeit detection pen on the bill
+- Yellow/clear = likely genuine
+- Dark brown/black = likely counterfeit
+- Test on a light area of the bill
+
+**2. Feel the Texture:**
+- Real bills have a distinctive texture
+- Look for raised printing on shoulders of portraits
+- Feel for the embedded security thread
+
+**3. Hold Up to Light:**
+- Security thread should be visible with correct text
+- Watermark should match the portrait
+- Should be embedded, not printed on surface
+
+**4. Tilt the Bill:**
+- Color-shifting ink on bottom right number ($50, $100)
+- Number changes from copper to green when tilted
+
+**5. Look for Details:**
+- Fine line printing should be crisp, not blurry
+- Microprinting should be readable with magnification
+- Portrait should be sharp and lifelike
+
+**If You Detect a Counterfeit:**
+1. Do NOT accuse the customer directly
+2. Say: "I'm sorry, this bill isn't being accepted by our system"
+3. Ask for alternate payment
+4. If possible, note the customer's description
+5. Report to manager immediately
+6. Do NOT return the suspected bill to customer
+7. Complete a counterfeit incident report
+
+**Never:**
+- Accuse the customer of knowingly passing counterfeit
+- Let the customer leave with the fake bill
+- Accept a suspicious bill just to avoid confrontation`,
+        keyPoints: [
+          "Always check $50 and $100 bills with pen and visual inspection",
+          "Look for security thread, watermark, and color-shifting ink",
+          "If counterfeit detected, don't accuse - ask for different payment",
+          "Never return suspected counterfeit bill to customer",
+          "Document incident and report to manager immediately",
+        ],
+        completed: false,
+      },
+    ],
+  },
+  {
+    id: "m12",
+    title: "Inventory & Transfers",
+    description: "VelaPOS transfers, receiving shipments, FIFO procedures, and physical inventory",
+    estimatedTime: "45 min",
+    completed: false,
+    progress: 0,
+    quizId: "q12",
+    lessons: [
+      {
+        id: "m12-l1",
+        title: "VelaPOS Inventory Basics",
+        content: `VelaPOS is our inventory management system. Understanding it is essential for tracking products accurately.
+
+**Accessing Inventory Functions:**
+- Use your employee login (never share credentials)
+- Navigate to Inventory > Stock Management
+- Different access levels exist based on your role
+
+**Key Inventory Screens:**
+
+**Product Lookup:**
+- Search by name, SKU, or barcode
+- Shows current quantity on hand
+- Shows quantity at other locations
+- Displays product details and pricing
+
+**Stock Adjustments:**
+Use for discrepancies found during counts:
+- Select product and adjustment type
+- Enter quantity being adjusted
+- ALWAYS include a reason code
+- Requires manager approval for most adjustments
+
+**Reason Codes:**
+- DAMAGED: Product is unsellable
+- SHRINK: Missing/stolen
+- SAMPLE: Given as customer sample
+- PROMO: Used for promotion
+- COUNT: Physical count correction
+
+**Inventory Alerts:**
+VelaPOS generates alerts for:
+- Low stock items (below reorder point)
+- Zero quantity items still active
+- High variance after counts
+- Pending transfers
+
+**Best Practices:**
+- Check inventory before telling customer "we're out"
+- Verify system matches shelf before making promises
+- Report discrepancies immediately
+- Never adjust inventory without proper authorization`,
+        keyPoints: [
+          "Use VelaPOS for all inventory lookups and adjustments",
+          "Never share your login credentials",
+          "Always use proper reason codes for adjustments",
+          "Check system AND shelf before telling customers we're out",
+          "Manager approval required for most stock adjustments",
+        ],
+        completed: false,
+      },
+      {
+        id: "m12-l2",
+        title: "Store-to-Store Transfers",
+        content: `Transfers move inventory between High Life locations. Following proper procedures ensures accuracy.
+
+**When Transfers Happen:**
+- Another store needs product we have excess of
+- We need product another store has
+- Balancing inventory across locations
+- New store setup or closeout
+
+**Initiating a Transfer OUT (Sending):**
+
+1. **Create Transfer in VelaPOS:**
+   - Go to Inventory > Transfers > New Transfer
+   - Select destination store
+   - Add products and quantities
+   - Save as "Pending"
+
+2. **Pick the Products:**
+   - Print the transfer list
+   - Pull items from shelf/stock
+   - Verify quantities match
+   - Check for damage before packing
+
+3. **Pack and Document:**
+   - Pack items securely
+   - Include packing slip in box
+   - Seal and label boxes
+   - Record number of boxes
+
+4. **Complete in System:**
+   - Mark transfer as "Shipped" in VelaPOS
+   - Note carrier/driver info
+   - Keep copy of documentation
+
+**Receiving a Transfer IN:**
+
+1. **Check Against Documentation:**
+   - Count boxes received vs. expected
+   - Open and verify contents
+   - Note any damaged items
+   - Note any quantity discrepancies
+
+2. **Process in VelaPOS:**
+   - Go to Inventory > Transfers > Pending
+   - Find the transfer and click "Receive"
+   - Adjust quantities if different from expected
+   - Document any discrepancies
+
+3. **Stock the Products:**
+   - Price if needed
+   - Put away in proper location
+   - Update shelf tags if necessary
+
+**Discrepancy Handling:**
+If received quantity differs from sent:
+- Document the discrepancy on the packing slip
+- Note in VelaPOS when receiving
+- Contact sending store to resolve
+- Manager review may be required`,
+        keyPoints: [
+          "Always create transfers in VelaPOS before moving product",
+          "Verify quantities before sending AND when receiving",
+          "Document any discrepancies immediately",
+          "Pack items securely to prevent damage",
+          "Keep copies of all transfer documentation",
+        ],
+        completed: false,
+      },
+      {
+        id: "m12-l3",
+        title: "Receiving Shipments",
+        content: `Properly receiving shipments ensures we have accurate inventory and can identify problems quickly.
+
+**When a Shipment Arrives:**
+
+1. **Initial Check:**
+   - Verify the shipment is for your store
+   - Count number of boxes/packages
+   - Check for visible damage before signing
+   - Note any damage on carrier's paperwork
+
+2. **Sign With Notations:**
+   - Sign for receipt
+   - If damaged, write "RECEIVED DAMAGED" before signing
+   - Note number of boxes received
+   - Get driver name/signature if possible
+
+**Processing the Shipment:**
+
+1. **Open and Check Contents:**
+   - Open all boxes in receiving area
+   - Match contents to packing slip
+   - Check for hidden damage
+   - Separate any damaged items
+
+2. **Enter in VelaPOS:**
+   - Go to Inventory > Receiving
+   - Find the PO or create manual receipt
+   - Scan or enter each item
+   - Adjust quantities if different from expected
+
+3. **Handle Discrepancies:**
+   - Short shipment: Note on packing slip, enter actual received
+   - Over shipment: Document, contact vendor
+   - Wrong items: Set aside, contact vendor
+   - Damaged items: Document with photos, contact vendor
+
+4. **Price and Stock:**
+   - Verify pricing is correct in system
+   - Apply price tags if needed
+   - Stock shelves using FIFO method
+   - Update display quantities
+
+**Documentation to Keep:**
+- Carrier delivery receipt (signed copy)
+- Packing slip with notations
+- Photos of any damage
+- VelaPOS receiving confirmation
+
+**Time Sensitivity:**
+- Process shipments same day when possible
+- Refrigerated items immediately
+- High-value items into secure storage
+- Report major issues within 24 hours`,
+        keyPoints: [
+          "Inspect boxes for damage before signing",
+          "Write 'RECEIVED DAMAGED' on carrier paperwork if damaged",
+          "Match all items to packing slip before entering in system",
+          "Document discrepancies with photos when applicable",
+          "Process shipments same day when possible",
+        ],
+        completed: false,
+      },
+      {
+        id: "m12-l4",
+        title: "FIFO Procedures",
+        content: `FIFO (First In, First Out) ensures older inventory sells before newer inventory. This is critical for product freshness.
+
+**Why FIFO Matters:**
+- Prevents product expiration on shelf
+- Ensures customers get fresh products
+- Reduces waste and shrink
+- Required for compliance with edibles/consumables
+
+**Products Requiring Strict FIFO:**
+- ALL edibles (gummies, chocolates, beverages)
+- Kratom powder and capsules
+- CBD tinctures and oils
+- Any product with expiration dates
+
+**FIFO When Stocking:**
+
+1. **Check Dates First:**
+   - Find expiration dates on new products
+   - Check dates on products already on shelf
+   - Identify which is older
+
+2. **Rotate Stock:**
+   - Pull existing products forward
+   - Place new products in BACK
+   - Older dates should always be in front
+   - Double-check after stocking
+
+3. **Shelf Organization:**
+   - Front of shelf = oldest (sell first)
+   - Back of shelf = newest
+   - Never just put new stock on top
+
+**During Daily Checks:**
+- Walk the consumables section daily
+- Check for expired products
+- Pull any expired items immediately
+- Document removed items for shrink
+
+**When Restocking Display:**
+- Never restock without checking dates
+- Even if shelf is empty, put oldest first
+- Train yourself: dates face forward when possible
+
+**Expired Product Handling:**
+1. Remove from shelf immediately
+2. Document in VelaPOS as damaged/expired
+3. Place in designated disposal area
+4. Complete shrink paperwork
+5. Never sell expired products
+
+**Customer Questions:**
+If a customer finds an expired product:
+- Apologize sincerely
+- Thank them for noticing
+- Offer a fresh replacement
+- Remove all expired items from that section`,
+        keyPoints: [
+          "FIFO = oldest products sell first",
+          "New stock goes to BACK, old stock stays in FRONT",
+          "Check dates on ALL consumables daily",
+          "Never sell expired products - document and dispose",
+          "Strict FIFO for edibles, kratom, and CBD products",
+        ],
+        completed: false,
+      },
+      {
+        id: "m12-l5",
+        title: "Physical Inventory Counts",
+        content: `Physical inventory counts verify actual stock matches system records. Accuracy is essential.
+
+**Types of Counts:**
+
+**Cycle Counts (Ongoing):**
+- Small sections counted regularly
+- Usually assigned specific products/areas
+- Helps catch issues before full inventory
+- Less disruptive to operations
+
+**Full Physical Inventory:**
+- Complete store count
+- Usually quarterly or annually
+- May require closing or reduced hours
+- Most comprehensive accuracy check
+
+**Preparing for Counts:**
+
+1. **Organize First:**
+   - Straighten all products
+   - Ensure items are in correct locations
+   - Remove any damaged/unsellable items
+   - Clear backstock area
+
+2. **Gather Supplies:**
+   - Count sheets or scanner
+   - Pen (no pencil - permanent records)
+   - Calculator
+   - Step stool for high shelves
+
+**Counting Best Practices:**
+
+**Be Systematic:**
+- Count left to right, top to bottom
+- Count one shelf completely before moving
+- Don't skip around
+- Mark where you stopped if interrupted
+
+**Be Accurate:**
+- Count twice if unsure
+- Touch each item as you count
+- Don't estimate - count exactly
+- Include damaged items in count
+
+**Handling Discrepancies:**
+- Recount before reporting variance
+- Check nearby locations (misplaced items)
+- Check backstock
+- Document reason if known
+- Report significant variances to manager
+
+**After the Count:**
+- Enter counts in VelaPOS
+- Review variances with manager
+- Investigate significant differences
+- File count sheets per retention policy
+
+**Common Count Errors:**
+- Counting too fast
+- Skipping items in back
+- Miscounting by 10s (boxes vs. units)
+- Not counting items in wrong location
+- Double-counting during breaks`,
+        keyPoints: [
+          "Count systematically: left to right, top to bottom",
+          "Touch each item as you count - no estimating",
+          "Recount before reporting any variance",
+          "Check nearby areas for misplaced items",
+          "Document known reasons for discrepancies",
         ],
         completed: false,
       },
@@ -3353,6 +3964,227 @@ export const mockQuizzes: Quiz[] = [
           "Customers commonly report Y",
           "This is guaranteed to Z",
           "It's just like real marijuana",
+        ],
+        correctAnswer: 1,
+      },
+    ],
+  },
+  {
+    id: "q11",
+    title: "Money Handling & Banking Quiz",
+    moduleId: "m11",
+    passingScore: 80,
+    questions: [
+      {
+        id: "q11-1",
+        text: "What is the standard starting amount for a register drawer?",
+        options: ["$100", "$150", "$200", "$250"],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-2",
+        text: "When should you perform a cash drop?",
+        options: [
+          "When the drawer reaches $150",
+          "When the drawer exceeds $300",
+          "At the end of every shift",
+          "Only if the manager asks",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q11-3",
+        text: "What should you do if you suspect a bill is counterfeit?",
+        options: [
+          "Accept it to avoid confrontation",
+          "Accuse the customer directly",
+          "Ask for alternate payment without accusing, report to manager",
+          "Return the bill and refuse all service",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-4",
+        text: "What is NOT a valid use for petty cash?",
+        options: [
+          "Emergency cleaning supplies",
+          "Minor equipment repair",
+          "Personal lunch purchase",
+          "Shipping supplies",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-5",
+        text: "What does ENR stand for?",
+        options: [
+          "Electronic Network Rejection",
+          "Error Notification Received",
+          "End of Night Report",
+          "Entry Number Required",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-6",
+        text: "During a bank run, what is the primary safety rule?",
+        options: [
+          "Go directly to the bank - no stops",
+          "Always go alone for security",
+          "Make the deposit bag visible",
+          "Use the same route every time",
+        ],
+        correctAnswer: 0,
+      },
+      {
+        id: "q11-7",
+        text: "What is required for every petty cash expense?",
+        options: [
+          "Verbal manager approval only",
+          "Original receipt and completed voucher with manager signature",
+          "Text message to manager",
+          "Nothing for expenses under $20",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q11-8",
+        text: "If your register count shows a $5 shortage, you should:",
+        options: [
+          "Cover it from your own pocket",
+          "Ignore it if it's small",
+          "Document it honestly on the ENR and report to manager",
+          "Adjust the VelaPOS numbers to match",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-9",
+        text: "Which bills should ALWAYS be checked for counterfeits?",
+        options: ["$5 and $10", "$10 and $20", "$50 and $100", "Only $100"],
+        correctAnswer: 2,
+      },
+      {
+        id: "q11-10",
+        text: "If you are followed during a bank run, you should:",
+        options: [
+          "Continue to the bank and make the deposit quickly",
+          "Drive to a police station instead of the bank",
+          "Stop and confront the follower",
+          "Speed up to lose them",
+        ],
+        correctAnswer: 1,
+      },
+    ],
+  },
+  {
+    id: "q12",
+    title: "Inventory & Transfers Quiz",
+    moduleId: "m12",
+    passingScore: 80,
+    questions: [
+      {
+        id: "q12-1",
+        text: "What does FIFO stand for?",
+        options: [
+          "File In, File Out",
+          "First In, First Out",
+          "Final Inventory for Orders",
+          "Finished Items For Output",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-2",
+        text: "When stocking shelves using FIFO, new products should go:",
+        options: [
+          "In the front, oldest in back",
+          "In the back, oldest in front",
+          "Wherever there's space",
+          "On top of existing products",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-3",
+        text: "If a shipment arrives with visible damage, you should:",
+        options: [
+          "Refuse the entire shipment",
+          "Sign normally and deal with it later",
+          "Write 'RECEIVED DAMAGED' on carrier paperwork before signing",
+          "Call the vendor before accepting",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q12-4",
+        text: "When receiving a transfer from another store, discrepancies should be:",
+        options: [
+          "Ignored if small",
+          "Documented and noted in VelaPOS when receiving",
+          "Fixed by adjusting your inventory silently",
+          "Reported only if over $100 difference",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-5",
+        text: "What products require STRICT FIFO rotation?",
+        options: [
+          "Glass products only",
+          "All edibles, kratom, and CBD products",
+          "Only refrigerated items",
+          "Accessories and grinders",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-6",
+        text: "During a physical count, the best approach is:",
+        options: [
+          "Estimate counts for speed",
+          "Count random sections",
+          "Count systematically - left to right, top to bottom",
+          "Count only items that look low",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q12-7",
+        text: "Stock adjustments in VelaPOS require:",
+        options: [
+          "No documentation needed",
+          "A reason code and usually manager approval",
+          "Only a reason code",
+          "Corporate approval for any amount",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-8",
+        text: "If you find an expired product on the shelf, you should:",
+        options: [
+          "Mark it down and sell it anyway",
+          "Put it in the back and hope no one notices",
+          "Remove it immediately, document it, and dispose properly",
+          "Wait for the next inventory count",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q12-9",
+        text: "When initiating a transfer OUT to another store, what must you do FIRST?",
+        options: ["Pack the boxes", "Create the transfer in VelaPOS", "Call the other store", "Get driver information"],
+        correctAnswer: 1,
+      },
+      {
+        id: "q12-10",
+        text: "If your physical count shows 15 items but VelaPOS shows 20, you should:",
+        options: [
+          "Assume VelaPOS is wrong and adjust to 15",
+          "Recount, check nearby areas, then document the variance",
+          "Add 5 items from backstock to match",
+          "Ignore it - small variances don't matter",
         ],
         correctAnswer: 1,
       },
