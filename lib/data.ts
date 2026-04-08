@@ -3152,7 +3152,7 @@ The ratio of these alkaloids in a product determines the experience. Products wi
       {
         id: "m13-l2",
         title: "Kanna Interactions & Safety",
-        content: \`One of Kanna's most unique qualities is how it interacts with other substances — amplifying the positives and reducing the negatives.
+        content: `One of Kanna's most unique qualities is how it interacts with other substances — amplifying the positives and reducing the negatives.
 
 **Combined With Caffeine:**
 - Extends energy from 2-3 hours to 4-6 hours
@@ -3185,7 +3185,7 @@ The ratio of these alkaloids in a product determines the experience. Products wi
 - Effexor
 - Cymbalta
 
-This is the MOST IMPORTANT safety point to remember. Never skip this question.\`,
+This is the MOST IMPORTANT safety point to remember. Never skip this question.`,
         keyPoints: [
           "Kanna extends caffeine energy and smooths the comedown",
           "Kanna reduces alcohol needed and lessens hangovers",
@@ -3198,7 +3198,7 @@ This is the MOST IMPORTANT safety point to remember. Never skip this question.\`
       {
         id: "m13-l3",
         title: "Our Three Kanna Products",
-        content: \`We carry three Kanna products, each suited for different customers and situations.
+        content: `We carry three Kanna products, each suited for different customers and situations.
 
 **PRODUCT 1: Kanna Snuff**
 
@@ -3249,7 +3249,7 @@ Our premium combination — 1.5-5mg Kanna + 10mg Delta 9 THC. Nothing else like 
 | Best For | Cannabis users who get anxious, social situations, people wanting a cleaner high |
 
 **D9 Combo Selling Tip:**
-"If you've ever gotten too anxious or paranoid from edibles, this is the product for you. The Kanna smooths out that edge completely. A lot of customers who gave up on THC have come back to it through this product."\`,
+"If you've ever gotten too anxious or paranoid from edibles, this is the product for you. The Kanna smooths out that edge completely. A lot of customers who gave up on THC have come back to it through this product."`,
         keyPoints: [
           "Snuff: Fastest onset (5-15 min), shortest duration (45-90 min), best for first-timers",
           "Gummies: Slower onset (45-90 min), longer duration (3-5 hrs), daily wellness",
@@ -3262,7 +3262,7 @@ Our premium combination — 1.5-5mg Kanna + 10mg Delta 9 THC. Nothing else like 
       {
         id: "m13-l4",
         title: "Selling Techniques",
-        content: \`Kanna is an easy sell when you understand it. Most customers have never heard of it — you're introducing something genuinely new.
+        content: `Kanna is an easy sell when you understand it. Most customers have never heard of it — you're introducing something genuinely new.
 
 **Step 1: Qualify the Customer**
 
@@ -3298,7 +3298,7 @@ Start with Kanna Snuff. Fastest feedback, smallest commitment, controllable dose
 
 **Scenario D — Drinks but wants to cut back:**
 Kanna Gummies or D9 Combo. Emphasize the alcohol replacement angle.
-"A lot of customers use this at social events instead of drinking. Same relaxed feeling, fraction of the side effects."\`,
+"A lot of customers use this at social events instead of drinking. Same relaxed feeling, fraction of the side effects."`,
         keyPoints: [
           "Qualify first: what are they looking for?",
           "Cannabis users → Kanna + D9 combo",
@@ -3311,7 +3311,7 @@ Kanna Gummies or D9 Combo. Emphasize the alcohol replacement angle.
       {
         id: "m13-l5",
         title: "Handling Objections & Quick Reference",
-        content: \`**Common Objections and Responses:**
+        content: `**Common Objections and Responses:**
 
 **"I've never heard of it — is it safe?"**
 "It's been used for thousands of years by indigenous tribes in South Africa — it's not new, just new to the US market. It's a natural plant extract and dietary supplement. As long as you're not on antidepressants, it's well-tolerated by most people."
@@ -3351,7 +3351,7 @@ If yes → tell them to check with their doctor. Kanna affects serotonin.
 **One-Line Product Pitches:**
 - **Snuff:** "Fast-acting mood lift — feel it in 15 minutes, no THC, no crash."
 - **Gummies:** "Daily wellness in a gummy — mood, focus, stress relief that lasts all day."
-- **Kanna + D9:** "The best THC edible you've never tried — same euphoria, way less anxiety."\`,
+- **Kanna + D9:** "The best THC edible you've never tried — same euphoria, way less anxiety."`,
         keyPoints: [
           "Always address the SSRI question — it's the most important safety point",
           "Snuff: 5-15 min onset, 45-90 min duration, no THC",
