@@ -25,7 +25,7 @@ export interface Badge {
 export interface Product {
   id: string
   name: string
-  category: "delta" | "kratom" | "glass" | "accessories"
+  category: "delta" | "kratom" | "glass" | "accessories" | "kanna"
   image?: string
   description: string
   effects: string[]
@@ -93,7 +93,7 @@ export const mockEmployee: Employee = {
   role: "Sales Associate",
   storeLocation: "Downtown Location",
   completedModules: 3,
-  totalModules: 10,
+  totalModules: 13,
   averageQuizScore: 87,
   badges: [
     { id: "b1", name: "Quick Learner", description: "Completed first module", icon: "zap", earnedAt: "2024-01-15" },
@@ -254,6 +254,72 @@ export const mockProducts: Product[] = [
     ],
     complianceNotes: ["For tobacco use only"],
     relatedProducts: ["p7"],
+  },
+  {
+    id: "p9",
+    name: "Kanna Snuff",
+    category: "kanna",
+    image: "/kanna-snuff-botanical-powder-natural-plant-extract.jpg",
+    description: "Traditional Kanna (Sceletium tortuosum) botanical powder for nasal use. Fast-acting mood and focus support derived from South African plant extract.",
+    effects: ["Mood lift", "Focus enhancement", "Stress relief", "Natural energy", "Fast onset (5-15 min)"],
+    talkingPoints: [
+      "Used for thousands of years by indigenous South African tribes",
+      "Fast-acting - feel effects within 5-15 minutes",
+      "Great for first-time Kanna users - controllable dose",
+      "No THC, no caffeine, all natural plant extract",
+      "Effects last 45-90 minutes",
+    ],
+    complianceNotes: [
+      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs - Kanna affects serotonin",
+      "Not for use with antidepressants - refer to doctor",
+      "Cannot make medical claims",
+      "Not legal in Louisiana",
+    ],
+    relatedProducts: ["p10", "p11"],
+  },
+  {
+    id: "p10",
+    name: "Kanna Gummies (1.5-5mg)",
+    category: "kanna",
+    image: "/kanna-gummies-mood-wellness-supplement-natural.jpg",
+    description: "Premium Kanna gummies with 1.5-5mg active alkaloids per piece. Federally compliant dietary supplement for daily mood and wellness support.",
+    effects: ["Uplifted mood", "Calm focus", "Reduced stress", "Long-lasting (3-5 hours)", "No intoxication"],
+    talkingPoints: [
+      "Our flagship non-THC wellness product",
+      "Great coffee replacement or companion - smooth energy without jitters",
+      "Start with half a gummy for new users",
+      "Effects last 3-5 hours - great for all-day support",
+      "Federally legal dietary supplement in all states except Louisiana",
+    ],
+    complianceNotes: [
+      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs before selling",
+      "Dietary supplement - no medical claims",
+      "Not legal in Louisiana",
+      "Onset takes 45-90 minutes",
+    ],
+    relatedProducts: ["p9", "p11"],
+  },
+  {
+    id: "p11",
+    name: "Kanna + Delta 9 Gummies",
+    category: "kanna",
+    image: "/kanna-delta9-combo-gummies-thc-mood-blend.jpg",
+    description: "Premium combination gummy with 1.5-5mg Kanna alkaloids + 10mg Delta 9 THC. Kanna reduces THC anxiety for a smoother, more balanced experience.",
+    effects: ["Balanced euphoria", "Reduced THC anxiety", "Extended duration (4-6 hours)", "Social enhancement", "Appetite suppression"],
+    talkingPoints: [
+      "Best seller for cannabis users who get anxious from regular edibles",
+      "Kanna dramatically reduces THC-induced anxiety and paranoia",
+      "Longer, smoother experience than THC alone",
+      "Kanna counteracts the munchies",
+      "Nothing else like it on the market",
+    ],
+    complianceNotes: [
+      "Must verify 21+ age",
+      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs",
+      "Hemp-derived Delta 9 under 2018 Farm Bill",
+      "Start with half gummy for new/casual users",
+    ],
+    relatedProducts: ["p9", "p10", "p1"],
   },
 ]
 
@@ -3035,6 +3101,268 @@ If a customer finds an expired product:
       },
     ],
   },
+  // MODULE 13: KANNA KARMA
+  {
+    id: "m13",
+    title: "Kanna Karma: Staff Training",
+    description: "Everything you need to sell Kanna with confidence - products, effects, selling techniques, and safety.",
+    estimatedTime: "35 min",
+    completed: false,
+    progress: 0,
+    quizId: "q13",
+    lessons: [
+      {
+        id: "m13-l1",
+        title: "What Is Kanna?",
+        content: `Kanna, scientifically known as Sceletium tortuosum, is a succulent plant native to the Cape Region of South Africa. It has been used for thousands of years by the indigenous Khoisan people — one of the oldest cultures on Earth — as a natural tool for endurance, mood, and social connection.
+
+**The History:**
+The Khoisan are famously one of the last tribes to still practice persistence hunting — chasing prey over long distances until it exhausts itself. During these hunts, and in daily life, they would chew the roots of the Kanna plant. The products we carry are made from the pure extract of those roots.
+
+**The Simple Pitch:**
+"Kanna is a natural plant extract that's been used for thousands of years to boost mood, lower stress, and sharpen focus — without caffeine, THC, or anything synthetic. Think of it as nature's answer to feeling good and being present."
+
+**The Effects of Kanna:**
+When taken, customers can expect:
+- Improved mood and sense of wellbeing
+- Increased motivation and drive
+- Natural energy boost — no jitters
+- Reduced stress and anxiety
+- Appetite and thirst suppression
+
+**The Three Key Alkaloids:**
+The effects come from three primary alkaloids in the plant. Understanding these will help you match the right product to each customer.
+
+| Alkaloid | Effects | Compare To |
+|----------|---------|------------|
+| **Mesembrine** | Energizing, uplifting, euphoric, social. Boosts focus and motivation. | Sativa Cannabis |
+| **Mesembrenone** | Calming, stress-relieving, mentally clear. Relaxing without causing lethargy. | Indica Cannabis |
+| **Delta-7 Mesembrenone** | Balanced background alkaloid. Enhances the overall effect via the entourage effect. | Hybrid Cannabis |
+
+The ratio of these alkaloids in a product determines the experience. Products with more Mesembrine = more energy and sociability. More Mesembrenone = more calm and stress relief.`,
+        keyPoints: [
+          "Kanna is a natural South African plant used for thousands of years",
+          "Three key alkaloids: Mesembrine (energizing), Mesembrenone (calming), Delta-7 (balancing)",
+          "Effects include mood lift, focus, energy, and stress relief",
+          "Compare Mesembrine to Sativa, Mesembrenone to Indica",
+          "No caffeine, no THC, all natural plant extract",
+        ],
+        completed: false,
+      },
+      {
+        id: "m13-l2",
+        title: "Kanna Interactions & Safety",
+        content: `One of Kanna's most unique qualities is how it interacts with other substances — amplifying the positives and reducing the negatives.
+
+**Combined With Caffeine:**
+- Extends energy from 2-3 hours to 4-6 hours
+- Replaces the crash with a smooth, steady comedown
+- Many customers use it WITH or INSTEAD of coffee
+
+**Combined With Alcohol:**
+- Requires less alcohol to feel social and relaxed
+- Reduces mental fog and hangover intensity
+- Great for social situations
+
+**Combined With Cannabis/THC:**
+- Significantly reduces anxiety and paranoia
+- Creates a more balanced, longer-lasting, full-body experience
+- This is why our Kanna + D9 combo is so popular
+
+⚠️ **CRITICAL SAFETY - SSRIs & Antidepressants:**
+
+**ALWAYS ASK:** "Are you on any antidepressants, SSRIs, or medications for mental health?"
+
+**If YES:** Tell them to check with their doctor before using ANY Kanna product.
+
+**Why:** Kanna affects serotonin, and combining it with SSRIs, SNRIs, or MAOIs can cause serotonin syndrome — a potentially dangerous condition.
+
+**Common SSRIs to know:**
+- Prozac
+- Zoloft
+- Lexapro
+- Wellbutrin
+- Effexor
+- Cymbalta
+
+This is the MOST IMPORTANT safety point to remember. Never skip this question.`,
+        keyPoints: [
+          "Kanna extends caffeine energy and smooths the comedown",
+          "Kanna reduces alcohol needed and lessens hangovers",
+          "Kanna significantly reduces THC anxiety and paranoia",
+          "ALWAYS ask about SSRIs/antidepressants before selling",
+          "Kanna + SSRIs can cause serotonin syndrome - refer to doctor",
+        ],
+        completed: false,
+      },
+      {
+        id: "m13-l3",
+        title: "Our Three Kanna Products",
+        content: `We carry three Kanna products, each suited for different customers and situations.
+
+**PRODUCT 1: Kanna Snuff**
+
+The most traditional form — finely ground botanical powder taken nasally in small pinches.
+
+| Detail | Info |
+|--------|------|
+| How to Use | Tap a small pinch (size of a match head) onto the back of hand, inhale gently from each nostril |
+| Onset | Fast — 5-15 minutes |
+| Duration | 45-90 minutes |
+| Intensity | Focused and clear |
+| Best For | First-timers wanting immediate feedback, cannabis users curious about Kanna, daytime use |
+
+**Snuff Selling Tip:**
+"If you've never tried Kanna before, snuff is actually one of the best ways to start — you feel it fast, and since you control the dose pinch by pinch, it's easy to find your sweet spot."
+
+---
+
+**PRODUCT 2: Kanna Gummies (1.5-5mg)**
+
+Our flagship non-THC product — a dietary supplement legal in all states except Louisiana.
+
+| Detail | Info |
+|--------|------|
+| Dose | Start with half a gummy for new users. 1 full gummy for regular users |
+| Onset | 45-90 minutes (digestion) |
+| Duration | 3-5 hours of smooth, sustained effects |
+| Feel | Uplifted mood, calm focus, reduced stress |
+| Legal Status | Federally compliant. No THC. Legal everywhere except Louisiana |
+| Best For | Daily wellness users, customers avoiding THC, long-lasting mood support |
+
+**Gummy Selling Tip:**
+"These are our most popular everyday product. A lot of customers use one gummy in the morning instead of — or alongside — their coffee. You get mood, focus, and energy without the anxiety that caffeine alone can cause."
+
+---
+
+**PRODUCT 3: Kanna + Delta 9 THC Gummies**
+
+Our premium combination — 1.5-5mg Kanna + 10mg Delta 9 THC. Nothing else like it on the market.
+
+| Detail | Info |
+|--------|------|
+| Dose | Start with half for new/casual users. Full gummy for experienced |
+| Onset | 60-90 minutes |
+| Duration | 4-6 hours (Kanna extends the THC) |
+| The Difference | Kanna reduces THC anxiety/paranoia dramatically. More balanced, social, euphoric. Appetite suppression counteracts munchies |
+| Legal Status | Hemp-derived D9 under 2018 Farm Bill. Legal in NC |
+| Best For | Cannabis users who get anxious, social situations, people wanting a cleaner high |
+
+**D9 Combo Selling Tip:**
+"If you've ever gotten too anxious or paranoid from edibles, this is the product for you. The Kanna smooths out that edge completely. A lot of customers who gave up on THC have come back to it through this product."`,
+        keyPoints: [
+          "Snuff: Fastest onset (5-15 min), shortest duration (45-90 min), best for first-timers",
+          "Gummies: Slower onset (45-90 min), longer duration (3-5 hrs), daily wellness",
+          "Kanna + D9: Premium combo, reduces THC anxiety, 4-6 hour duration",
+          "Always start new users with half dose for gummies",
+          "Snuff is best for immediate feedback, gummies for sustained effects",
+        ],
+        completed: false,
+      },
+      {
+        id: "m13-l4",
+        title: "Selling Techniques",
+        content: `Kanna is an easy sell when you understand it. Most customers have never heard of it — you're introducing something genuinely new.
+
+**Step 1: Qualify the Customer**
+
+| Customer Type | What They Want | Lead With... |
+|---------------|----------------|--------------|
+| Cannabis user | Better THC experience, less anxiety | Kanna + D9 Gummy |
+| Health/wellness | Mood support, stress relief, natural | Kanna Gummies |
+| Stimulant user | Energy without jitters | Kanna Snuff or Gummies |
+| Curious/never tried | Something new, low-risk intro | Kanna Snuff |
+| Social/nightlife | Confidence, energy, alcohol alternative | Kanna + D9 or Gummies |
+| Stress/anxiety | Calm without being sedated | Kanna Gummies |
+
+**Step 2: Use Relatable Comparisons**
+
+- "Think of Mesembrine like a Sativa strain, and Mesembrenone like an Indica — same plant, different effects based on the ratio."
+- "It's like coffee for your mood — you get a lift, but smooth and clean."
+- "It's the closest thing to feeling good naturally without THC."
+- "If you've heard of kratom but want something cleaner and more wellness-focused, Kanna is where people are landing."
+
+**Step 3: Product Recommendations by Scenario**
+
+**Scenario A — Cannabis user wanting better edible experience:**
+Lead with Kanna + D9. Emphasize reduced anxiety, longer duration, no munchies.
+"This is our best-seller for cannabis users. It's a cleaner, more balanced experience."
+
+**Scenario B — Natural mood booster, no THC:**
+Lead with Kanna Gummies. Emphasize daily use, sustained effects, no intoxication.
+"These work great as a daily supplement. Mood, focus, stress relief — won't show on a drug test."
+
+**Scenario C — Completely new, wants to try first:**
+Start with Kanna Snuff. Fastest feedback, smallest commitment, controllable dose.
+"Try the snuff first — you'll feel it within 15 minutes and can gauge if you like it."
+
+**Scenario D — Drinks but wants to cut back:**
+Kanna Gummies or D9 Combo. Emphasize the alcohol replacement angle.
+"A lot of customers use this at social events instead of drinking. Same relaxed feeling, fraction of the side effects."`,
+        keyPoints: [
+          "Qualify first: what are they looking for?",
+          "Cannabis users → Kanna + D9 combo",
+          "Wellness/no THC → Kanna Gummies",
+          "First-timers → Snuff for quick feedback",
+          "Use cannabis comparisons: Mesembrine = Sativa, Mesembrenone = Indica",
+        ],
+        completed: false,
+      },
+      {
+        id: "m13-l5",
+        title: "Handling Objections & Quick Reference",
+        content: `**Common Objections and Responses:**
+
+**"I've never heard of it — is it safe?"**
+"It's been used for thousands of years by indigenous tribes in South Africa — it's not new, just new to the US market. It's a natural plant extract and dietary supplement. As long as you're not on antidepressants, it's well-tolerated by most people."
+
+**"Will it get me high?"**
+"Not in the traditional sense — it's not psychedelic or intoxicating like THC. Most people describe it as a mood lift and sense of clarity. You feel good and motivated, but still clear-headed and in control. The Kanna + D9 gummy is different if they want that experience."
+
+**"I tried edibles once and got way too anxious."**
+"That's exactly why our combo gummy exists. Kanna is shown to reduce anxiety — including THC-induced anxiety. A lot of people who had bad experiences have had a totally different experience with this product. Start with half though."
+
+**"How is this different from CBD?"**
+"CBD is more passive — it takes the edge off but doesn't give you anything. Kanna is more active. You'll actually feel your mood lift, energy come up, stress fade. More noticeable effect at the same dose."
+
+**"How fast does it work?"**
+"Snuff works fast — usually 10-15 minutes. Gummies take 45-90 minutes because they go through digestion. If you want to feel it same day, snuff is the best intro."
+
+---
+
+**QUICK REFERENCE - Product Comparison:**
+
+| | Kanna Snuff | Kanna Gummy | Kanna + D9 |
+|--|-------------|-------------|------------|
+| Onset | 5-15 min | 45-90 min | 60-90 min |
+| Duration | 45-90 min | 3-5 hours | 4-6 hours |
+| Contains THC? | No | No | Yes (10mg) |
+| Best For | First-timers | Daily wellness | Cannabis users |
+| Starter Dose | 1 small pinch/nostril | Half gummy | Half gummy |
+
+---
+
+**THE ONE SAFETY RULE:**
+
+Always ask: "Are you on any antidepressants, SSRIs, or medications for mental health?"
+
+If yes → tell them to check with their doctor. Kanna affects serotonin.
+
+**One-Line Product Pitches:**
+- **Snuff:** "Fast-acting mood lift — feel it in 15 minutes, no THC, no crash."
+- **Gummies:** "Daily wellness in a gummy — mood, focus, stress relief that lasts all day."
+- **Kanna + D9:** "The best THC edible you've never tried — same euphoria, way less anxiety."`,
+        keyPoints: [
+          "Always address the SSRI question — it's the most important safety point",
+          "Snuff: 5-15 min onset, 45-90 min duration, no THC",
+          "Gummies: 45-90 min onset, 3-5 hours, no THC",
+          "Kanna + D9: 60-90 min onset, 4-6 hours, 10mg THC",
+          "Memorize the one-line pitches for each product",
+        ],
+        completed: false,
+      },
+    ],
+  },
 ]
 
 export const mockQuizzes: Quiz[] = [
@@ -4187,6 +4515,104 @@ export const mockQuizzes: Quiz[] = [
           "Ignore it - small variances don't matter",
         ],
         correctAnswer: 1,
+      },
+    ],
+  },
+  {
+    id: "q13",
+    title: "Kanna Karma Quiz",
+    moduleId: "m13",
+    passingScore: 80,
+    questions: [
+      {
+        id: "q13-1",
+        text: "What is Kanna (Sceletium tortuosum)?",
+        options: [
+          "A synthetic cannabinoid",
+          "A South African succulent plant used for thousands of years",
+          "A type of kratom",
+          "A hemp-derived extract",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q13-2",
+        text: "Which Kanna alkaloid is most associated with energizing, uplifting effects (similar to Sativa)?",
+        options: ["Mesembrenone", "Delta-7 Mesembrenone", "Mesembrine", "Mitragynine"],
+        correctAnswer: 2,
+      },
+      {
+        id: "q13-3",
+        text: "What is the MOST IMPORTANT safety question to ask before selling any Kanna product?",
+        options: [
+          "Are you over 21?",
+          "Have you tried edibles before?",
+          "Are you on any antidepressants, SSRIs, or mental health medications?",
+          "Do you have allergies?",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q13-4",
+        text: "Why should customers on SSRIs avoid Kanna?",
+        options: [
+          "It makes SSRIs less effective",
+          "Kanna affects serotonin and can cause serotonin syndrome when combined",
+          "It causes allergic reactions",
+          "SSRIs make Kanna ineffective",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q13-5",
+        text: "What is the onset time for Kanna Snuff?",
+        options: ["45-90 minutes", "2-3 hours", "5-15 minutes", "Instantly"],
+        correctAnswer: 2,
+      },
+      {
+        id: "q13-6",
+        text: "For a customer who has had bad anxiety experiences with THC edibles, which product should you recommend?",
+        options: [
+          "Regular Delta-8 gummies",
+          "Kanna Snuff only",
+          "Kanna + Delta 9 Gummies - the Kanna reduces THC anxiety",
+          "Tell them to avoid all edibles",
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: "q13-7",
+        text: "What is the recommended starting dose for NEW users trying Kanna Gummies?",
+        options: ["2 full gummies", "1 full gummy", "Half a gummy", "3 gummies"],
+        correctAnswer: 2,
+      },
+      {
+        id: "q13-8",
+        text: "How does Kanna affect the caffeine experience?",
+        options: [
+          "It cancels out caffeine completely",
+          "It extends energy from 2-3 hours to 4-6 hours and smooths the crash",
+          "It makes caffeine more jittery",
+          "It has no interaction with caffeine",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: "q13-9",
+        text: "In which state is Kanna NOT legal to sell?",
+        options: ["North Carolina", "Louisiana", "California", "Texas"],
+        correctAnswer: 1,
+      },
+      {
+        id: "q13-10",
+        text: "Which product is best for a first-time Kanna user who wants immediate feedback?",
+        options: [
+          "Kanna + D9 Gummies - strongest effect",
+          "Kanna Gummies - longest lasting",
+          "Kanna Snuff - fast onset and controllable dose",
+          "Any product works the same for first-timers",
+        ],
+        correctAnswer: 2,
       },
     ],
   },

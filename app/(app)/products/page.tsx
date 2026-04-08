@@ -12,6 +12,7 @@ const categories = [
   { value: "all", label: "All" },
   { value: "delta", label: "Delta" },
   { value: "kratom", label: "Kratom" },
+  { value: "kanna", label: "Kanna" },
   { value: "glass", label: "Glass" },
   { value: "accessories", label: "Accessories" },
 ]
