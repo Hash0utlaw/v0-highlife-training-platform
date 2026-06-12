@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: "Employee training platform for Highlife retail - product knowledge, compliance, and sales excellence",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Highlife Training Platform",
@@ -35,7 +35,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Highlife Training Platform",
     description: "Employee training platform for Highlife retail",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/icon-dark-32x32.png",
+    apple: "/apple-icon.png",
   },
   generator: "v0.app",
 }
