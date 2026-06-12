@@ -297,7 +297,7 @@ export default function TrainingModulePage({ params }: { params: Promise<{ id: s
   const isCurrentDone = completedLessons.has(currentLesson.id)
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] md:h-screen overflow-hidden">
+    <div className="flex flex-col h-[calc(100dvh-64px)] md:h-screen overflow-hidden">
       {/* Top reading progress bar */}
       <div className="h-0.5 bg-border shrink-0">
         <div className="h-full bg-primary transition-all duration-150" style={{ width: `${readProgress}%` }} />
@@ -307,8 +307,8 @@ export default function TrainingModulePage({ params }: { params: Promise<{ id: s
         {/* ── LESSON SIDEBAR ──────────────────────────── */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-40 w-72 bg-card border-r border-border flex flex-col transition-transform duration-200",
-            "md:relative md:translate-x-0 md:z-auto",
+            "fixed inset-y-0 left-0 z-40 w-[85vw] max-w-xs bg-card border-r border-border flex flex-col transition-transform duration-200",
+            "md:relative md:w-72 md:translate-x-0 md:z-auto",
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >

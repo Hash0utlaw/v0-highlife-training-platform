@@ -14,11 +14,11 @@ export default function DashboardPage() {
   const overallProgress = Math.round((employee.completedModules / employee.totalModules) * 100)
 
   return (
-    <div className="p-4 md:p-8 space-y-6">
+    <div className="p-4 md:p-8 space-y-5">
       {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold">Welcome back, {employee.name.split(" ")[0]}</h1>
-        <p className="text-muted-foreground mt-1">Continue your training journey</p>
+        <h1 className="text-xl md:text-3xl font-bold">Welcome back, {employee.name.split(" ")[0]}</h1>
+        <p className="text-muted-foreground mt-1 text-sm">Continue your training journey</p>
       </div>
 
       {/* New Products Alert */}
@@ -103,7 +103,7 @@ export default function DashboardPage() {
       )}
 
       {/* Quick Links */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-2 md:gap-3">
         <QuickLink href="/products" icon={Package} label="Products" description="Browse catalog" />
         <QuickLink href="/training" icon={BookOpen} label="Training" description="View modules" />
         <QuickLink href="/quizzes" icon={ClipboardCheck} label="Quizzes" description="Test knowledge" />
@@ -154,13 +154,13 @@ function QuickLink({
 }) {
   return (
     <Link href={href}>
-      <Card className="hover:bg-secondary/50 transition-colors h-full">
-        <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-            <Icon className="h-5 w-5 text-primary" />
+      <Card className="hover:bg-secondary/50 active:scale-95 transition-all h-full">
+        <CardContent className="p-2.5 md:p-4 flex flex-col items-center text-center gap-1.5 md:gap-2">
+          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-lg bg-primary/10">
+            <Icon className="h-4 w-4 md:h-5 md:w-5 text-primary" />
           </div>
           <div>
-            <p className="font-medium text-sm">{label}</p>
+            <p className="font-medium text-xs md:text-sm leading-tight">{label}</p>
             <p className="text-xs text-muted-foreground hidden md:block">{description}</p>
           </div>
         </CardContent>
