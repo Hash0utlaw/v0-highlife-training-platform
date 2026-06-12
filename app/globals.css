@@ -117,5 +117,27 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Prevent horizontal overflow on mobile */
+    overflow-x: hidden;
+  }
+  /* Smooth scrolling for all scrollable containers */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep scrollability */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  /* iOS safe area bottom padding for bottom nav */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }

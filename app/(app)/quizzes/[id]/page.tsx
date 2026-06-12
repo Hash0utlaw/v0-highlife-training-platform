@@ -86,58 +86,60 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
           <CardHeader className="text-center pb-2">
             <div
               className={cn(
-                "w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4",
+                "w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto flex items-center justify-center mb-3",
                 passed ? "bg-primary/10" : "bg-amber-500/10",
               )}
             >
               {passed ? (
-                <CheckCircle2 className="h-10 w-10 text-primary" />
+                <CheckCircle2 className="h-8 w-8 md:h-10 md:w-10 text-primary" />
               ) : (
-                <XCircle className="h-10 w-10 text-amber-500" />
+                <XCircle className="h-8 w-8 md:h-10 md:w-10 text-amber-500" />
               )}
             </div>
-            <CardTitle className="text-2xl">{passed ? "Congratulations!" : "Keep Learning"}</CardTitle>
-            <p className="text-muted-foreground mt-2">
+            <CardTitle className="text-xl md:text-2xl">{passed ? "Congratulations!" : "Keep Learning"}</CardTitle>
+            <p className="text-muted-foreground mt-2 text-sm">
               {passed
                 ? "You passed the quiz successfully!"
                 : `You need ${quiz.passingScore}% to pass. Try again after reviewing the material.`}
             </p>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-5">
             <div className="text-center">
-              <p className="text-5xl font-bold">{percentage}%</p>
-              <p className="text-muted-foreground">
+              <p className={cn("text-5xl font-bold", passed ? "text-primary" : "text-amber-500")}>{percentage}%</p>
+              <p className="text-muted-foreground text-sm mt-1">
                 {score} out of {quiz.questions.length} correct
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               <p className="font-medium text-sm">Answer Breakdown</p>
-              {quiz.questions.map((question, index) => {
-                const answer = results.find((r) => r.questionId === question.id)
-                return (
-                  <div
-                    key={question.id}
-                    className={cn(
-                      "flex items-center gap-3 p-3 rounded-lg",
-                      answer?.correct ? "bg-primary/10" : "bg-destructive/10",
-                    )}
-                  >
-                    {answer?.correct ? (
-                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                    ) : (
-                      <XCircle className="h-5 w-5 text-destructive flex-shrink-0" />
-                    )}
-                    <span className="text-sm">Question {index + 1}</span>
-                  </div>
-                )
-              })}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {quiz.questions.map((question, index) => {
+                  const answer = results.find((r) => r.questionId === question.id)
+                  return (
+                    <div
+                      key={question.id}
+                      className={cn(
+                        "flex items-center gap-2 p-2.5 rounded-lg",
+                        answer?.correct ? "bg-primary/10" : "bg-destructive/10",
+                      )}
+                    >
+                      {answer?.correct ? (
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-destructive flex-shrink-0" />
+                      )}
+                      <span className="text-xs font-medium">Q{index + 1}</span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex gap-3">
             <Button variant="outline" className="flex-1 bg-transparent" onClick={handleRetake}>
               <RotateCcw className="h-4 w-4 mr-2" />
-              Retake Quiz
+              Retake
             </Button>
             <Button className="flex-1" asChild>
               <Link href="/dashboard">
@@ -152,7 +154,7 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
   }
 
   return (
-    <div className="p-4 md:p-8 space-y-6">
+    <div className="p-4 md:p-8 space-y-4 md:space-y-6">
       <Button variant="ghost" size="sm" className="-ml-2" asChild>
         <Link href="/quizzes">
           <ArrowLeft className="h-4 w-4 mr-2" />
@@ -160,85 +162,87 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
         </Link>
       </Button>
 
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
         {/* Progress */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium">{quiz.title}</span>
-            <span className="text-muted-foreground">
-              Question {currentQuestionIndex + 1} of {quiz.questions.length}
+          <div className="flex items-center justify-between text-sm gap-2">
+            <span className="font-medium truncate">{quiz.title}</span>
+            <span className="text-muted-foreground text-xs shrink-0">
+              {currentQuestionIndex + 1} / {quiz.questions.length}
             </span>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
 
+        {/* Question Navigation — scrollable pill row */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          {quiz.questions.map((q, index) => (
+            <button
+              key={q.id}
+              onClick={() => setCurrentQuestionIndex(index)}
+              className={cn(
+                "shrink-0 w-8 h-8 rounded-lg text-xs font-semibold transition-all",
+                index === currentQuestionIndex
+                  ? "bg-primary text-primary-foreground"
+                  : selectedAnswers[q.id] !== undefined
+                    ? "bg-primary/25 text-primary"
+                    : "bg-secondary text-muted-foreground",
+              )}
+              aria-label={`Go to question ${index + 1}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+
         {/* Question Card */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg leading-relaxed">{currentQuestion.text}</CardTitle>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base md:text-lg leading-relaxed">{currentQuestion.text}</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-2.5">
             {currentQuestion.options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectAnswer(index)}
                 className={cn(
-                  "w-full text-left p-4 rounded-lg border transition-all",
+                  "w-full text-left p-3.5 md:p-4 rounded-xl border-2 transition-all active:scale-[0.99]",
                   selectedAnswer === index
                     ? "border-primary bg-primary/10 text-foreground"
-                    : "border-border hover:border-primary/50 hover:bg-secondary/50",
+                    : "border-border hover:border-primary/40 hover:bg-secondary/50",
                 )}
               >
-                <span className="flex items-center gap-3">
+                <span className="flex items-start gap-3">
                   <span
                     className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-medium",
-                      selectedAnswer === index ? "border-primary bg-primary text-primary-foreground" : "border-muted",
+                      "w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5",
+                      selectedAnswer === index ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/40 text-muted-foreground",
                     )}
                   >
                     {String.fromCharCode(65 + index)}
                   </span>
-                  {option}
+                  <span className="text-sm leading-relaxed">{option}</span>
                 </span>
               </button>
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
+          <CardFooter className="flex justify-between gap-3 pt-2">
+            <Button variant="outline" onClick={handlePrevious} disabled={currentQuestionIndex === 0} className="flex-1 sm:flex-none">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Previous
+              Prev
             </Button>
             {currentQuestionIndex === quiz.questions.length - 1 ? (
-              <Button onClick={handleSubmit} disabled={Object.keys(selectedAnswers).length !== quiz.questions.length}>
+              <Button onClick={handleSubmit} disabled={Object.keys(selectedAnswers).length !== quiz.questions.length} className="flex-1 sm:flex-none">
                 Submit Quiz
               </Button>
             ) : (
-              <Button onClick={handleNext} disabled={selectedAnswer === undefined}>
+              <Button onClick={handleNext} disabled={selectedAnswer === undefined} className="flex-1 sm:flex-none">
                 Next
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             )}
           </CardFooter>
         </Card>
-
-        {/* Question Navigation Dots */}
-        <div className="flex items-center justify-center gap-2">
-          {quiz.questions.map((q, index) => (
-            <button
-              key={q.id}
-              onClick={() => setCurrentQuestionIndex(index)}
-              className={cn(
-                "w-3 h-3 rounded-full transition-colors",
-                index === currentQuestionIndex
-                  ? "bg-primary"
-                  : selectedAnswers[q.id] !== undefined
-                    ? "bg-primary/40"
-                    : "bg-muted",
-              )}
-              aria-label={`Go to question ${index + 1}`}
-            />
-          ))}
-        </div>
       </div>
     </div>
   )
