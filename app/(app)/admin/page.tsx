@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
+import Link from "next/link"
 import {
   Users,
   BookOpen,
@@ -21,13 +22,19 @@ import {
   ArrowUpDown,
   CheckSquare,
   Square,
+  Trophy,
+  Award,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   adminEmployees,
   adminModules,
+  allBadgeDefinitions,
+  badgeTierMeta,
+  badgeCategoryMeta,
   type AdminEmployee,
   type AdminModule,
+  type BadgeTier,
 } from "@/lib/data"
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -203,7 +210,7 @@ function EmployeePanel({
   onClose: () => void
   onAssign: () => void
 }) {
-  const [tab, setTab] = useState<"overview" | "quizzes">("overview")
+  const [tab, setTab] = useState<"overview" | "quizzes" | "badges">("overview")
   const score = avgScore(employee)
   const pct = completionPct(employee)
   const scoreStyle = scoreBadge(score)
@@ -279,7 +286,7 @@ function EmployeePanel({
 
           {/* Tabs */}
           <div className="flex gap-1 mt-4 bg-secondary/50 rounded-lg p-1">
-            {(["overview", "quizzes"] as const).map((t) => (
+            {(["overview", "quizzes", "badges"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -288,7 +295,7 @@ function EmployeePanel({
                   tab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                {t === "overview" ? "Module Progress" : "Quiz History"}
+                {t === "overview" ? "Modules" : t === "quizzes" ? "Quizzes" : `Badges (${employee.earnedBadgeIds.length})`}
               </button>
             ))}
           </div>
@@ -335,6 +342,76 @@ function EmployeePanel({
               })}
             </div>
           )}
+
+          {tab === "badges" && (() => {
+            const earned = new Set(employee.earnedBadgeIds)
+            const earnedBadges = allBadgeDefinitions.filter((b) => earned.has(b.id))
+            const TIER_ORDER: BadgeTier[] = ["platinum", "gold", "silver", "bronze"]
+            const byTier = TIER_ORDER.map((tier) => ({
+              tier,
+              badges: earnedBadges.filter((b) => b.tier === tier),
+            })).filter((g) => g.badges.length > 0)
+
+            if (earnedBadges.length === 0) {
+              return (
+                <div className="px-6 py-12 text-center">
+                  <Trophy className="h-8 w-8 text-muted-foreground/30 mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">No badges earned yet</p>
+                  <p className="text-xs text-muted-foreground/70 mt-1">Assign more modules to unlock achievements</p>
+                </div>
+              )
+            }
+
+            return (
+              <div className="px-6 py-4 space-y-5">
+                {/* XP summary */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-primary/5 border border-primary/20 rounded-xl px-4 py-3 text-center">
+                    <p className="text-xl font-bold text-primary">{earnedBadges.length}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">Badges Earned</p>
+                  </div>
+                  <div className="bg-amber-400/5 border border-amber-400/20 rounded-xl px-4 py-3 text-center">
+                    <p className="text-xl font-bold text-amber-400">
+                      {earnedBadges.reduce((sum, b) => sum + b.xp, 0).toLocaleString()}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">Total XP</p>
+                  </div>
+                </div>
+                {byTier.map(({ tier, badges }) => {
+                  const meta = badgeTierMeta[tier]
+                  return (
+                    <div key={tier}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Trophy className={cn("h-3 w-3", meta.color)} />
+                        <p className={cn("text-[10px] font-bold uppercase tracking-widest", meta.color)}>{meta.label}</p>
+                        <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full", meta.bg, meta.color)}>{badges.length}</span>
+                      </div>
+                      <div className="space-y-1.5">
+                        {badges.map((badge) => {
+                          const cat = badgeCategoryMeta[badge.category]
+                          return (
+                            <div key={badge.id} className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg border", meta.bg, meta.border)}>
+                              <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border", meta.bg, meta.border)}>
+                                <Award className={cn("h-3.5 w-3.5", meta.color)} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-semibold text-foreground truncate">{badge.name}</p>
+                                <p className="text-[10px] text-muted-foreground truncate">{badge.condition}</p>
+                              </div>
+                              <div className="flex items-center gap-2 shrink-0">
+                                <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full", cat.bg, cat.color)}>{cat.label}</span>
+                                <span className="text-[10px] font-bold text-primary">+{badge.xp}</span>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })()}
 
           {tab === "quizzes" && (
             <div className="px-6 py-4 space-y-1.5">
@@ -502,6 +579,28 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
+
+        {/* Badge overview shortcut */}
+        <Link
+          href="/admin/badges"
+          className="flex items-center justify-between px-5 py-4 bg-card border border-border rounded-xl hover:border-amber-400/40 hover:bg-amber-400/5 transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0">
+              <Trophy className="h-4 w-4 text-amber-400" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-foreground">Badge &amp; Achievement Overview</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {employees.reduce((s, e) => s + e.earnedBadgeIds.length, 0).toLocaleString()} badges earned across {employees.length} employees &middot; View leaderboard &amp; adoption rates
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground group-hover:text-amber-400 transition-colors shrink-0">
+            View
+            <ChevronRight className="h-4 w-4" />
+          </div>
+        </Link>
 
         {/* Search + Filters */}
         <div className="flex flex-col sm:flex-row gap-3">

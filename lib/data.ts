@@ -6238,6 +6238,7 @@ export interface AdminEmployee {
   inProgressModules: string[] // module ids
   assignedModules: string[] // module ids
   quizAttempts: AdminQuizAttempt[]
+  earnedBadgeIds: string[] // badge definition ids
 }
 
 export interface AdminQuizAttempt {
@@ -6297,6 +6298,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 90, latestScore: 90, passed: true, completedAt: "2024-04-10" },
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2024-04-18" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "first-pass", "delta-starter", "kratom-starter", "kanna-curious", "compliance-ready", "floor-ready", "people-person"],
   },
   {
     id: "e2",
@@ -6322,6 +6324,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q9", quizTitle: "Delta Advanced Quiz", moduleId: "m9", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-10" },
       { quizId: "q10", quizTitle: "Kratom Advanced Quiz", moduleId: "m10", attempts: 2, bestScore: 82, latestScore: 82, passed: true, completedAt: "2024-02-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "first-pass", "perfect-score", "delta-starter", "delta-pro", "kratom-starter", "kratom-guide", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "floor-ready", "closer", "people-person"],
   },
   {
     id: "e3",
@@ -6339,6 +6342,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 2, bestScore: 70, latestScore: 70, passed: true, completedAt: "2024-05-20" },
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 80, latestScore: 80, passed: true, completedAt: "2024-05-28" },
     ],
+    earnedBadgeIds: ["first-step", "first-pass", "delta-starter", "comeback-kid"],
   },
   {
     id: "e4",
@@ -6366,6 +6370,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q11", quizTitle: "Loss Prevention Quiz", moduleId: "m11", attempts: 1, bestScore: 87, latestScore: 87, passed: true, completedAt: "2024-01-15" },
       { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2024-02-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "fully-certified", "first-pass", "perfect-score", "quiz-master", "delta-starter", "delta-pro", "delta-expert", "kratom-starter", "kratom-guide", "kratom-authority", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "loss-prevention-ace", "floor-ready", "closer", "people-person", "top-seller"],
   },
   {
     id: "e5",
@@ -6382,6 +6387,7 @@ export const adminEmployees: AdminEmployee[] = [
     quizAttempts: [
       { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 4, bestScore: 72, latestScore: 72, passed: true, completedAt: "2024-05-10" },
     ],
+    earnedBadgeIds: ["first-step", "comeback-kid", "delta-starter"],
   },
   {
     id: "e6",
@@ -6404,6 +6410,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-22" },
       { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 86, latestScore: 86, passed: true, completedAt: "2024-02-05" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "first-pass", "delta-starter", "kratom-starter", "kanna-curious", "compliance-ready", "by-the-book", "floor-ready", "closer", "people-person"],
   },
   {
     id: "e7",
@@ -6420,6 +6427,7 @@ export const adminEmployees: AdminEmployee[] = [
     quizAttempts: [
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 65, latestScore: 65, passed: true, completedAt: "2024-03-20" },
     ],
+    earnedBadgeIds: ["first-step", "first-pass"],
   },
   {
     id: "e8",
@@ -6448,6 +6456,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-05-01" },
       { quizId: "q13", quizTitle: "Merchandising Quiz", moduleId: "m13", attempts: 1, bestScore: 93, latestScore: 93, passed: true, completedAt: "2023-06-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "fully-certified", "highlife-elite", "streak-5", "streak-30", "first-pass", "perfect-score", "quiz-master", "clean-sweep", "delta-starter", "delta-pro", "delta-expert", "kratom-starter", "kratom-guide", "kratom-authority", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "loss-prevention-ace", "floor-ready", "closer", "people-person", "top-seller"],
   },
 ]
 
