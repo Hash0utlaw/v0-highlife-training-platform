@@ -22,16 +22,44 @@ export interface Badge {
   earnedAt: string
 }
 
+export interface DosageGuide {
+  level: string
+  amount: string
+  description: string
+}
+
+export interface FAQ {
+  question: string
+  answer: string
+}
+
+export interface ProductSpec {
+  label: string
+  value: string
+}
+
 export interface Product {
   id: string
   name: string
   category: "delta" | "kratom" | "glass" | "accessories" | "kanna"
   image?: string
+  tagline: string
   description: string
+  longDescription: string
   effects: string[]
   talkingPoints: string[]
   complianceNotes: string[]
   relatedProducts: string[]
+  // Extended fields
+  specs?: ProductSpec[]
+  dosageGuide?: DosageGuide[]
+  onsetTime?: string
+  duration?: string
+  bestFor?: string[]
+  warnings?: string[]
+  faqs?: FAQ[]
+  pairings?: string[]
+  proTips?: string[]
 }
 
 export interface TrainingModule {
@@ -132,79 +160,329 @@ export const mockProducts: Product[] = [
     name: "Delta-8 THC Gummies",
     category: "delta",
     image: "/delta-8-thc-gummy-bears-colorful-edibles-cannabis-.jpg",
+    tagline: "The perfect starting point for Delta beginners",
     description: "Premium delta-8 THC gummies with natural fruit flavors. Each gummy contains 25mg of delta-8 THC.",
-    effects: ["Relaxation", "Mild euphoria", "Stress relief", "Improved sleep"],
-    talkingPoints: [
-      "Great for customers new to delta products",
-      "Long-lasting effects compared to vapes",
-      "Precise dosing with each gummy",
-      "Lab-tested for purity and potency",
+    longDescription: `Delta-8 THC gummies are one of the most popular introductory products in our delta lineup — and for good reason. They deliver a smooth, consistent experience that's significantly more approachable than Delta-9 for customers who want to explore cannabinoids without the intensity.
+
+Each gummy is precisely dosed at 25mg of Delta-8 THC extracted from federally compliant hemp and infused (not sprayed) into the gummy matrix for even distribution in every bite. The natural fruit flavors come from real fruit-derived terpenes, giving a clean taste without artificial aftertaste.
+
+Delta-8 is often described by customers as "Delta-9 with the volume turned down" — you get the relaxation and mild euphoria, but with far less likelihood of anxiety or paranoia. This makes it ideal for first-timers, casual users, and anyone who's had a negative experience with traditional cannabis edibles.
+
+The edible format also means effects are longer-lasting than vaping — typically 4 to 8 hours — making it great for sustained relief throughout an evening. The tradeoff is a slower onset (45 minutes to 2 hours), so it's critical to coach customers to wait before redosing.`,
+    effects: ["Deep relaxation", "Mild euphoria", "Stress and anxiety relief", "Improved sleep quality", "Appetite stimulation", "Body tension relief"],
+    onsetTime: "45 min – 2 hours",
+    duration: "4 – 8 hours",
+    bestFor: ["First-time delta users", "Evening relaxation", "Customers sensitive to Delta-9", "Sleep support", "Consistent dosing"],
+    specs: [
+      { label: "Delta-8 per gummy", value: "25mg" },
+      { label: "Count per pack", value: "20 gummies" },
+      { label: "Total Delta-8", value: "500mg" },
+      { label: "Delta-9 THC", value: "< 0.3% (federal limit)" },
+      { label: "Extraction", value: "Hemp-derived distillate" },
+      { label: "Infusion type", value: "Infused (not sprayed)" },
+      { label: "Lab tested", value: "Third-party COA available" },
     ],
-    complianceNotes: ["Must verify 21+ age", "Cannot make medical claims", "Derived from hemp with <0.3% Delta-9 THC"],
-    relatedProducts: ["p2", "p3"],
+    dosageGuide: [
+      { level: "Beginner", amount: "1/2 gummy (12.5mg)", description: "No prior delta experience. Wait at least 2 hours before considering a second dose." },
+      { level: "Light", amount: "1 gummy (25mg)", description: "Occasional users comfortable with mild effects. Good for relaxation without heavy sedation." },
+      { level: "Moderate", amount: "1–2 gummies (25–50mg)", description: "Regular users with established tolerance seeking deeper relaxation or sleep support." },
+      { level: "Experienced", amount: "2+ gummies (50mg+)", description: "High-tolerance users only. Not recommended without established tolerance." },
+    ],
+    talkingPoints: [
+      "Perfect entry point — milder and smoother than Delta-9 THC",
+      "Effects last 4–8 hours, much longer than vaping",
+      "Infused, not sprayed — consistent dose in every bite",
+      "Natural fruit flavors from real fruit-derived terpenes",
+      "Every batch third-party lab tested with COA available on request",
+      "Great for customers who've had anxiety from regular cannabis edibles",
+    ],
+    complianceNotes: [
+      "Must verify 21+ age — ID check required",
+      "Cannot make medical claims of any kind",
+      "Hemp-derived with <0.3% Delta-9 THC by dry weight — federally compliant",
+      "Always warn about delayed onset — customers must wait before redosing",
+      "Do not sell to visibly intoxicated customers",
+      "Advise against driving or operating machinery after use",
+    ],
+    warnings: [
+      "Do not drive or operate machinery",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "May cause failed drug test",
+      "Do not combine with alcohol or other depressants",
+    ],
+    faqs: [
+      { question: "How is Delta-8 different from Delta-9?", answer: "Delta-8 THC has a slightly different molecular structure than Delta-9, resulting in milder psychoactive effects. Most users report feeling relaxed and euphoric without the anxiety or paranoia that can come with Delta-9." },
+      { question: "How long until I feel the effects?", answer: "Edibles typically take 45 minutes to 2 hours to kick in, depending on metabolism, body weight, and whether you've eaten recently. Always advise customers to wait at least 2 hours before taking more." },
+      { question: "Will this show up on a drug test?", answer: "Yes — Delta-8 THC can cause a positive result on standard drug tests, as these tests typically detect THC metabolites regardless of the source. Always disclose this to customers." },
+      { question: "Is it legal?", answer: "Delta-8 THC derived from hemp containing less than 0.3% Delta-9 THC is federally legal under the 2018 Farm Bill. However, some states have enacted restrictions. Always verify current local regulations." },
+      { question: "Can I take too much?", answer: "While not medically dangerous, taking too much Delta-8 can cause discomfort including rapid heartbeat, anxiety, and disorientation. Always start low and go slow, especially with edibles." },
+    ],
+    proTips: [
+      "If a customer is nervous about trying edibles, suggest cutting a gummy in half and trying it at home first — never on their first outing.",
+      "Pair with our Delta-9 vape cart for customers who want fast onset plus long-lasting effects.",
+      "If a customer says 'they don't feel anything' — always ask when they took it before suggesting more. Edible overconsumption is the #1 customer complaint.",
+    ],
+    pairings: ["p2", "p9"],
+    relatedProducts: ["p2", "p3", "p11"],
   },
   {
     id: "p2",
     name: "Delta-9 THC Vape Cartridge",
     category: "delta",
     image: "/premium-vape-cartridge-gold-oil-cannabis-product-s.jpg",
-    description: "High-quality delta-9 THC vape cartridge with ceramic coil technology for smooth hits.",
-    effects: ["Quick onset", "Euphoria", "Creativity boost", "Relaxation"],
-    talkingPoints: [
-      "Fast-acting effects within minutes",
-      "Ceramic coil prevents burnt taste",
-      "Multiple strain options available",
-      "510 thread compatible",
+    tagline: "Fast-acting, strain-specific Delta-9 in a portable format",
+    description: "High-quality delta-9 THC vape cartridge with ceramic coil technology for smooth, flavorful hits.",
+    longDescription: `Our Delta-9 THC Vape Cartridge is designed for customers who want fast, reliable effects with strain-specific flavor profiles. Using premium ceramic coil technology, the cart delivers clean vapor without the metallic taste or burnt notes associated with standard cotton-wick cartridges.
+
+The oil inside is hemp-derived Delta-9 THC distillate that meets federal legal requirements (<0.3% by dry weight). Despite that constraint, modern extraction techniques allow us to deliver genuinely potent, effective products. Each cart is 510-thread compatible and fits the vast majority of standard batteries.
+
+We carry several strain variants — each with different terpene profiles that influence the experience. Sativa-leaning terpenes like limonene and pinene tend to promote energy and creativity, while indica-leaning terpenes like myrcene and linalool lean more relaxing. Understanding this helps you guide customers to the right variant for their intended use.
+
+The fast onset (1–5 minutes) makes vapes ideal for dose-testing and for customers who need quick relief. The shorter duration (1–3 hours) means customers who need all-day effects should also consider our edibles.`,
+    effects: ["Fast-acting euphoria", "Creativity and focus boost", "Mild relaxation", "Mood elevation", "Appetite stimulation"],
+    onsetTime: "1 – 5 minutes",
+    duration: "1 – 3 hours",
+    bestFor: ["Fast onset seekers", "On-the-go use", "Experienced delta users", "Dose testing before trying edibles", "Daytime (sativa strains) or evening (indica strains)"],
+    specs: [
+      { label: "Capacity", value: "1g (1000mg)" },
+      { label: "Delta-9 THC", value: "Hemp-derived, <0.3% by dry weight" },
+      { label: "Coil type", value: "Ceramic — no cotton wick" },
+      { label: "Thread", value: "510 universal thread" },
+      { label: "Oil type", value: "Distillate + live resin terpenes" },
+      { label: "Strains available", value: "Sativa, Indica, Hybrid variants" },
+      { label: "Lab tested", value: "Third-party COA available" },
     ],
-    complianceNotes: ["Must verify 21+ age", "Cannot make medical claims", "Hemp-derived product"],
-    relatedProducts: ["p1", "p4"],
+    dosageGuide: [
+      { level: "Beginner", amount: "1–2 small puffs", description: "Wait 5–10 minutes between puffs to gauge effects before continuing." },
+      { level: "Light", amount: "3–5 puffs", description: "Good for casual users seeking mild to moderate effects." },
+      { level: "Moderate", amount: "5–10 puffs", description: "Experienced users. Allow time between sessions." },
+      { level: "Experienced", amount: "As needed", description: "Tolerance-established users. Self-regulated dosing." },
+    ],
+    talkingPoints: [
+      "Ceramic coil = no burnt taste, cleaner flavor from the first hit to the last",
+      "510-thread fits 99% of standard batteries — works with what they already own",
+      "Live resin terpenes give true strain-specific effects and aroma",
+      "Fastest way to feel Delta effects — ideal for quick relief or dose testing",
+      "Multiple strain options — match the customer to the right vibe",
+    ],
+    complianceNotes: [
+      "Must verify 21+ age — ID check required",
+      "Cannot make medical claims",
+      "Hemp-derived — federally compliant under the 2018 Farm Bill",
+      "Advise against driving or operating machinery after use",
+      "Do not sell to visibly intoxicated customers",
+    ],
+    warnings: [
+      "Do not drive or operate machinery",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "May cause failed drug test",
+    ],
+    faqs: [
+      { question: "What battery do I need?", answer: "Any standard 510-thread battery works. We sell compatible batteries at the counter. If a customer already has a battery, confirm it's 510-thread and adjustable voltage for best results." },
+      { question: "What is the difference between distillate and live resin?", answer: "Distillate is a highly purified extract with minimal flavor. Live resin uses fresh-frozen plant material, preserving the full terpene profile for a more authentic, flavorful experience. Our carts use a blend for the best of both." },
+      { question: "Sativa vs. Indica — which should I recommend?", answer: "Sativa-leaning strains (pinene, limonene terpenes) are better for daytime, creativity, and energy. Indica-leaning (myrcene, linalool) are better for evening, relaxation, and sleep. Hybrids offer a balance of both." },
+      { question: "How long does a 1g cart last?", answer: "Usage varies by puff duration and frequency. Casual users may get 200–300 puffs; heavy users significantly less. On average, daily moderate users report 2–4 weeks per cart." },
+    ],
+    proTips: [
+      "Always upsell a battery if the customer doesn't have one — it's an easy add-on and ensures they have a good experience.",
+      "For customers nervous about Delta-9, recommend starting with a Delta-8 gummy for their first experience.",
+      "If a customer asks about 'live resin' vs. 'distillate' carts — live resin carts have stronger, more complex flavor and effects. Great upsell for returning customers.",
+    ],
+    pairings: ["p1", "p7"],
+    relatedProducts: ["p1", "p11"],
   },
   {
     id: "p3",
     name: "Green Maeng Da Kratom",
     category: "kratom",
     image: "/green-kratom-powder-in-white-bowl-with-kratom-leav.jpg",
-    description: "Premium green vein Maeng Da kratom powder sourced from mature leaves.",
-    effects: ["Energy boost", "Focus enhancement", "Mood elevation", "Mild pain relief"],
-    talkingPoints: [
-      "One of our most popular strains",
-      "Great for daytime use",
-      "Balanced effects between energy and relaxation",
-      "Third-party lab tested",
+    tagline: "Our best-selling balanced strain — energy meets calm",
+    description: "Premium green vein Maeng Da kratom powder sourced from mature, hand-harvested leaves in Indonesia.",
+    longDescription: `Green Maeng Da is arguably our most versatile kratom product and consistently one of our top sellers. "Maeng Da" translates from Thai as "Pimp Grade," and it lives up to the name — Maeng Da strains are bred for potency and effect consistency, making them a reliable choice for both new and experienced kratom users.
+
+Green vein kratom sits in the sweet spot between white vein (energizing) and red vein (sedating). This balanced profile makes Green Maeng Da an ideal daytime strain — customers can expect a noticeable mood lift and focus boost without the overstimulation of white veins, and without the sedation of reds that would interfere with daily activities.
+
+The alkaloid profile in Maeng Da strains is typically higher than most other origins, meaning customers often need slightly less to achieve the desired effect. This is worth communicating at the counter — it helps set accurate expectations and prevents overconsumption.
+
+Our Green Maeng Da is sourced directly from mature, sun-dried leaves in Borneo and Sumatra, then milled to a fine powder and batch-tested for alkaloid content and the absence of heavy metals, pesticides, and microbial contaminants.`,
+    effects: ["Clean energy boost", "Sharper mental focus", "Mood elevation and positivity", "Mild physical comfort", "Motivation enhancement", "Social ease"],
+    onsetTime: "15 – 30 minutes",
+    duration: "3 – 5 hours",
+    bestFor: ["Daytime use", "Work or study sessions", "Customers switching from coffee", "Social situations", "First-time kratom users wanting a balanced intro"],
+    specs: [
+      { label: "Vein color", value: "Green" },
+      { label: "Origin", value: "Borneo / Sumatra, Indonesia" },
+      { label: "Strain", value: "Maeng Da" },
+      { label: "Form", value: "Finely milled powder" },
+      { label: "Alkaloid profile", value: "High mitragynine, moderate 7-OH" },
+      { label: "Sizes available", value: "25g, 100g, 250g, 1kg" },
+      { label: "Testing", value: "Heavy metals, pesticides, microbial" },
     ],
-    complianceNotes: ["Not FDA approved", "Cannot make medical claims", "Recommend starting with small dose"],
-    relatedProducts: ["p5", "p6"],
+    dosageGuide: [
+      { level: "Beginner", amount: "1 – 2 grams", description: "Start here. Effects should be noticeable. Wait 30 minutes before considering more." },
+      { level: "Light", amount: "2 – 4 grams", description: "Good energy, focus, and mood lift. The sweet spot for most daytime users." },
+      { level: "Moderate", amount: "4 – 6 grams", description: "Stronger effects. May begin to shift from stimulating to more sedating at this range." },
+      { level: "High", amount: "6+ grams", description: "Experienced users only. Effects become more sedating. Not recommended for beginners." },
+    ],
+    talkingPoints: [
+      "Our #1 most recommended kratom for first-time customers — it's beginner-friendly but satisfying for regulars",
+      "Maeng Da means 'Pimp Grade' — bred for potency and consistency, not just marketing",
+      "Green vein is the sweet spot — energy of white without stimulation overdrive, relaxation of red without sedation",
+      "Typically more potent per gram than other strains — advise starting at 1–2g",
+      "Every batch third-party tested — COA available for customers who ask",
+    ],
+    complianceNotes: [
+      "Not FDA approved — cannot make medical claims",
+      "Ask if customer takes any medications — kratom can interact with some drugs",
+      "Always recommend starting with a low dose, especially for new users",
+      "Advise against mixing with alcohol or other substances",
+      "Not recommended for pregnant or nursing women",
+    ],
+    warnings: [
+      "Not intended to diagnose, treat, cure, or prevent any disease",
+      "Not for use under 18 years of age",
+      "Do not use if pregnant or nursing",
+      "Do not operate heavy machinery immediately after use at higher doses",
+      "Potential for dependence with daily high-dose use",
+    ],
+    faqs: [
+      { question: "What does 'Green' mean in Green Maeng Da?", answer: "The color refers to the vein color of the kratom leaf when harvested. Green vein leaves are harvested at mid-maturity, producing a balanced alkaloid profile between the stimulating whites and the sedating reds." },
+      { question: "How should I take the powder?", answer: "The most popular methods are 'toss and wash' (measure powder, put in mouth, wash down with water), mixing into juice or a smoothie, or making a tea. We also carry capsules for customers who dislike the taste." },
+      { question: "How long until effects kick in?", answer: "On an empty stomach, most people feel effects within 15–20 minutes. After a meal, it can take 30–45 minutes. Taking on an empty stomach is generally recommended for best absorption." },
+      { question: "Will kratom show up on a drug test?", answer: "Standard drug tests do not test for kratom alkaloids. However, specialized kratom-specific tests do exist. Always be transparent with customers if asked." },
+    ],
+    proTips: [
+      "For customers comparing kratom to coffee: Green Maeng Da is a great analog — it's energizing and focusing without the jitteriness or crash.",
+      "If a customer has tried kratom before and says 'it didn't work,' find out how much they took. Underdosing (under 1g) is common first-time error.",
+      "Pair with the Red Bali capsules for customers who want one strain for daytime and one for evening.",
+    ],
+    pairings: ["p4", "p8"],
+    relatedProducts: ["p4", "p10"],
   },
   {
     id: "p4",
     name: "Red Bali Kratom Capsules",
     category: "kratom",
     image: "/kratom-capsules-in-amber-bottle-supplement-product.jpg",
-    description: "Red vein Bali kratom in convenient capsule form for easy dosing.",
-    effects: ["Relaxation", "Stress relief", "Pain relief", "Sleep support"],
-    talkingPoints: [
-      "Perfect for customers who dislike powder taste",
-      "Pre-measured doses for consistency",
-      "Best for evening use",
-      "Popular among returning customers",
+    tagline: "Classic evening relaxation in a clean, convenient capsule",
+    description: "Red vein Bali kratom in convenient pre-measured capsules — precise dosing with none of the powder taste.",
+    longDescription: `Red Bali Kratom is one of the most beloved classic strains in kratom culture, and for good reason. Bali strains are known for their well-rounded, smooth alkaloid profile — they deliver the sedating, comfort-supporting characteristics of red vein kratom without being overpowering. It's reliable, consistent, and rarely polarizing.
+
+Our capsule format makes Red Bali accessible to the widest possible customer base. Many people are interested in kratom but put off by the taste and texture of raw powder. Capsules solve that entirely — each capsule contains a pre-measured dose, making it easy to track intake and avoid the guesswork that can lead to overconsumption.
+
+Each capsule contains 500mg (0.5g) of premium red vein Bali powder sourced from mature leaves, and the amber bottle protects the alkaloid content from light degradation. The bottles come in 60-count and 120-count options for different needs and budgets.
+
+Red Bali is the strain most commonly reported to support evening relaxation, physical comfort, and restful sleep. It's a strong repurchase product — customers who find their dosage sweet spot often become regulars.`,
+    effects: ["Deep physical relaxation", "Stress and tension relief", "Improved sleep onset", "Physical comfort and ease", "Calm, peaceful mental state", "Mood support"],
+    onsetTime: "20 – 40 minutes",
+    duration: "4 – 6 hours",
+    bestFor: ["Evening and nighttime use", "Customers sensitive to powder taste", "Precise dosing needs", "Sleep support", "Physical tension relief", "Kratom beginners who prefer capsules"],
+    specs: [
+      { label: "Vein color", value: "Red" },
+      { label: "Origin", value: "Bali, Indonesia" },
+      { label: "Per capsule", value: "500mg (0.5g)" },
+      { label: "Counts available", value: "60ct / 120ct" },
+      { label: "Capsule type", value: "Gelatin (standard)" },
+      { label: "Packaging", value: "Amber UV-protective bottle" },
+      { label: "Testing", value: "Heavy metals, pesticides, microbial" },
     ],
-    complianceNotes: ["Not FDA approved", "Cannot make medical claims", "Start with recommended dose"],
-    relatedProducts: ["p3", "p5"],
+    dosageGuide: [
+      { level: "Beginner", amount: "2 – 3 capsules (1–1.5g)", description: "Start conservatively. Red vein effects can feel strong to new users. Take 30–40 minutes to assess." },
+      { level: "Light", amount: "4 – 6 capsules (2–3g)", description: "Mild relaxation and comfort. Good for unwinding after work without heavy sedation." },
+      { level: "Moderate", amount: "6 – 10 capsules (3–5g)", description: "Stronger relaxation, physical comfort, and sleep support. Most effective dosage range for regular users." },
+      { level: "High", amount: "10+ capsules (5g+)", description: "Experienced users with established tolerance only. Effects become highly sedating at this range." },
+    ],
+    talkingPoints: [
+      "Pre-measured capsules eliminate the guesswork — every dose is exactly 500mg",
+      "No taste, no mess — perfect for customers who've been hesitant about kratom powder",
+      "Red Bali is our smoothest, most consistent red — rarely harsh or overwhelming",
+      "Amber bottle extends shelf life by protecting alkaloids from light degradation",
+      "Strong repurchase strain — customers who find their dose love coming back for it",
+    ],
+    complianceNotes: [
+      "Not FDA approved — cannot make medical claims",
+      "Ask about current medications — kratom may interact",
+      "Not for use under 18 years of age",
+      "Not for use during pregnancy or nursing",
+      "Advise customers to track their dose and start low",
+    ],
+    warnings: [
+      "Not intended to diagnose, treat, cure, or prevent any disease",
+      "Not for use under 18",
+      "Do not operate heavy machinery — Red Bali can cause significant drowsiness at moderate-high doses",
+      "Potential for dependence with daily high-dose use",
+    ],
+    faqs: [
+      { question: "Why capsules instead of powder?", answer: "Capsules eliminate the strong bitter taste of kratom powder and make dosing more precise and consistent. They're slightly slower to absorb (capsule must dissolve first) but otherwise equivalent in effect." },
+      { question: "How many capsules is the right dose?", answer: "Each capsule is 500mg (0.5g). We recommend beginners start with 2–3 capsules (1–1.5g) and wait 40 minutes before assessing. Most regular users find their sweet spot between 4–8 capsules depending on body weight and sensitivity." },
+      { question: "Can I take these with food?", answer: "Yes, but effects will be slower and potentially less strong on a full stomach. For best absorption, take on an empty stomach or 1–2 hours after a meal." },
+      { question: "Red vs. Green — which should I recommend?", answer: "Red Bali is best for evening, relaxation, and sleep support. Green Maeng Da is better for daytime use, energy, and focus. Many regulars keep both on hand." },
+    ],
+    proTips: [
+      "Red Bali and Green Maeng Da are a natural upsell pair — day strain and night strain. Many customers buy both at the same time once you explain the difference.",
+      "Customers who say 'kratom makes me too tired' have usually tried a red vein during the day. Redirect them to Green Maeng Da.",
+      "Capsule customers tend to have higher average order values and better brand loyalty — they appreciate the convenience and are willing to pay for it.",
+    ],
+    pairings: ["p3", "p9"],
+    relatedProducts: ["p3", "p10"],
   },
   {
     id: "p5",
     name: "Heady Glass Water Pipe",
     category: "glass",
     image: "/artistic-heady-glass-water-pipe-colorful-blown-gla.jpg",
-    description: "Handcrafted heady glass water pipe with unique artistic design.",
+    tagline: "Functional art for the serious collector",
+    description: "Handcrafted American-made heady glass water pipe — a one-of-a-kind piece where no two are ever exactly alike.",
+    longDescription: `Heady glass represents the highest tier of functional glass art, and our Heady Water Pipes are prime examples of what makes this craft special. Unlike mass-produced scientific glass, each heady piece is individually hand-blown by a skilled American glassblower using borosilicate glass and a variety of specialized techniques: fuming, millie work, UV-reactive glass, dichroic accents, and more.
+
+The term "heady" comes from the glass art community and refers to pieces that prioritize aesthetics and artistic expression alongside function. These aren't just smoking devices — they're collectible art objects that appreciate in value for popular artists.
+
+For customers, the pitch is simple: this is something no one else will have. Every heady piece in our display case is unique. The swirling colors, the impeccable craftsmanship, and the knowledge that a skilled artist spent hours creating this piece makes it a conversation piece as much as a functional tool.
+
+From a sales perspective, heady pieces are high-margin, high-emotion purchases. The customer isn't comparing prices online — they're buying a specific piece right in front of them. Focus on the story, the craftsmanship, and what resonates visually with that specific customer.`,
     effects: [],
-    talkingPoints: [
-      "One-of-a-kind artistic piece",
-      "American-made craftsmanship",
-      "Functional art for collectors",
-      "Unique gift option",
+    onsetTime: "N/A",
+    duration: "N/A",
+    bestFor: ["Collectors and enthusiasts", "Gift purchases", "Customers who appreciate American craftsmanship", "Display piece buyers", "Experienced smokers upgrading their setup"],
+    specs: [
+      { label: "Construction", value: "Hand-blown borosilicate glass" },
+      { label: "Origin", value: "American-made" },
+      { label: "Uniqueness", value: "One-of-a-kind (no two alike)" },
+      { label: "Techniques", value: "Fuming, millie work, UV-reactive elements" },
+      { label: "Intended use", value: "Tobacco use only" },
+      { label: "Care", value: "Hand wash with ISO + salt, handle with care" },
     ],
-    complianceNotes: ["For tobacco use only", "Handle with care - glass product"],
+    dosageGuide: [],
+    talkingPoints: [
+      "Truly one-of-a-kind — the exact piece in the case is the only one like it in existence",
+      "Made by skilled American glassblowers — this is functional fine art, not factory glass",
+      "Collectible value — popular artists' pieces can increase in value over time",
+      "The perfect premium gift for someone who has everything",
+      "Each piece tells a story — share the artist's technique when you know it",
+    ],
+    complianceNotes: [
+      "Sold for tobacco use only — do not discuss other uses",
+      "Handle display pieces with extreme care — breakage is a loss",
+      "Do not leave unwrapped near edges or high-traffic areas",
+    ],
+    warnings: [
+      "Glass is fragile — handle and transport with care",
+      "For tobacco use only",
+      "Keep out of reach of children",
+    ],
+    faqs: [
+      { question: "Why is heady glass so expensive compared to scientific glass?", answer: "Heady glass is individually hand-blown by skilled artists, often taking hours or days per piece. The price reflects the labor, artistry, rare materials, and one-of-a-kind nature. Scientific glass is machine-assisted and mass-produced, making it functional but not collectible." },
+      { question: "How do I clean heady glass without damaging it?", answer: "Use 91%+ isopropyl alcohol and coarse salt. Shake gently, rinse thoroughly with warm water, and allow to fully dry. Avoid boiling water or harsh scrubbing, especially on decorated sections." },
+      { question: "Can I request a specific style or artist?", answer: "We source heady pieces as they become available. If a customer is looking for a specific artist or style, take their contact info and let them know when new inventory arrives — this builds strong customer relationships." },
+    ],
+    proTips: [
+      "Let the customer handle the piece (with supervision) — tactile connection closes heady sales. Once they're holding it, they can picture it on their shelf.",
+      "Know two or three things about each heady piece in your case: the technique, the artist if known, and one visual feature to point out. That narrative is your sales tool.",
+      "Heady pieces make exceptional gift suggestions for customers who say they 'don't know what to get.' High price point + beautiful packaging = a memorable gift.",
+    ],
+    pairings: ["p6", "p7"],
     relatedProducts: ["p6", "p7"],
   },
   {
@@ -212,113 +490,369 @@ export const mockProducts: Product[] = [
     name: "Scientific Glass Beaker",
     category: "glass",
     image: "/clear-scientific-glass-beaker-bong-with-ice-catche.jpg",
-    description: "Scientific-style glass beaker with ice catcher and diffused downstem.",
+    tagline: "The reliable everyday workhorse — built for function and durability",
+    description: "Scientific-style borosilicate glass beaker with ice catcher, diffused downstem, and removable bowl.",
+    longDescription: `If heady glass is fine art, scientific glass is precision engineering. Our Scientific Glass Beaker is built to the standards of a laboratory instrument — using thick borosilicate glass that's resistant to thermal shock, designed with a stable wide base and optimized water volume, and equipped with a diffused downstem for filtered, smooth draws.
+
+Scientific glass enthusiasts often prefer this style for its consistency and cleanability. Every feature serves a functional purpose: the beaker base holds more water than a straight tube for better filtration; the ice catcher notches hold ice cubes to cool the vapor before inhalation; and the removable diffused downstem breaks the smoke into smaller bubbles, dramatically increasing the surface area for water filtration.
+
+This piece is an excellent gateway product for customers who want something that will last. Borosilicate glass is the same material used in laboratory glassware — it doesn't absorb residue the way soft glass does, and it's far more resistant to breaking from normal use. With proper care, a quality scientific piece can last years.
+
+It's also a smart upsell for customers already buying accessories — grinders, rolling trays, etc. If they're spending on accessories, they likely want a quality primary piece to go with them.`,
     effects: [],
-    talkingPoints: [
-      "Durable borosilicate glass",
-      "Ice catcher for cooler hits",
-      "Easy to clean design",
-      "Great everyday piece",
+    onsetTime: "N/A",
+    duration: "N/A",
+    bestFor: ["Daily users", "Customers who prioritize function over aesthetics", "Ice-preferring smokers", "Easy-to-clean setup seekers", "First-time glass buyers"],
+    specs: [
+      { label: "Glass type", value: "Thick borosilicate (scientific grade)" },
+      { label: "Height", value: "~12 inches" },
+      { label: "Base style", value: "Wide beaker for stability" },
+      { label: "Downstem", value: "Diffused — 6-slit percolation" },
+      { label: "Ice catcher", value: "Yes — 3-pinch style" },
+      { label: "Joint size", value: "14mm female" },
+      { label: "Intended use", value: "Tobacco use only" },
     ],
-    complianceNotes: ["For tobacco use only", "Handle with care - glass product"],
-    relatedProducts: ["p5", "p7"],
+    dosageGuide: [],
+    talkingPoints: [
+      "Borosilicate glass — same material as lab equipment, far more durable than soft glass",
+      "Ice catcher dramatically cools smoke for a much smoother draw",
+      "Diffused downstem breaks smoke into smaller bubbles for better filtration",
+      "Wide beaker base is harder to knock over than straight tubes",
+      "Easy to clean — removable downstem means no tight spots you can't reach",
+    ],
+    complianceNotes: [
+      "Sold for tobacco use only — do not discuss other uses",
+      "Handle display pieces carefully",
+    ],
+    warnings: [
+      "Glass can break — do not drop or subject to sudden temperature changes",
+      "For tobacco use only",
+      "Keep out of reach of children",
+    ],
+    faqs: [
+      { question: "What is borosilicate glass and why does it matter?", answer: "Borosilicate glass contains boron trioxide, making it resistant to thermal shock (sudden temperature changes) and chemical corrosion. It's the same glass used in laboratory equipment and Pyrex cookware — significantly more durable than standard soft glass, which is more prone to cracking." },
+      { question: "What joint size does this use?", answer: "14mm female joint — the most common standard size in glass accessories. This means a huge range of aftermarket bowls, ash catchers, and adapters are compatible, giving the customer room to customize and expand their setup over time." },
+      { question: "How do I clean it?", answer: "Fill with 91%+ isopropyl alcohol and coarse salt, seal the openings, and shake for 1–2 minutes. Rinse thoroughly with warm water. For stubborn buildup, let it soak for 30–60 minutes before shaking." },
+    ],
+    proTips: [
+      "The 14mm joint is a natural upsell opportunity — mention that aftermarket bowls and ash catchers are all compatible, planting the seed for a future purchase.",
+      "For customers deciding between a straight tube and a beaker, always recommend the beaker for beginners — the lower center of gravity means far fewer accidental tips.",
+      "Pair with the Premium Grinder as a combo — customers buying glass for tobacco use almost always need a grinder.",
+    ],
+    pairings: ["p5", "p7"],
+    relatedProducts: ["p5", "p7", "p8"],
   },
   {
     id: "p7",
-    name: "Premium Grinder",
+    name: "Premium 4-Piece Grinder",
     category: "accessories",
     image: "/premium-aluminum-herb-grinder-4-piece-matte-black-.jpg",
-    description: "Four-piece aluminum grinder with kief catcher and sharp diamond teeth.",
+    tagline: "Precision grinding with a kief catcher — the last grinder you'll buy",
+    description: "CNC-machined aerospace-grade aluminum four-piece grinder with diamond-cut teeth and a 50-micron kief catcher screen.",
+    longDescription: `A quality grinder is one of the highest-frequency purchases in the accessories category — customers use it daily, and once they've had a great one, they'll never go back to cheap plastic. Our Premium 4-Piece Grinder is CNC-machined from aerospace-grade aluminum to tolerances that make the smooth, butter-like rotation immediately apparent the moment a customer picks it up.
+
+The four-chamber design is what separates it from basic 2-piece grinders. Chamber 1 grinds the herb. Chamber 2 collects the finely ground material through holes sized for optimal consistency. Chamber 3 is separated by a 50-micron stainless steel screen that allows only fine trichomes (kief) to fall through into Chamber 4 — the kief catcher. Accumulated kief is significantly more potent than regular ground herb and represents real added value for customers.
+
+The diamond-cut teeth are sharper and more precisely angled than stamped or cast teeth, resulting in a consistent, even grind without the chunks or stems that cheaper grinders allow through. A strong neodymium magnet holds the lid securely closed without the lid ever sticking.
+
+This grinder is available in multiple finishes and comes with a lifetime warranty — a genuine selling point that sets it apart from disposable grinders.`,
     effects: [],
-    talkingPoints: [
-      "Sharp teeth for efficient grinding",
-      "Kief catcher for bonus material",
-      "Multiple color options",
-      "Lifetime warranty",
+    onsetTime: "N/A",
+    duration: "N/A",
+    bestFor: ["Tobacco users wanting consistent grind", "Glass pipe and rolling paper users", "Customers who want the kief catcher bonus", "Gift purchases", "Anyone upgrading from a cheap 2-piece"],
+    specs: [
+      { label: "Material", value: "Aerospace-grade aluminum" },
+      { label: "Machining", value: "CNC precision machined" },
+      { label: "Teeth type", value: "Diamond-cut, razor sharp" },
+      { label: "Chambers", value: "4-piece (grind, collect, screen, kief)" },
+      { label: "Screen mesh", value: "50-micron stainless steel" },
+      { label: "Lid closure", value: "Neodymium magnet" },
+      { label: "Colors available", value: "Matte black, silver, gold, rainbow" },
+      { label: "Warranty", value: "Lifetime" },
     ],
-    complianceNotes: ["For tobacco use only"],
-    relatedProducts: ["p8"],
+    dosageGuide: [],
+    talkingPoints: [
+      "CNC-machined to aerospace tolerances — the difference in smoothness is immediately obvious",
+      "4-piece design with kief catcher is a genuine value-add that cheap grinders can't match",
+      "Diamond-cut teeth produce consistent, even grind — no stems, no chunks",
+      "Lifetime warranty — this is the last grinder they'll ever need to buy",
+      "Multiple color finishes available — let the customer pick their preference",
+    ],
+    complianceNotes: [
+      "Sold for tobacco use only",
+    ],
+    warnings: [
+      "For tobacco use only",
+      "Keep out of reach of children",
+      "Aluminum edges can be sharp on new units",
+    ],
+    faqs: [
+      { question: "Why 4-piece vs. 2-piece?", answer: "A 2-piece grinder simply grinds and drops into one chamber. A 4-piece grinder separates the grind by size for consistency and has a dedicated kief catcher — a screen that collects the fine trichome powder that falls off during grinding. This accumulated kief is more potent and represents real bonus value." },
+      { question: "What colors are available?", answer: "We carry matte black, silver, gold, and rainbow anodized. Matte black is consistently the most popular. Let customers browse the display models and choose their finish — personal preference matters here." },
+      { question: "How do I clean a grinder?", answer: "Disassemble fully and place in freezer for 30 minutes — this makes residue brittle and easy to remove. Use a soft brush (a clean toothbrush works great) to brush out chambers and teeth. For deep cleaning, soak in isopropyl alcohol for 20–30 minutes, rinse with hot water, and dry fully before reassembling." },
+    ],
+    proTips: [
+      "Let customers hold a display model and turn it — the smooth machined action sells itself. You don't have to say much.",
+      "Kief catcher is a powerful selling point for customers who've never heard of it. Explain that it collects the most potent part of the herb automatically every time they grind.",
+      "The lifetime warranty closes hesitant buyers. 'You'll never have to buy another grinder' is a genuine statement here.",
+    ],
+    pairings: ["p6", "p8"],
+    relatedProducts: ["p6", "p8"],
   },
   {
     id: "p8",
     name: "Rolling Tray Set",
     category: "accessories",
     image: "/premium-rolling-tray-set-with-accessories-organize.jpg",
-    description: "Complete rolling tray set with magnetic lid and accessory compartments.",
+    tagline: "Everything you need to roll, organized in one premium set",
+    description: "Complete premium rolling tray set with magnetic lid, integrated compartments, and a full suite of quality accessories included.",
+    longDescription: `The Rolling Tray Set is one of our best gift-friendly products — it's practical, visually appealing, and solves a problem every rolling tobacco user has: having their supplies scattered everywhere. This set consolidates everything into one organized system with a satisfying magnetic lid that doubles as a storage cover and a rolling surface.
+
+The tray itself is large enough to work comfortably without spilling, with a curved inner edge that keeps material contained during the rolling process. Integrated side compartments keep papers, filters, and a lighter within reach without cluttering the main workspace.
+
+The set comes fully loaded with quality accessories: a pack of premium rolling papers, a pack of filter tips, a cleaning card, a packing tool, and a storage container. Each accessory is functional quality — not throwaway filler. This means the customer gets immediate, out-of-box usability rather than having to supplement the set.
+
+Multiple design options are available — from minimalist matte finishes to artistic designs — which makes this a popular pick as a personalized gift. The magnetic lid also means the whole set can travel without spilling.`,
     effects: [],
-    talkingPoints: [
-      "Everything needed in one set",
-      "Great gift option",
-      "Multiple design options",
-      "Quality accessories included",
+    onsetTime: "N/A",
+    duration: "N/A",
+    bestFor: ["Rolling tobacco users", "Gift purchases", "Organized workspace seekers", "Customers who roll regularly", "Travel-friendly setup needs"],
+    specs: [
+      { label: "Tray material", value: "Tin plate with powder coat finish" },
+      { label: "Lid", value: "Magnetic closure — doubles as storage cover" },
+      { label: "Tray dimensions", value: "Approx. 11\" x 7\" working surface" },
+      { label: "Compartments", value: "Integrated side storage for papers and filters" },
+      { label: "Included accessories", value: "Rolling papers, filter tips, cleaning card, packing tool, storage jar" },
+      { label: "Designs available", value: "Multiple — ask staff for current styles" },
     ],
-    complianceNotes: ["For tobacco use only"],
-    relatedProducts: ["p7"],
+    dosageGuide: [],
+    talkingPoints: [
+      "Complete out-of-box — everything needed to start rolling is included in the set",
+      "Magnetic lid keeps everything contained when not in use or during travel",
+      "The best gift option in accessories — practical, complete, and visually appealing",
+      "Multiple design options — let the customer choose a style that matches their personality",
+      "Curved inner edge contains material during rolling — no more losing herbs off the edge",
+    ],
+    complianceNotes: [
+      "Sold for tobacco use only",
+    ],
+    warnings: [
+      "For tobacco use only",
+      "Keep out of reach of children",
+    ],
+    faqs: [
+      { question: "What accessories come in the set?", answer: "The set includes a pack of premium rolling papers, filter tips, a cleaning card, a packing/poker tool, and a small storage container. All accessories are functional quality, not just filler." },
+      { question: "Is the magnetic lid secure enough for travel?", answer: "Yes — the neodymium magnet is strong enough to keep the lid closed during normal movement. For heavy travel or backpack use, we recommend placing it flat in a bag rather than keeping it upright." },
+      { question: "Can I buy just the tray without the accessories?", answer: "The set is sold as a bundle. If a customer already has accessories and just wants the tray, we can sometimes accommodate individual orders — check with the manager for current inventory." },
+    ],
+    proTips: [
+      "When a customer is buying rolling papers or filters, mention the tray set — it's an easy upgrade and the price difference is small relative to the value added.",
+      "This is the single best 'gift for someone who already has everything' in the accessories category. Keep it in mind any time a customer mentions buying a gift.",
+      "Let customers flip through the design options — the longer they're engaged with the product, the more likely they are to buy.",
+    ],
+    pairings: ["p7", "p6"],
+    relatedProducts: ["p7", "p6"],
   },
   {
     id: "p9",
     name: "Kanna Snuff",
     category: "kanna",
     image: "/kanna-snuff-botanical-powder-natural-plant-extract.jpg",
-    description: "Traditional Kanna (Sceletium tortuosum) botanical powder for nasal use. Fast-acting mood and focus support derived from South African plant extract.",
-    effects: ["Mood lift", "Focus enhancement", "Stress relief", "Natural energy", "Fast onset (5-15 min)"],
+    tagline: "Ancient South African botanical — fast-acting mood and focus in minutes",
+    description: "Traditional Kanna (Sceletium tortuosum) botanical snuff for nasal use. Fast-acting mood and focus support derived from a South African plant with thousands of years of traditional use.",
+    longDescription: `Kanna (Sceletium tortuosum) is one of the most fascinating and underappreciated botanicals in our entire product catalog. Indigenous to South Africa, Kanna has been used by the San and Khoikhoi peoples for thousands of years as a mood enhancer, appetite suppressant, and social facilitator. It's only recently made its way into the Western wellness market — which means being knowledgeable about it is a real differentiator when helping customers.
+
+The active compounds in Kanna are alkaloids — primarily mesembrine, mesembrenone, and mesembrenol — which are selective serotonin reuptake inhibitors (SSRIs) and PDE4 inhibitors. This mechanism of action is why Kanna produces noticeable mood-lifting and focus-enhancing effects, and also why it is critically important to screen customers for SSRI, SNRI, and MAOI use before selling it.
+
+Our Kanna Snuff is prepared as a traditional insufflated (nasal) powder — the fastest route of absorption for Kanna alkaloids. Effects are typically felt within 5–15 minutes, making it one of the fastest-acting wellness botanicals we carry. The effects are characterized by a pleasant mood lift, sharper mental clarity, and a calm, grounded energy — not stimulating like caffeine, not sedating like red kratom.
+
+It's a wonderful conversation piece — customers who've never heard of Kanna are often fascinated by its history and unusual mechanism, and that curiosity converts to sales.`,
+    effects: ["Rapid mood lift (5–15 min onset)", "Enhanced mental clarity and focus", "Stress and anxiety reduction", "Calm natural energy without stimulation", "Social ease and warmth", "Mild appetite suppression"],
+    onsetTime: "5 – 15 minutes (nasal route)",
+    duration: "45 – 90 minutes",
+    bestFor: ["Customers seeking fast mood support", "Social situations", "Pre-activity focus boost", "Kanna beginners wanting immediate feedback", "Customers curious about novel botanicals"],
+    specs: [
+      { label: "Botanical", value: "Sceletium tortuosum (Kanna)" },
+      { label: "Key alkaloids", value: "Mesembrine, mesembrenone, mesembrenol" },
+      { label: "Administration", value: "Nasal insufflation (snuff)" },
+      { label: "Origin", value: "South Africa" },
+      { label: "Processing", value: "Traditional fermented and dried" },
+      { label: "Legal status", value: "Legal in all US states EXCEPT Louisiana" },
+      { label: "Testing", value: "Alkaloid content + contaminants" },
+    ],
+    dosageGuide: [
+      { level: "Beginner", amount: "A small pinch (~50mg)", description: "Use one nostril. Effects in 5–15 min. Good starting point to assess sensitivity." },
+      { level: "Light", amount: "1–2 small pinches (~100–150mg)", description: "Balanced mood lift and focus. The sweet spot for most users." },
+      { level: "Moderate", amount: "2–3 pinches (~200–300mg)", description: "Stronger effects. More pronounced mood elevation and social ease." },
+    ],
     talkingPoints: [
-      "Used for thousands of years by indigenous South African tribes",
-      "Fast-acting - feel effects within 5-15 minutes",
-      "Great for first-time Kanna users - controllable dose",
-      "No THC, no caffeine, all natural plant extract",
-      "Effects last 45-90 minutes",
+      "One of the most unique botanicals we carry — thousands of years of traditional use in South Africa",
+      "Fastest-acting Kanna product — effects in 5–15 minutes via nasal route",
+      "No THC, no caffeine — pure plant alkaloids with a unique serotonergic mechanism",
+      "The nasal format makes dosing very controllable — great for first-timers who want immediate feedback",
+      "Effects last 45–90 minutes — ideal for a defined window rather than all-day commitment",
     ],
     complianceNotes: [
-      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs - Kanna affects serotonin",
-      "Not for use with antidepressants - refer to doctor",
-      "Cannot make medical claims",
-      "Not legal in Louisiana",
+      "CRITICAL: Always ask about SSRIs, SNRIs, and MAOIs before selling — Kanna affects serotonin and can cause serotonin syndrome when combined",
+      "If customer takes antidepressants — do not sell, refer to their doctor",
+      "Not legal in Louisiana — check customer location if relevant",
+      "Cannot make medical claims of any kind",
+      "Dietary supplement — not FDA evaluated for any medical use",
     ],
+    warnings: [
+      "Contraindicated with SSRIs, SNRIs, and MAOIs — serious serotonin syndrome risk",
+      "Not for use under 18",
+      "Not for use during pregnancy or nursing",
+      "Not legal in Louisiana",
+      "Do not combine with alcohol or other CNS-active substances",
+    ],
+    faqs: [
+      { question: "What is Kanna exactly?", answer: "Kanna (Sceletium tortuosum) is a succulent plant native to South Africa. Its alkaloids act as serotonin reuptake inhibitors and PDE4 inhibitors — producing mood-lifting, focusing, and calming effects. It has been used by indigenous South African peoples for thousands of years." },
+      { question: "Why is it critical to ask about SSRIs before selling?", answer: "Kanna's alkaloids are serotonin reuptake inhibitors. Combining them with prescription SSRIs, SNRIs, or MAOIs can cause serotonin syndrome — a potentially dangerous condition involving agitation, rapid heart rate, high temperature, and in severe cases, seizures. This is our most important safety screen for Kanna products." },
+      { question: "Why nasal vs. oral?", answer: "The nasal mucosa has highly efficient absorption directly into the bloodstream, bypassing first-pass metabolism in the liver. This means faster onset and potentially higher bioavailability than oral consumption. It's the traditional route of use for Kanna and the reason snuff acts so quickly." },
+      { question: "Is it legal everywhere?", answer: "Kanna is federally unregulated in the United States and legal in almost all states. Louisiana is the exception — Sceletium tortuosum is classified as a controlled substance there. Always verify if selling to customers from out of state." },
+    ],
+    proTips: [
+      "The SSRI screening question is your most important tool with Kanna. Make it natural: 'Before I tell you more, are you currently taking any antidepressants or mood medications?' — customers appreciate that you're looking out for them.",
+      "Kanna Snuff is a great introduction product before selling Kanna Gummies — the fast onset means the customer gets immediate confirmation that it works for them, removing doubt before they invest in a larger gummy purchase.",
+      "The history angle is a powerful opener: 'This has been used for thousands of years by indigenous hunters in South Africa — it's new to the US market but ancient everywhere else.' Customers love that story.",
+    ],
+    pairings: ["p10", "p11"],
     relatedProducts: ["p10", "p11"],
   },
   {
     id: "p10",
-    name: "Kanna Gummies (1.5-5mg)",
+    name: "Kanna Gummies",
     category: "kanna",
     image: "/kanna-gummies-mood-wellness-supplement-natural.jpg",
-    description: "Premium Kanna gummies with 1.5-5mg active alkaloids per piece. Federally compliant dietary supplement for daily mood and wellness support.",
-    effects: ["Uplifted mood", "Calm focus", "Reduced stress", "Long-lasting (3-5 hours)", "No intoxication"],
+    tagline: "Our flagship non-THC wellness product — all-day mood and focus support",
+    description: "Premium Kanna gummies with 1.5–5mg active alkaloids per piece. Federally compliant dietary supplement for daily mood and wellness support without intoxication.",
+    longDescription: `Kanna Gummies are our flagship non-psychoactive wellness product, and one of our strongest differentiators as a retailer. Most of our customers have heard of Delta and Kratom, but Kanna is relatively unknown — which means every sale is also an education, and every satisfied customer is a convert who will be back.
+
+Each gummy contains 1.5–5mg of Kanna alkaloid extract (equivalent to a meaningful oral dose of Sceletium tortuosum), formulated in a great-tasting chewable gummy. Unlike Delta products, Kanna Gummies are a dietary supplement — there's no age restriction and no intoxication. They're appropriate for a much wider range of customers: professionals looking for natural focus support, people dealing with daily stress, those who want to reduce caffeine dependence, or anyone curious about natural mood support.
+
+The oral onset is longer than Kanna Snuff — typically 45–90 minutes — but the effects are smoother, more sustained, and last 3–5 hours. This makes them ideal for all-day mood support or for customers who want a defined but gentle boost for a meeting, event, or workday.
+
+A particularly compelling angle: Kanna Gummies are a genuine alternative or supplement to morning coffee. The calm focus without jitteriness is something many customers are actively looking for and have never found in a natural product before.`,
+    effects: ["Elevated, positive mood", "Calm and sustained focus", "Reduced daily stress and anxiety", "Smooth, non-jittery energy", "Social confidence and ease", "Sustained effects 3–5 hours"],
+    onsetTime: "45 – 90 minutes (oral route)",
+    duration: "3 – 5 hours",
+    bestFor: ["Daily mood and focus support", "Stress management", "Coffee replacement or companion", "Customers wanting non-intoxicating wellness", "Work, social, or creative sessions", "Wide demographic — no age restriction"],
+    specs: [
+      { label: "Alkaloids per gummy", value: "1.5 – 5mg (dose-dependent variant)" },
+      { label: "Botanical", value: "Sceletium tortuosum extract" },
+      { label: "Product type", value: "Dietary supplement" },
+      { label: "Administration", value: "Oral (chewable gummy)" },
+      { label: "Count per pack", value: "Varies by SKU" },
+      { label: "Legal status", value: "Legal in all US states EXCEPT Louisiana" },
+      { label: "Age restriction", value: "None (dietary supplement)" },
+    ],
+    dosageGuide: [
+      { level: "New to Kanna", amount: "1/2 gummy", description: "Start with half, especially for sensitive individuals. Wait 90 minutes to fully assess effects before taking more." },
+      { level: "Standard", amount: "1 gummy", description: "The typical serving for most users. Mood lift and focus support for 3–5 hours." },
+      { level: "Enhanced", amount: "1–2 gummies", description: "For customers with established tolerance or who want stronger effects for a specific occasion." },
+    ],
     talkingPoints: [
-      "Our flagship non-THC wellness product",
-      "Great coffee replacement or companion - smooth energy without jitters",
-      "Start with half a gummy for new users",
-      "Effects last 3-5 hours - great for all-day support",
-      "Federally legal dietary supplement in all states except Louisiana",
+      "Our #1 non-THC wellness product — unique, effective, and in demand",
+      "No intoxication, no age restriction — appropriate for a much wider customer base than Delta products",
+      "Great coffee replacement: calm focus without the jitteriness, anxiety, or crash of caffeine",
+      "Effects last 3–5 hours — ideal for full work or social event coverage",
+      "Nothing else on the market quite like it — Kanna's mechanism is genuinely unique",
     ],
     complianceNotes: [
-      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs before selling",
-      "Dietary supplement - no medical claims",
+      "CRITICAL: Always screen for SSRIs, SNRIs, and MAOIs before selling",
+      "If customer is on antidepressants — do not sell, refer to their doctor",
+      "Dietary supplement — cannot make medical claims",
       "Not legal in Louisiana",
-      "Onset takes 45-90 minutes",
+      "Advise on 45–90 min onset time to prevent impatient redosing",
     ],
-    relatedProducts: ["p9", "p11"],
+    warnings: [
+      "Contraindicated with SSRIs, SNRIs, and MAOIs",
+      "Not for use during pregnancy or nursing",
+      "Not legal in Louisiana",
+      "Onset is 45–90 minutes — do not redose prematurely",
+    ],
+    faqs: [
+      { question: "Is this the same as Delta gummies?", answer: "No — Kanna Gummies are not psychoactive and do not contain THC or any cannabinoid. They're a dietary supplement made from a South African botanical (Sceletium tortuosum) with a unique mood and focus mechanism through serotonin pathways. They are legal everywhere (except Louisiana) and have no age restriction." },
+      { question: "How is this different from CBD?", answer: "CBD works primarily through the endocannabinoid system with generally subtle effects. Kanna works through serotonin reuptake inhibition and PDE4 inhibition — producing more noticeable mood-lifting and focus effects at meaningful doses. Many customers who found CBD underwhelming find Kanna more impactful." },
+      { question: "Can I take this every day?", answer: "Many customers do use Kanna Gummies daily. It's a dietary supplement and short-term daily use is generally well-tolerated. As with any active botanical, advise customers to take occasional breaks and pay attention to how their body responds." },
+      { question: "Why can't I sell this to someone on antidepressants?", answer: "Kanna alkaloids are mild serotonin reuptake inhibitors. Combining them with prescription SSRIs, SNRIs, or MAOIs can cause serotonin syndrome — a serious and potentially dangerous condition. This is a non-negotiable safety screen for all Kanna products." },
+    ],
+    proTips: [
+      "The coffee comparison is your most powerful opener: 'Do you drink coffee for focus? This is what a lot of people use instead or alongside — smooth focus without the jitters or crash.' That lands for a huge range of customers.",
+      "Kanna Gummies are a strong starter product before upselling to the Kanna + Delta 9 combo gummies — once the customer knows what Kanna feels like, the combo is an easy next step.",
+      "The no-age-restriction angle opens a much wider sales window. If someone comes in with a younger colleague or family member who can't buy Delta products, Kanna Gummies are often the perfect recommendation.",
+    ],
+    pairings: ["p9", "p3"],
+    relatedProducts: ["p9", "p11", "p1"],
   },
   {
     id: "p11",
     name: "Kanna + Delta 9 Gummies",
     category: "kanna",
     image: "/kanna-delta9-combo-gummies-thc-mood-blend.jpg",
-    description: "Premium combination gummy with 1.5-5mg Kanna alkaloids + 10mg Delta 9 THC. Kanna reduces THC anxiety for a smoother, more balanced experience.",
-    effects: ["Balanced euphoria", "Reduced THC anxiety", "Extended duration (4-6 hours)", "Social enhancement", "Appetite suppression"],
+    tagline: "The smoother, longer, anxiety-free THC experience — nothing else like it",
+    description: "Premium combination gummy with 1.5–5mg Kanna alkaloids and 10mg Delta 9 THC. Kanna modulates the THC experience for dramatically reduced anxiety and a longer, more balanced effect.",
+    longDescription: `The Kanna + Delta 9 Gummy is genuinely one of the most innovative products in our catalog, and arguably the best example of the synergistic potential of combining botanicals intelligently. This product was developed specifically around one of the most common complaints from cannabis users: THC-induced anxiety and paranoia.
+
+Here's why it works: Kanna's alkaloids (primarily mesembrine) are PDE4 inhibitors in addition to being serotonin reuptake inhibitors. PDE4 inhibition reduces anxiogenic signaling — meaning Kanna actively counteracts the anxiety pathway that THC activates in sensitive users. The result is a more relaxed, social, and enjoyable experience for people who love cannabis but have struggled with the anxiety side effects.
+
+Beyond anxiety reduction, Kanna also modulates the munchie effect — another common complaint from regular edible users. The combination delivers a more balanced, sustained euphoria that many customers describe as the best edible experience they've ever had.
+
+For sales, this product is best positioned as an upgrade for existing cannabis/Delta users, not an entry point. The ideal customer is someone who already uses edibles but has expressed frustration with anxiety, paranoia, overeating after use, or effects that feel unpredictable. This product directly solves those problems and there is genuinely nothing else like it on the shelf.`,
+    effects: ["Balanced, euphoric high", "Dramatically reduced THC anxiety and paranoia", "Longer, smoother duration (4–6 hours)", "Social enhancement and warmth", "Appetite modulation (reduced munchies)", "Improved headspace clarity"],
+    onsetTime: "45 – 90 minutes",
+    duration: "4 – 6 hours",
+    bestFor: ["THC users who experience anxiety with regular edibles", "Cannabis users wanting a more controlled experience", "Social and creative sessions", "Customers who've tried Delta products and want to level up", "Experienced users seeking something genuinely different"],
+    specs: [
+      { label: "Delta 9 THC per gummy", value: "10mg (hemp-derived)" },
+      { label: "Kanna alkaloids per gummy", value: "1.5 – 5mg" },
+      { label: "Total Delta-9 THC", value: "<0.3% by dry weight (federally compliant)" },
+      { label: "Product type", value: "Hemp-derived cannabinoid dietary supplement" },
+      { label: "Count per pack", value: "Varies by SKU" },
+      { label: "Legal status", value: "Federally compliant; verify state laws" },
+    ],
+    dosageGuide: [
+      { level: "New to Delta edibles", amount: "1/2 gummy (5mg D9 + ~1–2mg Kanna)", description: "Always start here for customers new to THC edibles. Wait the full 90 minutes before assessing." },
+      { level: "Occasional users", amount: "1 gummy (10mg D9 + Kanna)", description: "Standard dose for casual edible users. Should produce clear, balanced effects." },
+      { level: "Regular users", amount: "1–2 gummies (10–20mg D9 + Kanna)", description: "For established tolerance. Kanna's anxiety-modulating effects scale with the dose." },
+    ],
     talkingPoints: [
-      "Best seller for cannabis users who get anxious from regular edibles",
-      "Kanna dramatically reduces THC-induced anxiety and paranoia",
-      "Longer, smoother experience than THC alone",
-      "Kanna counteracts the munchies",
-      "Nothing else like it on the market",
+      "The only edible on the market that specifically targets the anxiety and paranoia problem — there is literally nothing else like this",
+      "Kanna is a PDE4 inhibitor that actively counteracts the anxiety pathway THC activates — this isn't marketing, it's biochemistry",
+      "Kanna also reduces the munchie effect — huge selling point for customers who hate that about regular edibles",
+      "4–6 hour duration is longer than standard Delta gummies — more value per gummy",
+      "Our best-reviewed product among returning customers who've tried it",
     ],
     complianceNotes: [
-      "Must verify 21+ age",
-      "CRITICAL: Ask about SSRIs/SNRIs/MAOIs",
-      "Hemp-derived Delta 9 under 2018 Farm Bill",
-      "Start with half gummy for new/casual users",
+      "Must verify 21+ age for the Delta-9 component — ID check required",
+      "CRITICAL: Ask about SSRIs, SNRIs, and MAOIs for the Kanna component",
+      "Hemp-derived Delta-9 — federally compliant under 2018 Farm Bill",
+      "Cannot make medical claims of any kind",
+      "Always advise starting with half a gummy for first-time use",
+      "Advise against driving or operating machinery after use",
     ],
+    warnings: [
+      "Must be 21+ to purchase",
+      "Contraindicated with SSRIs, SNRIs, and MAOIs",
+      "Do not drive or operate machinery",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "May cause failed drug test (Delta-9 THC)",
+      "Do not redose prematurely — edible onset is 45–90 minutes",
+    ],
+    faqs: [
+      { question: "Why does Kanna reduce THC anxiety?", answer: "Kanna's alkaloids are PDE4 inhibitors, which suppresses the cyclic AMP signaling pathway involved in anxiety responses. THC can upregulate this pathway, which is why some people experience anxiety from cannabis. Kanna directly counteracts this mechanism, producing a more relaxed, less anxious headspace even at the same THC dose." },
+      { question: "Who is this product best for?", answer: "It's ideal for existing cannabis or Delta users who have experienced anxiety or paranoia from edibles, who feel like their edible experiences are unpredictable, or who are tired of the munchie effect. It's also great for experienced users who simply want the best edible experience possible." },
+      { question: "Is this stronger than regular Delta-9 gummies?", answer: "It's not necessarily stronger in terms of THC content, but the experience is qualitatively different — more balanced, more social, longer-lasting, and with far less of the anxiety edge. Many customers describe it as feeling 'cleaner' or more intentional than THC alone." },
+      { question: "What's the Kanna safety screen?", answer: "Before selling any Kanna product, ask if the customer takes SSRIs, SNRIs, or MAOIs (antidepressants). If they do, do not sell — Kanna's serotonergic activity can combine with these medications to cause serotonin syndrome. This is a non-negotiable check." },
+    ],
+    proTips: [
+      "Lead with the problem: 'Have you ever gotten too anxious from an edible?' If yes, you have their attention immediately. This product was built for them.",
+      "The munchie-reduction angle is a huge secondary selling point — many customers are self-conscious about overeating after cannabis use and love that this product addresses it.",
+      "This is your best upsell from basic Delta gummies. When a returning Delta-8 or Delta-9 customer comes in, ask if they'd be interested in something that gives a smoother, longer experience — then introduce this product.",
+    ],
+    pairings: ["p9", "p10"],
     relatedProducts: ["p9", "p10", "p1"],
   },
 ]
