@@ -696,7 +696,7 @@ The edible format also means effects are longer-lasting than vaping — typicall
       "If a customer says 'they don't feel anything' — always ask when they took it before suggesting more. Edible overconsumption is the #1 customer complaint.",
     ],
     pairings: ["p2", "p9"],
-    relatedProducts: ["p2", "p3", "p11"],
+    relatedProducts: ["p2", "p12", "p13"],
   },
   {
     id: "p2",
@@ -764,6 +764,280 @@ The fast onset (1–5 minutes) makes vapes ideal for dose-testing and for custom
     ],
     pairings: ["p1", "p7"],
     relatedProducts: ["p1", "p11"],
+  },
+  {
+    id: "p12",
+    name: "THCA Hemp Flower",
+    category: "delta",
+    image: "/hemp-flower-cbd-bud-premium-indoor-grown.png",
+    tagline: "Premium indoor-grown THCA hemp flower — smoke it like flower, feel it like cannabis",
+    description: "Indoor-grown THCA hemp flower with dense, trichome-rich buds. Under the 2018 Farm Bill as sold, but converts to Delta-9 THC when combusted — the real deal for experienced flower consumers.",
+    longDescription: `THCA hemp flower is arguably the most misunderstood — and most exciting — product in the store. It looks like cannabis, smells like cannabis, and smokes like cannabis. That's because it effectively is cannabis in all but legal classification.
+
+THCA (tetrahydrocannabinolic acid) is the raw, non-psychoactive precursor to Delta-9 THC. In its unactivated form, the plant tests under the 0.3% Delta-9 THC federal limit, making it compliant as hemp. But the moment heat is applied — through smoking, vaping, or cooking — decarboxylation converts THCA directly into Delta-9 THC. The customer gets the full, authentic cannabis experience.
+
+Our THCA flower is grown indoors under controlled lighting and climate conditions, which produces tighter bud structure, higher trichome density, and more consistent cannabinoid and terpene profiles than outdoor or greenhouse-grown material. We carry multiple strains (indica, sativa, and hybrid) that rotate seasonally based on availability and quality.
+
+For staff: this is the product to recommend to customers who are used to traditional cannabis flower, are visiting from a legal state, or who find vape carts or edibles unsatisfying. The experience is nearly identical to dispensary cannabis flower because, chemically speaking after combustion, it is.`,
+    effects: [
+      "Full-spectrum Delta-9 THC effect (post-combustion)",
+      "Euphoria and mood elevation",
+      "Deep body relaxation",
+      "Stress and anxiety relief",
+      "Creative and social stimulation (sativa strains)",
+      "Sedation and sleep support (indica strains)",
+    ],
+    onsetTime: "Immediate – 5 minutes",
+    duration: "1 – 3 hours",
+    bestFor: [
+      "Experienced cannabis consumers",
+      "Customers transitioning from dispensary products",
+      "Those who prefer smoking over edibles or vaping",
+      "Customers who want rapid onset",
+      "Connoisseurs seeking strain-specific terpene experiences",
+    ],
+    specs: [
+      { label: "Primary cannabinoid", value: "THCA (converts to D9 on combustion)" },
+      { label: "Delta-9 THC (as sold)", value: "< 0.3% (federal limit)" },
+      { label: "Grow method", value: "Indoor cultivated" },
+      { label: "Available formats", value: "3.5g, 7g, 28g" },
+      { label: "Strain types", value: "Indica, Sativa, Hybrid (rotating)" },
+      { label: "Cure", value: "Slow-cured, hand-trimmed" },
+      { label: "Lab tested", value: "Third-party COA on request" },
+    ],
+    dosageGuide: [
+      { level: "Beginner", amount: "1–2 small puffs", description: "No prior flower experience. Take one small puff, wait 10–15 minutes to assess effects before continuing." },
+      { level: "Light", amount: "A few puffs / half a bowl", description: "Occasional users familiar with smoking. Enjoy at your own pace — effects are felt within minutes." },
+      { level: "Moderate", amount: "Full bowl or half a joint", description: "Regular users with established tolerance seeking a full session experience." },
+      { level: "Experienced", amount: "As preferred", description: "High-tolerance consumers. Adjust based on strain potency and personal comfort." },
+    ],
+    talkingPoints: [
+      "Smells, looks, and smokes exactly like traditional cannabis flower — because it is, legally classified as hemp",
+      "THCA converts to Delta-9 THC when smoked — your customers get the real cannabis experience",
+      "Indoor grown means tighter buds, more trichomes, and a richer terpene profile than mass-market hemp",
+      "Fastest onset of any product we carry — effects felt within minutes of first puff",
+      "Multiple strain options let you match the experience to the customer's goal: sativa for daytime, indica for sleep",
+      "COA available on request — reassure customers about quality and compliance",
+    ],
+    complianceNotes: [
+      "CRITICAL: Must verify 21+ age — ID check required before every sale",
+      "CRITICAL: As sold, this product is federally legal hemp under the 2018 Farm Bill (THCA < 0.3% D9 THC by dry weight). Do not represent it differently.",
+      "CRITICAL: Never tell a customer it 'won't show on a drug test' — THCA converts to THC and WILL cause a positive result",
+      "Do not use the word 'marijuana' or 'weed' — always refer to it as 'hemp flower' or 'THCA flower'",
+      "Cannot make medical claims of any kind",
+      "Do not sell to visibly intoxicated customers",
+      "Advise against driving or operating machinery after use",
+      "Some states have enacted specific restrictions on THCA — be aware of local regulations",
+    ],
+    warnings: [
+      "Do not drive or operate machinery after use",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "WILL cause a positive result on standard drug tests",
+      "Do not combine with alcohol or other depressants",
+      "Combustion produces smoke — all standard smoking health warnings apply",
+    ],
+    faqs: [
+      { question: "How is THCA flower different from CBD flower?", answer: "CBD flower contains high levels of CBD with very little THC or THCA — it produces no significant psychoactive effects. THCA flower converts to Delta-9 THC when smoked, delivering a full psychoactive cannabis experience. They look similar on the shelf but deliver completely different experiences." },
+      { question: "Is THCA flower legal?", answer: "Yes — as sold, THCA hemp flower tests under the 0.3% Delta-9 THC threshold required by the 2018 Farm Bill, making it federally legal. Always direct customers to our COA to verify compliance. Note that some states have imposed additional restrictions." },
+      { question: "Why does it look and smell just like cannabis from a dispensary?", answer: "Because genetically it is very similar. The distinction is in how the plant is grown, tested, and classified — THCA flower is cultivated specifically to stay under the Delta-9 legal limit while allowing THCA levels to remain high. The appearance, aroma, and post-combustion effect are nearly identical to dispensary flower." },
+      { question: "Will this show on a drug test?", answer: "Yes — absolutely. When THCA is smoked, it converts to Delta-9 THC, and THC metabolites will appear on standard drug screens. Never tell a customer it won't cause a positive test." },
+      { question: "What's the difference between indica, sativa, and hybrid?", answer: "Indica strains tend to produce more body-focused, relaxing effects — good for evening or sleep. Sativa strains lean toward cerebral, energetic, creative effects — better for daytime. Hybrids offer a blend of both. Strain-to-strain variation depends heavily on the specific terpene profile, not just indica/sativa classification." },
+      { question: "How should I store it?", answer: "Store in a cool, dark place in an airtight container. Avoid humidity (causes mold) and excessive dryness (destroys trichomes and terpenes). Our store packaging is designed to maintain freshness for several weeks unopened." },
+    ],
+    proTips: [
+      "When a customer says they 'need something strong' — THCA flower is almost always your best recommendation over edibles or carts.",
+      "Let customers smell the jar if you have display stock — the terpene aroma closes the sale faster than any talking point.",
+      "Pair with a quality grinder from our accessories section to upsell the full setup.",
+      "Know your current strains cold — being able to describe the specific effects and aroma of each strain on the shelf is what separates a good associate from a great one.",
+    ],
+    pairings: ["p13", "p14", "p8"],
+    relatedProducts: ["p13", "p14", "p2"],
+  },
+  {
+    id: "p13",
+    name: "Hemp Pre-Rolls",
+    category: "delta",
+    image: "/hemp-pre-rolls-cbd-joints-pack-premium.png",
+    tagline: "Ready-to-smoke THCA hemp joints — no grinder, no rolling, no hassle",
+    description: "Pre-rolled THCA hemp joints made with the same premium indoor flower from our bulk selection. Available in singles and multi-packs. The easiest on-ramp for customers who want the flower experience without any prep.",
+    longDescription: `Hemp pre-rolls are the most convenient and accessible format for customers who want the flower experience without the gear, skill, or time investment of rolling their own. Each pre-roll is filled with the same premium THCA hemp flower we sell by the gram — ground, packed, and sealed for consistent, even burns.
+
+Pre-rolls are a particularly powerful retail item because they serve multiple customer segments simultaneously: the first-time buyer who doesn't own a pipe or papers, the experienced consumer who wants grab-and-go convenience, and the gifter who needs something presentable and easy to explain.
+
+We offer pre-rolls in two formats: singles (great for sampling a specific strain or variety) and multi-packs (typically 5 or 10 count, which drive higher dollar-per-transaction and are ideal for regular customers). Multi-packs also represent better value per gram for the customer, making them an easy upsell.
+
+Each pre-roll uses unbleached natural rolling papers and a crutch (filter tip) for stability and airflow. The flower inside is not shake or trim — it's the same quality ground flower you'd find in our jars. We test every batch for consistency in packing density and weight.
+
+For staff: pre-rolls are often an impulse or add-on purchase. Keep them visible near the register and suggest them as a pairing whenever a customer is buying flower, a pipe, or accessories.`,
+    effects: [
+      "Full Delta-9 THC effect (post-combustion via THCA conversion)",
+      "Rapid onset — effects within minutes",
+      "Mood elevation and euphoria",
+      "Body relaxation and stress relief",
+      "Social and creative effects (sativa varieties)",
+      "Evening wind-down and sleep support (indica varieties)",
+    ],
+    onsetTime: "Immediate – 5 minutes",
+    duration: "1 – 2 hours",
+    bestFor: [
+      "Customers who want flower without rolling supplies or a pipe",
+      "First-time hemp flower buyers",
+      "On-the-go consumers",
+      "Gifting",
+      "Impulse and add-on purchases at checkout",
+    ],
+    specs: [
+      { label: "Primary cannabinoid", value: "THCA (converts to D9 on combustion)" },
+      { label: "Delta-9 THC (as sold)", value: "< 0.3% (federal limit)" },
+      { label: "Weight per pre-roll", value: "1g" },
+      { label: "Available formats", value: "Singles, 5-pack, 10-pack" },
+      { label: "Paper type", value: "Unbleached natural rolling papers" },
+      { label: "Filter", value: "Crutch (hard filter tip)" },
+      { label: "Flower grade", value: "Same grade as bulk flower — not shake" },
+      { label: "Lab tested", value: "Third-party COA on request" },
+    ],
+    dosageGuide: [
+      { level: "Beginner", amount: "1–3 puffs, then pause", description: "Take a few puffs, wait 10–15 minutes to gauge effects. You don't need to finish the whole pre-roll in one sitting." },
+      { level: "Light", amount: "Half a pre-roll", description: "Familiar with smoking but moderate tolerance. Enjoy half, save the rest by storing in an airtight container." },
+      { level: "Moderate", amount: "One full pre-roll", description: "Regular users who know their tolerance well. Full pre-roll in one session is standard for moderate users." },
+      { level: "Experienced", amount: "1+ pre-rolls", description: "High-tolerance consumers can enjoy one or more pre-rolls in a session based on personal preference." },
+    ],
+    talkingPoints: [
+      "Same premium indoor THCA flower as our bulk jars — just pre-rolled for convenience",
+      "No grinder, no papers, no rolling skill needed — just light and enjoy",
+      "Available in singles (great for trying a new strain) and multi-packs (better value per gram)",
+      "Unbleached natural papers burn cleaner and slower than standard rolling papers",
+      "Great gift option — presentable, easy to explain, and well-priced",
+      "Fastest onset of any product — effects start within minutes",
+    ],
+    complianceNotes: [
+      "CRITICAL: Must verify 21+ age — ID check required",
+      "CRITICAL: Federally legal as hemp (THCA < 0.3% D9 THC). Do not misrepresent legal status.",
+      "CRITICAL: Never state or imply this product won't cause a positive drug test",
+      "Always refer to this as 'hemp pre-roll' or 'THCA pre-roll' — never 'joint' with cannabis connotations in contexts that could imply legality misrepresentation",
+      "Cannot make medical claims",
+      "Do not sell to visibly intoxicated customers",
+    ],
+    warnings: [
+      "Do not drive or operate machinery after use",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "Will cause a positive result on standard drug tests",
+      "Combustion produces smoke — all standard smoking health warnings apply",
+    ],
+    faqs: [
+      { question: "Is the flower in pre-rolls the same quality as the bulk flower?", answer: "Yes — we do not use shake, trim, or lower-grade material in our pre-rolls. The flower inside is the same grade as what we sell in jars, just ground for rolling. You can verify this by looking at the grind consistency and color when the crutch end is visible." },
+      { question: "Can I save a half-smoked pre-roll for later?", answer: "Yes — tap out the ash, store the pre-roll in an airtight container away from light and heat. It will keep well for days. Some customers clip the burned end for a cleaner relight." },
+      { question: "How many pre-rolls come in a pack?", answer: "We offer singles (1g each), 5-packs, and 10-packs. Multi-packs offer better value per gram and are popular with regular customers who have a preferred strain." },
+      { question: "Will this show on a drug test?", answer: "Yes — THCA converts to Delta-9 THC when smoked, and THC metabolites will appear on standard drug screens. This must always be disclosed to customers." },
+      { question: "What's the difference between indica, sativa, and hybrid pre-rolls?", answer: "The strain determines the terpene profile and the nature of the experience. Indica-leaning pre-rolls tend toward relaxation and body effects; sativa-leaning pre-rolls lean toward energy and mental clarity; hybrids offer a balance. Ask customers what time of day they plan to smoke and what they're looking for to guide the recommendation." },
+    ],
+    proTips: [
+      "Suggest a multi-pack whenever a customer picks up a single — the per-gram value is better and the attach rate is high once you explain it.",
+      "Position pre-rolls as a 'try before you commit' option for customers considering buying bulk flower for the first time.",
+      "Keep a small display of pre-rolls near the register — they're the most common impulse add-on purchase in the store.",
+      "Know the current strain rotation. A customer who loved last week's indica pre-roll and wants the same again is a loyalty win — know exactly what you have in stock.",
+    ],
+    pairings: ["p12", "p14", "p9"],
+    relatedProducts: ["p12", "p14", "p2"],
+  },
+  {
+    id: "p14",
+    name: "Hemp Concentrate (THCA Wax / Dab)",
+    category: "delta",
+    image: "/hemp-concentrate-thca-wax-dab-product.png",
+    tagline: "The most potent hemp product in the store — THCA concentrate for experienced consumers",
+    description: "High-potency THCA concentrate available in wax, shatter, and live resin formats. Requires a dab rig or concentrate vaporizer. Intended for experienced consumers seeking the strongest possible hemp-derived experience.",
+    longDescription: `Hemp THCA concentrates represent the pinnacle of potency in our hemp product lineup. Where flower might test at 20–30% THCA, concentrates can reach 70–95%+ — delivering an experience that's dramatically stronger, faster, and more intense than any other format we carry.
+
+Like THCA flower, the chemistry here is straightforward: THCA is non-psychoactive in its raw form but converts instantly and completely to Delta-9 THC when exposed to the heat of a dab nail, e-nail, or concentrate vaporizer. The result is an almost immediate, highly potent onset that experienced consumers seek when they need intensity, fast relief, or a specific terpene-forward experience.
+
+We carry three concentrate formats:
+
+**Wax** — A soft, pliable concentrate with a creamy to crumbly texture. Easy to handle with a dab tool, forgiving temperature range, and good flavor. Best for beginners to concentrates.
+
+**Shatter** — A translucent, glass-like concentrate that "shatters" when broken. Very pure, clean-burning, and potent. Slightly more difficult to handle than wax but prized for clarity.
+
+**Live Resin** — Made from fresh-frozen plant material to preserve the full terpene profile. The most flavorful and aromatic concentrate format. Commands a premium price and is worth it for terpene connoisseurs.
+
+Concentrates require a consumption device — either a traditional dab rig (glass water pipe with a quartz or titanium nail) or a portable concentrate vaporizer (e-rig or e-nail). We carry compatible accessories in-store.
+
+For staff: concentrates are your highest-margin delta product per gram. They are not a beginner product — always qualify the customer first.`,
+    effects: [
+      "Extremely potent Delta-9 THC effect (post-combustion)",
+      "Near-immediate, intense onset",
+      "Powerful euphoria and mood elevation",
+      "Deep, full-body relaxation",
+      "Intense stress and pain relief",
+      "Strong sedation at higher amounts (indica varieties)",
+    ],
+    onsetTime: "Immediate – 2 minutes",
+    duration: "1 – 3 hours",
+    bestFor: [
+      "Experienced cannabis consumers only",
+      "High-tolerance individuals",
+      "Customers seeking maximum potency from hemp",
+      "Terpene connoisseurs (live resin)",
+      "Those who already own a dab rig or concentrate vaporizer",
+    ],
+    specs: [
+      { label: "Primary cannabinoid", value: "THCA (70–95%+, converts to D9 on combustion)" },
+      { label: "Delta-9 THC (as sold)", value: "< 0.3% (federal limit)" },
+      { label: "Available formats", value: "Wax, Shatter, Live Resin" },
+      { label: "Weight per jar", value: "1g, 2g" },
+      { label: "Required equipment", value: "Dab rig + nail, or concentrate vaporizer" },
+      { label: "Recommended temp", value: "Wax/Shatter: 315–450°F | Live Resin: 315–400°F" },
+      { label: "Lab tested", value: "Third-party COA on request — verify THCA and D9 levels" },
+    ],
+    dosageGuide: [
+      { level: "Beginner", amount: "Not recommended", description: "Concentrates are not appropriate for customers new to delta products or hemp flower. Redirect to flower or edibles." },
+      { level: "Light", amount: "Rice grain size (~0.05–0.1g)", description: "Small dab for concentrate-curious users who have significant flower experience. One dab and wait 10–15 minutes." },
+      { level: "Moderate", amount: "0.1–0.2g per session", description: "Established concentrate users with regular tolerance. Standard amount for a meaningful session." },
+      { level: "Experienced", amount: "0.2g+ as preferred", description: "High-tolerance concentrate consumers. Adjust based on concentrate type, potency, and personal tolerance." },
+    ],
+    talkingPoints: [
+      "The most potent hemp product we carry — THCA concentrates can test 70–95%+ before decarboxylation",
+      "Three formats available: wax (easiest to work with), shatter (purest), and live resin (best flavor and terpene profile)",
+      "Near-instant onset — effects hit within 1–2 minutes, much faster than flower or edibles",
+      "Live resin preserves the complete terpene fingerprint of the original plant — unmatched flavor",
+      "Requires a dab rig or concentrate vaporizer — we carry compatible accessories in-store",
+      "Best value per mg of active cannabinoid of anything we carry",
+    ],
+    complianceNotes: [
+      "CRITICAL: Must verify 21+ age — ID check required",
+      "CRITICAL: This product is federally legal hemp (THCA < 0.3% D9 THC as sold). After decarboxylation, potency is dramatically higher.",
+      "CRITICAL: Never state this won't show on a drug test — it absolutely will",
+      "Only recommend to customers who explicitly confirm prior concentrate experience",
+      "Cannot make medical claims — never suggest this treats or cures any condition",
+      "Do not sell to visibly intoxicated customers",
+      "Always explain required equipment upfront — do not allow a customer to purchase without knowing they need a rig or vaporizer",
+    ],
+    warnings: [
+      "EXTREMELY POTENT — not for beginners or first-time users",
+      "Do not drive or operate machinery after use",
+      "Keep out of reach of children",
+      "Not for use during pregnancy or nursing",
+      "Will absolutely cause a positive result on standard drug tests",
+      "High heat required — handle dab nails with care, burn risk",
+      "Overconsumption risk is higher than any other product due to potency",
+    ],
+    faqs: [
+      { question: "What equipment do I need to use concentrates?", answer: "You need either a traditional dab rig (a glass water pipe with a quartz, titanium, or ceramic nail that you heat with a torch) or a portable concentrate vaporizer / e-rig (electronic, no torch required). We carry both in our accessories section. Always walk the customer through their options before they buy concentrate." },
+      { question: "What is the difference between wax, shatter, and live resin?", answer: "Wax is soft and easy to handle — good starting point for concentrate newcomers. Shatter is a hard, glass-like concentrate, very pure and clean-burning. Live resin is made from fresh-frozen plant material which preserves the terpene profile, delivering the most flavorful and aromatic experience. Live resin commands the highest price and is worth it for the right customer." },
+      { question: "How much should I use for my first time with concentrates?", answer: "A rice-grain-sized amount (roughly 0.05–0.1g) is appropriate for someone new to concentrates who has significant flower experience. The potency is dramatically higher than flower — a common mistake is using as much as you would flower, which leads to overconsumption." },
+      { question: "What temperature should I dab at?", answer: "Lower temperatures (315–400°F) preserve flavor and terpenes — ideal for live resin. Higher temperatures (400–450°F) produce more vapor and stronger effects but can degrade terpenes. Most experienced consumers prefer low-temp dabs for flavor. An e-nail or e-rig with digital temperature control removes the guesswork." },
+      { question: "Will this show on a drug test?", answer: "Absolutely yes. THCA converts fully to Delta-9 THC under heat, and at these concentrations the metabolites will be detectable for an extended period depending on frequency of use. This must always be disclosed clearly." },
+      { question: "Is this the same as 'dabs' from a dispensary?", answer: "Very similar. Dispensary concentrates are cannabis-derived; ours are hemp-derived THCA concentrates. The extraction and consumption methods are identical, and post-decarboxylation the experience is nearly indistinguishable for experienced users. The legal distinction is that ours comply with federal hemp law as sold." },
+    ],
+    proTips: [
+      "Always qualify the customer before selling concentrate — ask if they've dabbed before and what equipment they have. Never let a customer walk out with concentrate and no rig.",
+      "If they don't have a rig, bundle the sale: concentrate + e-rig or starter dab kit. It's your highest-value delta transaction.",
+      "Live resin is your premium upsell for returning concentrate customers — the flavor difference is immediately noticeable and the margin is strong.",
+      "Be honest about the intensity: 'This is the strongest thing we carry' positions you as trustworthy and prevents negative experiences that lead to returns or bad reviews.",
+    ],
+    pairings: ["p12", "p13", "p7"],
+    relatedProducts: ["p12", "p13", "p2"],
   },
   {
     id: "p3",
