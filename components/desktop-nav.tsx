@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen } from "lucide-react"
+import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen, ShieldCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -14,6 +14,10 @@ const navItems = [
   { href: "/handbook", icon: BookOpen, label: "Handbook" },
   { href: "/sales-tips", icon: Lightbulb, label: "Sales Tips" },
   { href: "/profile", icon: User, label: "Profile" },
+]
+
+const adminNavItems = [
+  { href: "/admin", icon: ShieldCheck, label: "Admin" },
 ]
 
 export function DesktopNav() {
@@ -50,6 +54,31 @@ export function DesktopNav() {
           )
         })}
       </nav>
+
+      {/* Admin section */}
+      <div className="px-3 pb-3">
+        <p className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/40">
+          Leadership
+        </p>
+        {adminNavItems.map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                isActive
+                  ? "bg-sidebar-accent text-sidebar-primary"
+                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
+              )}
+            >
+              <item.icon className="h-5 w-5" />
+              {item.label}
+            </Link>
+          )
+        })}
+      </div>
 
       {/* Footer */}
       <div className="p-4 border-t border-sidebar-border">

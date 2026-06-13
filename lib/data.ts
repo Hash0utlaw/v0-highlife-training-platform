@@ -5805,6 +5805,233 @@ export const mockSalesTips: SalesTip[] = [
   },
 ]
 
+// ── Admin Types ───────────────────────────────────────────────────────────────
+export interface AdminEmployee {
+  id: string
+  name: string
+  email: string
+  role: "Sales Associate" | "Shift Lead" | "Assistant Manager" | "Store Manager"
+  storeLocation: string
+  district: string
+  hireDate: string
+  lastActive: string
+  completedModules: string[] // module ids
+  inProgressModules: string[] // module ids
+  assignedModules: string[] // module ids
+  quizAttempts: AdminQuizAttempt[]
+}
+
+export interface AdminQuizAttempt {
+  quizId: string
+  quizTitle: string
+  moduleId: string
+  attempts: number
+  bestScore: number
+  latestScore: number
+  passed: boolean
+  completedAt: string
+}
+
+export interface AdminModule {
+  id: string
+  title: string
+  category: "delta" | "kratom" | "kanna" | "glass" | "compliance" | "sales" | "operations"
+  estimatedTime: string
+  required: boolean
+}
+
+// ── Admin Mock Data ───────────────────────────────────────────────────────────
+export const adminModules: AdminModule[] = [
+  { id: "m1", title: "Delta 101", category: "delta", estimatedTime: "45 min", required: true },
+  { id: "m2", title: "Kratom Fundamentals", category: "kratom", estimatedTime: "40 min", required: true },
+  { id: "m3", title: "Kanna & Alternative Wellness", category: "kanna", estimatedTime: "35 min", required: true },
+  { id: "m4", title: "Glass & Accessories", category: "glass", estimatedTime: "30 min", required: true },
+  { id: "m5", title: "Compliance & Legal Language", category: "compliance", estimatedTime: "50 min", required: true },
+  { id: "m6", title: "Sales Techniques & Upselling", category: "sales", estimatedTime: "45 min", required: true },
+  { id: "m7", title: "Customer Service Fundamentals", category: "operations", estimatedTime: "35 min", required: true },
+  { id: "m8", title: "Store Operations & POS", category: "operations", estimatedTime: "30 min", required: false },
+  { id: "m9", title: "Delta Advanced: HHC, THCA & More", category: "delta", estimatedTime: "40 min", required: false },
+  { id: "m10", title: "Kratom Advanced: Strains & Dosing", category: "kratom", estimatedTime: "35 min", required: false },
+  { id: "m11", title: "Loss Prevention Basics", category: "compliance", estimatedTime: "25 min", required: false },
+  { id: "m12", title: "Opening & Closing Procedures", category: "operations", estimatedTime: "20 min", required: false },
+  { id: "m13", title: "Product Merchandising", category: "operations", estimatedTime: "25 min", required: false },
+]
+
+export const adminEmployees: AdminEmployee[] = [
+  {
+    id: "e1",
+    name: "Marcus Webb",
+    email: "m.webb@highlife.com",
+    role: "Sales Associate",
+    storeLocation: "Downtown",
+    district: "Metro North",
+    hireDate: "2024-02-10",
+    lastActive: "2024-06-12",
+    completedModules: ["m1", "m2", "m3", "m5", "m6", "m7"],
+    inProgressModules: ["m4"],
+    assignedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 1, bestScore: 92, latestScore: 92, passed: true, completedAt: "2024-03-01" },
+      { quizId: "q2", quizTitle: "Kratom Fundamentals Quiz", moduleId: "m2", attempts: 2, bestScore: 78, latestScore: 78, passed: true, completedAt: "2024-03-08" },
+      { quizId: "q3", quizTitle: "Kanna Wellness Quiz", moduleId: "m3", attempts: 1, bestScore: 85, latestScore: 85, passed: true, completedAt: "2024-03-15" },
+      { quizId: "q5", quizTitle: "Compliance Language Quiz", moduleId: "m5", attempts: 3, bestScore: 75, latestScore: 75, passed: true, completedAt: "2024-04-02" },
+      { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 90, latestScore: 90, passed: true, completedAt: "2024-04-10" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2024-04-18" },
+    ],
+  },
+  {
+    id: "e2",
+    name: "Destiny Okafor",
+    email: "d.okafor@highlife.com",
+    role: "Shift Lead",
+    storeLocation: "Midtown",
+    district: "Metro North",
+    hireDate: "2023-09-15",
+    lastActive: "2024-06-13",
+    completedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10"],
+    inProgressModules: ["m11"],
+    assignedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-10-01" },
+      { quizId: "q2", quizTitle: "Kratom Fundamentals Quiz", moduleId: "m2", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2023-10-08" },
+      { quizId: "q3", quizTitle: "Kanna Wellness Quiz", moduleId: "m3", attempts: 1, bestScore: 90, latestScore: 90, passed: true, completedAt: "2023-10-15" },
+      { quizId: "q4", quizTitle: "Glass & Accessories Quiz", moduleId: "m4", attempts: 1, bestScore: 88, latestScore: 88, passed: true, completedAt: "2023-10-22" },
+      { quizId: "q5", quizTitle: "Compliance Language Quiz", moduleId: "m5", attempts: 1, bestScore: 92, latestScore: 92, passed: true, completedAt: "2023-11-01" },
+      { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 97, latestScore: 97, passed: true, completedAt: "2023-11-10" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-11-18" },
+      { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 94, latestScore: 94, passed: true, completedAt: "2023-12-01" },
+      { quizId: "q9", quizTitle: "Delta Advanced Quiz", moduleId: "m9", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-10" },
+      { quizId: "q10", quizTitle: "Kratom Advanced Quiz", moduleId: "m10", attempts: 2, bestScore: 82, latestScore: 82, passed: true, completedAt: "2024-02-01" },
+    ],
+  },
+  {
+    id: "e3",
+    name: "Tyler Reese",
+    email: "t.reese@highlife.com",
+    role: "Sales Associate",
+    storeLocation: "Eastside",
+    district: "East District",
+    hireDate: "2024-05-01",
+    lastActive: "2024-06-10",
+    completedModules: ["m1", "m7"],
+    inProgressModules: ["m2"],
+    assignedModules: ["m1", "m2", "m3", "m5", "m6", "m7"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 2, bestScore: 70, latestScore: 70, passed: true, completedAt: "2024-05-20" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 80, latestScore: 80, passed: true, completedAt: "2024-05-28" },
+    ],
+  },
+  {
+    id: "e4",
+    name: "Jasmine Patel",
+    email: "j.patel@highlife.com",
+    role: "Assistant Manager",
+    storeLocation: "Westgate",
+    district: "West District",
+    hireDate: "2023-06-20",
+    lastActive: "2024-06-13",
+    completedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12"],
+    inProgressModules: ["m13"],
+    assignedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 1, bestScore: 98, latestScore: 98, passed: true, completedAt: "2023-07-05" },
+      { quizId: "q2", quizTitle: "Kratom Fundamentals Quiz", moduleId: "m2", attempts: 1, bestScore: 94, latestScore: 94, passed: true, completedAt: "2023-07-12" },
+      { quizId: "q3", quizTitle: "Kanna Wellness Quiz", moduleId: "m3", attempts: 1, bestScore: 96, latestScore: 96, passed: true, completedAt: "2023-07-19" },
+      { quizId: "q4", quizTitle: "Glass & Accessories Quiz", moduleId: "m4", attempts: 1, bestScore: 91, latestScore: 91, passed: true, completedAt: "2023-07-26" },
+      { quizId: "q5", quizTitle: "Compliance Language Quiz", moduleId: "m5", attempts: 1, bestScore: 99, latestScore: 99, passed: true, completedAt: "2023-08-05" },
+      { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2023-08-15" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-08-22" },
+      { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 93, latestScore: 93, passed: true, completedAt: "2023-09-01" },
+      { quizId: "q9", quizTitle: "Delta Advanced Quiz", moduleId: "m9", attempts: 1, bestScore: 88, latestScore: 88, passed: true, completedAt: "2023-10-05" },
+      { quizId: "q10", quizTitle: "Kratom Advanced Quiz", moduleId: "m10", attempts: 1, bestScore: 90, latestScore: 90, passed: true, completedAt: "2023-11-01" },
+      { quizId: "q11", quizTitle: "Loss Prevention Quiz", moduleId: "m11", attempts: 1, bestScore: 87, latestScore: 87, passed: true, completedAt: "2024-01-15" },
+      { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2024-02-01" },
+    ],
+  },
+  {
+    id: "e5",
+    name: "Devon Castillo",
+    email: "d.castillo@highlife.com",
+    role: "Sales Associate",
+    storeLocation: "Northpark",
+    district: "North District",
+    hireDate: "2024-04-15",
+    lastActive: "2024-06-05",
+    completedModules: ["m1"],
+    inProgressModules: [],
+    assignedModules: ["m1", "m2", "m3", "m5", "m6", "m7"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 4, bestScore: 72, latestScore: 72, passed: true, completedAt: "2024-05-10" },
+    ],
+  },
+  {
+    id: "e6",
+    name: "Aaliyah Monroe",
+    email: "a.monroe@highlife.com",
+    role: "Shift Lead",
+    storeLocation: "Downtown",
+    district: "Metro North",
+    hireDate: "2023-11-01",
+    lastActive: "2024-06-12",
+    completedModules: ["m1", "m2", "m3", "m5", "m6", "m7", "m8"],
+    inProgressModules: ["m4", "m9"],
+    assignedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 1, bestScore: 88, latestScore: 88, passed: true, completedAt: "2023-12-01" },
+      { quizId: "q2", quizTitle: "Kratom Fundamentals Quiz", moduleId: "m2", attempts: 1, bestScore: 84, latestScore: 84, passed: true, completedAt: "2023-12-10" },
+      { quizId: "q3", quizTitle: "Kanna Wellness Quiz", moduleId: "m3", attempts: 2, bestScore: 80, latestScore: 80, passed: true, completedAt: "2023-12-18" },
+      { quizId: "q5", quizTitle: "Compliance Language Quiz", moduleId: "m5", attempts: 1, bestScore: 91, latestScore: 91, passed: true, completedAt: "2024-01-08" },
+      { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 93, latestScore: 93, passed: true, completedAt: "2024-01-15" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-22" },
+      { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 86, latestScore: 86, passed: true, completedAt: "2024-02-05" },
+    ],
+  },
+  {
+    id: "e7",
+    name: "Jordan Kim",
+    email: "j.kim@highlife.com",
+    role: "Sales Associate",
+    storeLocation: "Eastside",
+    district: "East District",
+    hireDate: "2024-03-01",
+    lastActive: "2024-06-01",
+    completedModules: ["m7"],
+    inProgressModules: ["m1"],
+    assignedModules: ["m1", "m2", "m3", "m5", "m6", "m7"],
+    quizAttempts: [
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 65, latestScore: 65, passed: true, completedAt: "2024-03-20" },
+    ],
+  },
+  {
+    id: "e8",
+    name: "Brianna Torres",
+    email: "b.torres@highlife.com",
+    role: "Store Manager",
+    storeLocation: "Westgate",
+    district: "West District",
+    hireDate: "2022-08-15",
+    lastActive: "2024-06-13",
+    completedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13"],
+    inProgressModules: [],
+    assignedModules: ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13"],
+    quizAttempts: [
+      { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2022-09-01" },
+      { quizId: "q2", quizTitle: "Kratom Fundamentals Quiz", moduleId: "m2", attempts: 1, bestScore: 96, latestScore: 96, passed: true, completedAt: "2022-09-08" },
+      { quizId: "q3", quizTitle: "Kanna Wellness Quiz", moduleId: "m3", attempts: 1, bestScore: 94, latestScore: 94, passed: true, completedAt: "2022-09-15" },
+      { quizId: "q4", quizTitle: "Glass & Accessories Quiz", moduleId: "m4", attempts: 1, bestScore: 98, latestScore: 98, passed: true, completedAt: "2022-09-22" },
+      { quizId: "q5", quizTitle: "Compliance Language Quiz", moduleId: "m5", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2022-10-01" },
+      { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 97, latestScore: 97, passed: true, completedAt: "2022-10-10" },
+      { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2022-10-18" },
+      { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2022-11-01" },
+      { quizId: "q9", quizTitle: "Delta Advanced Quiz", moduleId: "m9", attempts: 1, bestScore: 92, latestScore: 92, passed: true, completedAt: "2023-01-10" },
+      { quizId: "q10", quizTitle: "Kratom Advanced Quiz", moduleId: "m10", attempts: 1, bestScore: 91, latestScore: 91, passed: true, completedAt: "2023-02-01" },
+      { quizId: "q11", quizTitle: "Loss Prevention Quiz", moduleId: "m11", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2023-04-01" },
+      { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-05-01" },
+      { quizId: "q13", quizTitle: "Merchandising Quiz", moduleId: "m13", attempts: 1, bestScore: 93, latestScore: 93, passed: true, completedAt: "2023-06-01" },
+    ],
+  },
+]
+
 // ADDED TIP:
 export const tipOfTheDay: SalesTip = {
   id: "tod1",
