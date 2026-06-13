@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen, ShieldCheck } from "lucide-react"
+import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen, ShieldCheck, Trophy, Briefcase } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -12,7 +12,9 @@ const navItems = [
   { href: "/training", icon: GraduationCap, label: "Training" },
   { href: "/quizzes", icon: ClipboardCheck, label: "Quizzes" },
   { href: "/handbook", icon: BookOpen, label: "Handbook" },
+  { href: "/job-descriptions", icon: Briefcase, label: "Job Descriptions" },
   { href: "/sales-tips", icon: Lightbulb, label: "Sales Tips" },
+  { href: "/badges", icon: Trophy, label: "Achievements" },
   { href: "/profile", icon: User, label: "Profile" },
 ]
 

@@ -22,6 +22,425 @@ export interface Badge {
   earnedAt: string
 }
 
+// ── Badge Definition System ────────────────────────────────────────────────────
+export type BadgeTier = "bronze" | "silver" | "gold" | "platinum"
+export type BadgeCategory =
+  | "delta"
+  | "kratom"
+  | "kanna"
+  | "glass"
+  | "compliance"
+  | "sales"
+  | "milestones"
+  | "quiz"
+
+export interface BadgeDefinition {
+  id: string
+  name: string
+  description: string
+  flavor: string // short punchy tagline shown on the card
+  icon: string // lucide icon name
+  tier: BadgeTier
+  category: BadgeCategory
+  // Earn condition metadata (used for display/unlock logic)
+  condition: string
+  xp: number // points awarded
+}
+
+export const allBadgeDefinitions: BadgeDefinition[] = [
+  // ── MILESTONE BADGES ─────────────────────────────────────────────────────────
+  {
+    id: "first-step",
+    name: "First Step",
+    description: "Complete your very first training module.",
+    flavor: "Every expert was once a beginner.",
+    icon: "zap",
+    tier: "bronze",
+    category: "milestones",
+    condition: "Complete 1 module",
+    xp: 50,
+  },
+  {
+    id: "getting-started",
+    name: "Getting Started",
+    description: "Complete 3 training modules.",
+    flavor: "The foundation is set.",
+    icon: "play",
+    tier: "bronze",
+    category: "milestones",
+    condition: "Complete 3 modules",
+    xp: 100,
+  },
+  {
+    id: "halfway-there",
+    name: "Halfway There",
+    description: "Complete 50% of all assigned training modules.",
+    flavor: "Keep the momentum going.",
+    icon: "trending-up",
+    tier: "silver",
+    category: "milestones",
+    condition: "Complete 50% of modules",
+    xp: 200,
+  },
+  {
+    id: "fully-certified",
+    name: "Fully Certified",
+    description: "Complete 100% of all assigned training modules.",
+    flavor: "You are the standard.",
+    icon: "shield-check",
+    tier: "gold",
+    category: "milestones",
+    condition: "Complete all modules",
+    xp: 500,
+  },
+  {
+    id: "highlife-elite",
+    name: "Highlife Elite",
+    description: "Complete all modules AND score 90%+ on every quiz.",
+    flavor: "The pinnacle of Highlife knowledge.",
+    icon: "crown",
+    tier: "platinum",
+    category: "milestones",
+    condition: "Complete all modules with 90%+ quiz scores",
+    xp: 1000,
+  },
+  {
+    id: "streak-5",
+    name: "On a Roll",
+    description: "Log in and complete training 5 days in a row.",
+    flavor: "Consistency builds champions.",
+    icon: "flame",
+    tier: "bronze",
+    category: "milestones",
+    condition: "5-day training streak",
+    xp: 75,
+  },
+  {
+    id: "streak-30",
+    name: "Unstoppable",
+    description: "Maintain a 30-day training streak.",
+    flavor: "Nothing stops the grind.",
+    icon: "flame",
+    tier: "gold",
+    category: "milestones",
+    condition: "30-day training streak",
+    xp: 400,
+  },
+
+  // ── QUIZ BADGES ───────────────────────────────────────────────────────────────
+  {
+    id: "first-pass",
+    name: "First Pass",
+    description: "Pass your first quiz on the first attempt.",
+    flavor: "No second chances needed.",
+    icon: "check-circle-2",
+    tier: "bronze",
+    category: "quiz",
+    condition: "Pass 1 quiz on first attempt",
+    xp: 50,
+  },
+  {
+    id: "perfect-score",
+    name: "Perfect Score",
+    description: "Score 100% on any quiz.",
+    flavor: "Flawless execution.",
+    icon: "target",
+    tier: "silver",
+    category: "quiz",
+    condition: "Score 100% on a quiz",
+    xp: 150,
+  },
+  {
+    id: "quiz-master",
+    name: "Quiz Master",
+    description: "Pass 5 quizzes with a score of 90% or higher.",
+    flavor: "Sharp mind, sharper answers.",
+    icon: "brain",
+    tier: "gold",
+    category: "quiz",
+    condition: "Score 90%+ on 5 quizzes",
+    xp: 300,
+  },
+  {
+    id: "clean-sweep",
+    name: "Clean Sweep",
+    description: "Pass all quizzes on the first attempt with no retries.",
+    flavor: "One shot is all it takes.",
+    icon: "award",
+    tier: "platinum",
+    category: "quiz",
+    condition: "Pass every quiz on the first attempt",
+    xp: 600,
+  },
+  {
+    id: "comeback-kid",
+    name: "Comeback Kid",
+    description: "Fail a quiz and then retake it and pass with 85%+.",
+    flavor: "Failure is just the first draft.",
+    icon: "refresh-cw",
+    tier: "bronze",
+    category: "quiz",
+    condition: "Retake and pass a quiz with 85%+",
+    xp: 75,
+  },
+
+  // ── DELTA BADGES ─────────────────────────────────────────────────────────────
+  {
+    id: "delta-starter",
+    name: "Delta Starter",
+    description: "Complete the Delta 101 training module.",
+    flavor: "The hemp frontier begins here.",
+    icon: "leaf",
+    tier: "bronze",
+    category: "delta",
+    condition: "Complete Delta 101",
+    xp: 75,
+  },
+  {
+    id: "delta-pro",
+    name: "Delta Pro",
+    description: "Complete all Delta product modules and pass the quizzes.",
+    flavor: "HHC, THCA, Delta 8 — you know it all.",
+    icon: "leaf",
+    tier: "silver",
+    category: "delta",
+    condition: "Complete all Delta modules",
+    xp: 200,
+  },
+  {
+    id: "delta-expert",
+    name: "Delta Expert",
+    description: "Score 90%+ on every Delta-related quiz.",
+    flavor: "The go-to Delta authority on the floor.",
+    icon: "star",
+    tier: "gold",
+    category: "delta",
+    condition: "90%+ on all Delta quizzes",
+    xp: 350,
+  },
+
+  // ── KRATOM BADGES ─────────────────────────────────────────────────────────────
+  {
+    id: "kratom-starter",
+    name: "Kratom Starter",
+    description: "Complete the Kratom Fundamentals training module.",
+    flavor: "Ancient plant, modern knowledge.",
+    icon: "sprout",
+    tier: "bronze",
+    category: "kratom",
+    condition: "Complete Kratom Fundamentals",
+    xp: 75,
+  },
+  {
+    id: "kratom-guide",
+    name: "Kratom Guide",
+    description: "Complete all Kratom training modules.",
+    flavor: "Red, green, or white — you know the difference.",
+    icon: "sprout",
+    tier: "silver",
+    category: "kratom",
+    condition: "Complete all Kratom modules",
+    xp: 200,
+  },
+  {
+    id: "kratom-authority",
+    name: "Kratom Authority",
+    description: "Score 90%+ on all Kratom quizzes.",
+    flavor: "Strain, vein, and dose — flawlessly explained.",
+    icon: "star",
+    tier: "gold",
+    category: "kratom",
+    condition: "90%+ on all Kratom quizzes",
+    xp: 350,
+  },
+
+  // ── KANNA BADGES ─────────────────────────────────────────────────────────────
+  {
+    id: "kanna-curious",
+    name: "Kanna Curious",
+    description: "Complete the Kanna & Alternative Wellness module.",
+    flavor: "Wellness through botanical wisdom.",
+    icon: "heart",
+    tier: "bronze",
+    category: "kanna",
+    condition: "Complete Kanna module",
+    xp: 75,
+  },
+  {
+    id: "kanna-specialist",
+    name: "Kanna Specialist",
+    description: "Score 85%+ on the Kanna quiz.",
+    flavor: "The wellness whisperer.",
+    icon: "heart",
+    tier: "silver",
+    category: "kanna",
+    condition: "Score 85%+ on Kanna quiz",
+    xp: 175,
+  },
+
+  // ── GLASS BADGES ─────────────────────────────────────────────────────────────
+  {
+    id: "glass-101",
+    name: "Glass 101",
+    description: "Complete the Glass & Accessories module.",
+    flavor: "Function meets art.",
+    icon: "gem",
+    tier: "bronze",
+    category: "glass",
+    condition: "Complete Glass module",
+    xp: 75,
+  },
+  {
+    id: "glass-curator",
+    name: "Glass Curator",
+    description: "Score 85%+ on the Glass & Accessories quiz.",
+    flavor: "You can spot quality from across the floor.",
+    icon: "gem",
+    tier: "silver",
+    category: "glass",
+    condition: "Score 85%+ on Glass quiz",
+    xp: 175,
+  },
+
+  // ── COMPLIANCE BADGES ────────────────────────────────────────────────────────
+  {
+    id: "compliance-ready",
+    name: "Compliance Ready",
+    description: "Complete the Compliance & Legal Language module.",
+    flavor: "Say it right. Every time.",
+    icon: "scale",
+    tier: "bronze",
+    category: "compliance",
+    condition: "Complete Compliance module",
+    xp: 100,
+  },
+  {
+    id: "by-the-book",
+    name: "By the Book",
+    description: "Score 90%+ on the Compliance quiz.",
+    flavor: "Zero gray areas. All green lights.",
+    icon: "scale",
+    tier: "silver",
+    category: "compliance",
+    condition: "Score 90%+ on Compliance quiz",
+    xp: 225,
+  },
+  {
+    id: "loss-prevention-ace",
+    name: "Loss Prevention Ace",
+    description: "Complete the Loss Prevention module and score 85%+ on the quiz.",
+    flavor: "Protecting the store is everyone's job.",
+    icon: "shield",
+    tier: "silver",
+    category: "compliance",
+    condition: "Complete LP module with 85%+",
+    xp: 200,
+  },
+
+  // ── SALES BADGES ─────────────────────────────────────────────────────────────
+  {
+    id: "floor-ready",
+    name: "Floor Ready",
+    description: "Complete the Sales Techniques module.",
+    flavor: "Confidence starts with preparation.",
+    icon: "briefcase",
+    tier: "bronze",
+    category: "sales",
+    condition: "Complete Sales Techniques module",
+    xp: 75,
+  },
+  {
+    id: "closer",
+    name: "The Closer",
+    description: "Score 90%+ on the Sales Techniques quiz.",
+    flavor: "You don't pitch — you solve.",
+    icon: "trending-up",
+    tier: "silver",
+    category: "sales",
+    condition: "Score 90%+ on Sales quiz",
+    xp: 225,
+  },
+  {
+    id: "people-person",
+    name: "People Person",
+    description: "Complete the Customer Service Fundamentals module and score 85%+.",
+    flavor: "Every customer leaves smiling.",
+    icon: "users",
+    tier: "silver",
+    category: "sales",
+    condition: "Complete CS module with 85%+",
+    xp: 200,
+  },
+  {
+    id: "top-seller",
+    name: "Top Seller",
+    description: "Complete all Sales & Customer Service modules with 90%+ quiz scores.",
+    flavor: "Numbers don't lie. Neither do you.",
+    icon: "trophy",
+    tier: "gold",
+    category: "sales",
+    condition: "All sales modules with 90%+",
+    xp: 400,
+  },
+]
+
+// Tier metadata for display
+export const badgeTierMeta: Record<BadgeTier, { label: string; color: string; border: string; bg: string; ring: string }> = {
+  bronze: {
+    label: "Bronze",
+    color: "text-orange-400",
+    border: "border-orange-400/40",
+    bg: "bg-orange-400/10",
+    ring: "ring-orange-400/30",
+  },
+  silver: {
+    label: "Silver",
+    color: "text-slate-300",
+    border: "border-slate-300/40",
+    bg: "bg-slate-300/10",
+    ring: "ring-slate-300/30",
+  },
+  gold: {
+    label: "Gold",
+    color: "text-amber-400",
+    border: "border-amber-400/40",
+    bg: "bg-amber-400/10",
+    ring: "ring-amber-400/30",
+  },
+  platinum: {
+    label: "Platinum",
+    color: "text-cyan-300",
+    border: "border-cyan-300/40",
+    bg: "bg-cyan-300/10",
+    ring: "ring-cyan-300/30",
+  },
+}
+
+export const badgeCategoryMeta: Record<BadgeCategory, { label: string; color: string; bg: string }> = {
+  delta: { label: "Delta", color: "text-blue-400", bg: "bg-blue-400/10" },
+  kratom: { label: "Kratom", color: "text-emerald-400", bg: "bg-emerald-400/10" },
+  kanna: { label: "Kanna", color: "text-purple-400", bg: "bg-purple-400/10" },
+  glass: { label: "Glass", color: "text-amber-400", bg: "bg-amber-400/10" },
+  compliance: { label: "Compliance", color: "text-red-400", bg: "bg-red-400/10" },
+  sales: { label: "Sales", color: "text-primary", bg: "bg-primary/10" },
+  milestones: { label: "Milestones", color: "text-cyan-400", bg: "bg-cyan-400/10" },
+  quiz: { label: "Quiz", color: "text-violet-400", bg: "bg-violet-400/10" },
+}
+
+// Which badge IDs the mock employee has already earned
+export const mockEarnedBadgeIds: string[] = [
+  "first-step",
+  "getting-started",
+  "first-pass",
+  "delta-starter",
+  "kratom-starter",
+  "compliance-ready",
+  "floor-ready",
+  "comeback-kid",
+  "kanna-curious",
+  "glass-101",
+]
+
 export interface DosageGuide {
   level: string
   amount: string
@@ -5819,6 +6238,7 @@ export interface AdminEmployee {
   inProgressModules: string[] // module ids
   assignedModules: string[] // module ids
   quizAttempts: AdminQuizAttempt[]
+  earnedBadgeIds: string[] // badge definition ids
 }
 
 export interface AdminQuizAttempt {
@@ -5878,6 +6298,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q6", quizTitle: "Sales Techniques Quiz", moduleId: "m6", attempts: 1, bestScore: 90, latestScore: 90, passed: true, completedAt: "2024-04-10" },
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 95, latestScore: 95, passed: true, completedAt: "2024-04-18" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "first-pass", "delta-starter", "kratom-starter", "kanna-curious", "compliance-ready", "floor-ready", "people-person"],
   },
   {
     id: "e2",
@@ -5903,6 +6324,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q9", quizTitle: "Delta Advanced Quiz", moduleId: "m9", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-10" },
       { quizId: "q10", quizTitle: "Kratom Advanced Quiz", moduleId: "m10", attempts: 2, bestScore: 82, latestScore: 82, passed: true, completedAt: "2024-02-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "first-pass", "perfect-score", "delta-starter", "delta-pro", "kratom-starter", "kratom-guide", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "floor-ready", "closer", "people-person"],
   },
   {
     id: "e3",
@@ -5920,6 +6342,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 2, bestScore: 70, latestScore: 70, passed: true, completedAt: "2024-05-20" },
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 80, latestScore: 80, passed: true, completedAt: "2024-05-28" },
     ],
+    earnedBadgeIds: ["first-step", "first-pass", "delta-starter", "comeback-kid"],
   },
   {
     id: "e4",
@@ -5947,6 +6370,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q11", quizTitle: "Loss Prevention Quiz", moduleId: "m11", attempts: 1, bestScore: 87, latestScore: 87, passed: true, completedAt: "2024-01-15" },
       { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2024-02-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "fully-certified", "first-pass", "perfect-score", "quiz-master", "delta-starter", "delta-pro", "delta-expert", "kratom-starter", "kratom-guide", "kratom-authority", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "loss-prevention-ace", "floor-ready", "closer", "people-person", "top-seller"],
   },
   {
     id: "e5",
@@ -5963,6 +6387,7 @@ export const adminEmployees: AdminEmployee[] = [
     quizAttempts: [
       { quizId: "q1", quizTitle: "Delta 101 Quiz", moduleId: "m1", attempts: 4, bestScore: 72, latestScore: 72, passed: true, completedAt: "2024-05-10" },
     ],
+    earnedBadgeIds: ["first-step", "comeback-kid", "delta-starter"],
   },
   {
     id: "e6",
@@ -5985,6 +6410,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 89, latestScore: 89, passed: true, completedAt: "2024-01-22" },
       { quizId: "q8", quizTitle: "Store Operations Quiz", moduleId: "m8", attempts: 1, bestScore: 86, latestScore: 86, passed: true, completedAt: "2024-02-05" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "first-pass", "delta-starter", "kratom-starter", "kanna-curious", "compliance-ready", "by-the-book", "floor-ready", "closer", "people-person"],
   },
   {
     id: "e7",
@@ -6001,6 +6427,7 @@ export const adminEmployees: AdminEmployee[] = [
     quizAttempts: [
       { quizId: "q7", quizTitle: "Customer Service Quiz", moduleId: "m7", attempts: 1, bestScore: 65, latestScore: 65, passed: true, completedAt: "2024-03-20" },
     ],
+    earnedBadgeIds: ["first-step", "first-pass"],
   },
   {
     id: "e8",
@@ -6029,6 +6456,7 @@ export const adminEmployees: AdminEmployee[] = [
       { quizId: "q12", quizTitle: "Opening & Closing Quiz", moduleId: "m12", attempts: 1, bestScore: 100, latestScore: 100, passed: true, completedAt: "2023-05-01" },
       { quizId: "q13", quizTitle: "Merchandising Quiz", moduleId: "m13", attempts: 1, bestScore: 93, latestScore: 93, passed: true, completedAt: "2023-06-01" },
     ],
+    earnedBadgeIds: ["first-step", "getting-started", "halfway-there", "fully-certified", "highlife-elite", "streak-5", "streak-30", "first-pass", "perfect-score", "quiz-master", "clean-sweep", "delta-starter", "delta-pro", "delta-expert", "kratom-starter", "kratom-guide", "kratom-authority", "kanna-curious", "kanna-specialist", "glass-101", "glass-curator", "compliance-ready", "by-the-book", "loss-prevention-ace", "floor-ready", "closer", "people-person", "top-seller"],
   },
 ]
 

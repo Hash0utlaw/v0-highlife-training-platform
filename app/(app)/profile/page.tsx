@@ -2,7 +2,14 @@
 
 import type React from "react"
 import { useState } from "react"
-import { mockEmployee, mockModules } from "@/lib/data"
+import {
+  mockEmployee,
+  mockModules,
+  allBadgeDefinitions,
+  badgeTierMeta,
+  badgeCategoryMeta,
+  mockEarnedBadgeIds,
+} from "@/lib/data"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -31,6 +38,7 @@ import {
   ShieldCheck,
   Star,
   Settings,
+  Lock,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -42,6 +50,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   award: Award,
   star: Star,
   shield: ShieldCheck,
+  "shield-check": ShieldCheck,
+  "check-circle-2": CheckCircle2,
+  target: Target,
+  "trending-up": TrendingUp,
+  trophy: Trophy,
+  briefcase: Briefcase,
 }
 
 const categoryColors: Record<string, string> = {
@@ -395,55 +409,78 @@ export default function ProfilePage() {
           {/* Badges tab */}
           {activeTab === "badges" && (
             <div>
-              {employee.badges.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <Award className="h-10 w-10 text-muted-foreground/40 mb-3" />
-                  <p className="text-sm font-medium text-foreground">No badges yet</p>
-                  <p className="text-xs text-muted-foreground mt-1">Complete training modules to earn achievements</p>
-                  <Link href="/training">
-                    <Button variant="outline" size="sm" className="mt-4">Start Training</Button>
-                  </Link>
+              {/* Summary bar */}
+              <div className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border mb-4">
+                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20">
+                  <Trophy className="h-5 w-5 text-amber-400" />
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  {employee.badges.map((badge) => {
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-foreground">{mockEarnedBadgeIds.length} badges earned</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {allBadgeDefinitions.length - mockEarnedBadgeIds.length} more to unlock
+                  </p>
+                </div>
+                <Link href="/badges">
+                  <Button variant="outline" size="sm" className="text-xs flex-shrink-0">
+                    View All <ChevronRight className="h-3.5 w-3.5 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Earned badges grid */}
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Earned</p>
+              <div className="grid grid-cols-2 gap-2.5 mb-5">
+                {allBadgeDefinitions
+                  .filter((b) => mockEarnedBadgeIds.includes(b.id))
+                  .map((badge) => {
+                    const tier = badgeTierMeta[badge.tier]
+                    const cat = badgeCategoryMeta[badge.category]
                     const IconComp = iconMap[badge.icon] || Award
                     return (
-                      <div key={badge.id} className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center">
-                          <IconComp className="h-6 w-6 text-amber-400" />
+                      <div
+                        key={badge.id}
+                        className={cn("flex items-center gap-3 p-3 rounded-xl border bg-card", tier.border)}
+                      >
+                        <div className={cn("flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center border", tier.bg, tier.border)}>
+                          <IconComp className={cn("h-5 w-5", tier.color)} />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-foreground">{badge.name}</p>
-                          <p className="text-sm text-muted-foreground mt-0.5">{badge.description}</p>
-                          <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            Earned {new Date(badge.earnedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                          </p>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-foreground truncate">{badge.name}</p>
+                          <span className={cn("text-[10px] font-semibold", cat.color)}>{cat.label}</span>
                         </div>
                       </div>
                     )
                   })}
+              </div>
 
-                  {/* Locked future badges */}
-                  {[
-                    { name: "Compliance Champion", description: "Score 100% on the Compliance quiz", icon: ShieldCheck },
-                    { name: "Sales Pro", description: "Complete all Sales training modules", icon: Star },
-                    { name: "All-Star", description: "Complete every training module", icon: Trophy },
-                  ].map((locked, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border/50 opacity-60">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-secondary border border-border flex items-center justify-center">
-                        <locked.icon className="h-6 w-6 text-muted-foreground" />
+              {/* Up next: locked */}
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Up Next</p>
+              <div className="space-y-2">
+                {allBadgeDefinitions
+                  .filter((b) => !mockEarnedBadgeIds.includes(b.id))
+                  .slice(0, 4)
+                  .map((badge) => {
+                    const tier = badgeTierMeta[badge.tier]
+                    return (
+                      <div key={badge.id} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card/50 opacity-60">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-secondary border border-border">
+                          <Lock className="h-4 w-4 text-muted-foreground/50" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-muted-foreground truncate">{badge.name}</p>
+                          <p className="text-[10px] text-muted-foreground/70 truncate">{badge.condition}</p>
+                        </div>
+                        <span className={cn("text-[10px] font-bold flex-shrink-0", tier.color)}>{tier.label}</span>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-muted-foreground">{locked.name}</p>
-                        <p className="text-sm text-muted-foreground/70 mt-0.5">{locked.description}</p>
-                        <p className="text-xs text-muted-foreground mt-1.5">Locked</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                    )
+                  })}
+              </div>
+
+              <Link href="/badges" className="block mt-4">
+                <Button variant="outline" size="sm" className="w-full text-xs">
+                  See All {allBadgeDefinitions.length} Achievements <ChevronRight className="h-3.5 w-3.5 ml-1.5" />
+                </Button>
+              </Link>
             </div>
           )}
         </div>

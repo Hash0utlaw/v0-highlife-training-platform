@@ -24,6 +24,7 @@ import {
   Circle,
   MessageSquare,
   BarChart3,
+  Briefcase,
 } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
@@ -57,6 +58,7 @@ export default function DashboardPage() {
     { href: "/quizzes", icon: ClipboardCheck, label: "Quizzes", color: "text-amber-400", bg: "bg-amber-400/10" },
     { href: "/sales-tips", icon: Lightbulb, label: "Sales Tips", color: "text-purple-400", bg: "bg-purple-400/10" },
     { href: "/handbook", icon: BookOpen, label: "Handbook", color: "text-rose-400", bg: "bg-rose-400/10" },
+    { href: "/job-descriptions", icon: Briefcase, label: "Roles", color: "text-cyan-400", bg: "bg-cyan-400/10" },
   ]
 
   return (
