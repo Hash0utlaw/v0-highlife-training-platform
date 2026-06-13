@@ -17,6 +17,7 @@ import {
   Phone,
   Info,
   ArrowUpRight,
+  ChevronDown,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
@@ -24,6 +25,7 @@ import {
   standardLanguage,
   companyContact,
   type JobDescription,
+  type JobItem,
 } from "@/lib/job-descriptions-data"
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -31,6 +33,51 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   map: Map,
   "user-check": UserCheck,
   "user-cog": UserCog,
+}
+
+// Individual expandable item row
+function ExpandableItem({
+  item,
+  accentColor,
+  index,
+}: {
+  item: JobItem
+  accentColor: string
+  index: number
+}) {
+  const [open, setOpen] = useState(false)
+  return (
+    <li className="border border-border rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-start gap-3 px-4 py-3.5 text-left hover:bg-secondary/30 transition-colors"
+        aria-expanded={open}
+      >
+        <span
+          className={cn(
+            "flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5",
+            accentColor,
+          )}
+        >
+          {index + 1}
+        </span>
+        <span className="flex-1 text-sm font-semibold text-foreground leading-snug">{item.title}</span>
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5 transition-transform duration-200",
+            open && "rotate-180",
+          )}
+        />
+      </button>
+      {open && (
+        <div className="px-4 pb-4 pt-0">
+          <div className="ml-8 pl-0">
+            <p className="text-sm text-muted-foreground leading-relaxed">{item.detail}</p>
+          </div>
+        </div>
+      )}
+    </li>
+  )
 }
 
 export default function JobDescriptionsPage() {
@@ -51,8 +98,8 @@ export default function JobDescriptionsPage() {
             Job Descriptions
           </h1>
           <p className="text-sm text-muted-foreground mt-1.5 max-w-2xl leading-relaxed">
-            Review the responsibilities, performance goals, and benefits for each role at Highlife. Understanding your
-            path helps you grow with the company.
+            Review the responsibilities, performance goals, and benefits for each role at Highlife.
+            Tap any item to expand the full detail. Understanding your path helps you grow with the company.
           </p>
         </div>
       </header>
@@ -111,43 +158,51 @@ export default function JobDescriptionsPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            {/* Responsibilities */}
-            <section className="bg-card border border-border rounded-2xl p-5 md:p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <ClipboardList className="h-4 w-4 text-primary" />
-                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                  Key Responsibilities
-                </h3>
-              </div>
-              <ul className="space-y-2.5">
-                {role.responsibilities.map((item, i) => (
-                  <li key={i} className="flex gap-2.5 items-start">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                    <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          {/* Responsibilities */}
+          <section className="bg-card border border-border rounded-2xl p-5 md:p-6">
+            <div className="flex items-center gap-2 mb-1.5">
+              <ClipboardList className="h-4 w-4 text-primary" />
+              <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                Key Responsibilities
+              </h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4 ml-6">
+              Tap each responsibility to see the full expectation.
+            </p>
+            <ul className="space-y-2">
+              {role.responsibilities.map((item, i) => (
+                <ExpandableItem
+                  key={i}
+                  item={item}
+                  index={i}
+                  accentColor="bg-primary/10 text-primary"
+                />
+              ))}
+            </ul>
+          </section>
 
-            {/* KPIs */}
-            <section className="bg-card border border-border rounded-2xl p-5 md:p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Target className="h-4 w-4 text-primary" />
-                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                  Key Performance Indicators
-                </h3>
-              </div>
-              <ul className="space-y-2.5">
-                {role.kpis.map((item, i) => (
-                  <li key={i} className="flex gap-2.5 items-start">
-                    <ChevronRight className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                    <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div>
+          {/* KPIs */}
+          <section className="bg-card border border-border rounded-2xl p-5 md:p-6">
+            <div className="flex items-center gap-2 mb-1.5">
+              <Target className="h-4 w-4 text-primary" />
+              <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                Key Performance Indicators
+              </h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4 ml-6">
+              These are the metrics your performance will be measured against.
+            </p>
+            <ul className="space-y-2">
+              {role.kpis.map((item, i) => (
+                <ExpandableItem
+                  key={i}
+                  item={item}
+                  index={i}
+                  accentColor="bg-amber-400/10 text-amber-400"
+                />
+              ))}
+            </ul>
+          </section>
 
           {/* Benefits */}
           <section className="bg-card border border-border rounded-2xl p-5 md:p-6">
@@ -176,7 +231,8 @@ export default function JobDescriptionsPage() {
             )}
             {role.salaryEffectiveDate && (
               <p className="text-xs text-muted-foreground mt-4">
-                Salary effective date: <span className="font-medium text-foreground">{role.salaryEffectiveDate}</span>
+                Salary effective date:{" "}
+                <span className="font-medium text-foreground">{role.salaryEffectiveDate}</span>
               </p>
             )}
           </section>
@@ -189,15 +245,21 @@ export default function JobDescriptionsPage() {
             <dl className="space-y-3">
               <div>
                 <dt className="text-xs font-semibold text-foreground">Reporting Structure</dt>
-                <dd className="text-sm text-muted-foreground leading-relaxed">{standardLanguage.reportingStructure}</dd>
+                <dd className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                  {standardLanguage.reportingStructure}
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-semibold text-foreground">Work Environment</dt>
-                <dd className="text-sm text-muted-foreground leading-relaxed">{standardLanguage.workEnvironment}</dd>
+                <dd className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                  {standardLanguage.workEnvironment}
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-semibold text-foreground">Physical Requirements</dt>
-                <dd className="text-sm text-muted-foreground leading-relaxed">{standardLanguage.physicalRequirements}</dd>
+                <dd className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                  {standardLanguage.physicalRequirements}
+                </dd>
               </div>
             </dl>
             <div className="flex gap-2.5 mt-4 pt-4 border-t border-border">
