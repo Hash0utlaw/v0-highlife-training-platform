@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Package, GraduationCap, BookOpen, User, ClipboardCheck, Lightbulb } from "lucide-react"
+import { Home, Package, GraduationCap, BookOpen, User, ClipboardCheck, Lightbulb, Trophy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
@@ -17,6 +17,7 @@ const primaryNav = [
 const moreNav = [
   { href: "/products", icon: Package, label: "Products" },
   { href: "/sales-tips", icon: Lightbulb, label: "Sales Tips" },
+  { href: "/badges", icon: Trophy, label: "Achievements" },
 ]
 
 export function BottomNav() {
