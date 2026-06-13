@@ -113,6 +113,59 @@ export interface SalesTip {
   content: string
 }
 
+// ── Role-Play Conversations ──────────────────────────────────────────────────
+export type ConversationSpeaker = "customer" | "employee"
+
+export interface ConversationLine {
+  speaker: ConversationSpeaker
+  text: string
+  note?: string // coaching note shown on employee lines
+}
+
+export interface RolePlayScenario {
+  id: string
+  title: string
+  category: "first-timer" | "upsell" | "objection" | "compliance" | "kanna" | "kratom" | "delta"
+  difficulty: "beginner" | "intermediate" | "advanced"
+  scenario: string // brief setup
+  goal: string // what the employee should achieve
+  lines: ConversationLine[]
+  keyTakeaways: string[]
+}
+
+// ── Objection Handling ───────────────────────────────────────────────────────
+export interface ObjectionCard {
+  id: string
+  objection: string
+  wrongResponse: string
+  rightResponse: string
+  whyItWorks: string
+  category: "price" | "hesitation" | "product" | "compliance" | "competitor"
+}
+
+// ── Compliance Language ──────────────────────────────────────────────────────
+export interface LanguageSwap {
+  id: string
+  context: string
+  neverSay: string
+  alwaysSay: string
+  reason: string
+  severity: "critical" | "important" | "note"
+}
+
+// ── Sales Techniques ─────────────────────────────────────────────────────────
+export interface SalesTechnique {
+  id: string
+  name: string
+  category: "opening" | "discovery" | "recommendation" | "upsell" | "close"
+  tagline: string
+  description: string
+  exactWords: string
+  whyItWorks: string
+  whenToUse: string
+  avoidWhen: string
+}
+
 // Mock Data
 export const mockEmployee: Employee = {
   id: "EMP001",
@@ -5149,6 +5202,519 @@ export const mockQuizzes: Quiz[] = [
         correctAnswer: 2,
       },
     ],
+  },
+]
+
+// ── Sales Techniques Data ────────────────────────────────────────────────────
+export const salesTechniques: SalesTechnique[] = [
+  {
+    id: "tech-1",
+    name: "The Why, Not What",
+    category: "opening",
+    tagline: "Open with purpose, not product",
+    description:
+      "Instead of asking what someone is looking for, ask what brought them in. This shifts the conversation from product-hunting to goal-understanding, giving you far more to work with.",
+    exactWords: '"Hey welcome in — what brings you by today?"',
+    whyItWorks:
+      "Customers often don\'t know exactly what product they want, but they always know what they need — sleep, energy, stress relief, a gift. When you discover the need first, you become a guide instead of a cashier.",
+    whenToUse: "Every new customer interaction, especially browsers and first-timers.",
+    avoidWhen: "Regular customers who clearly know what they want — respect their time.",
+  },
+  {
+    id: "tech-2",
+    name: "The Experience Check",
+    category: "discovery",
+    tagline: "Never assume their baseline",
+    description:
+      "Before recommending anything, always gauge how familiar the customer is with the product category. A veteran kratom user and a first-timer need completely different conversations.",
+    exactWords: '"Have you tried anything like this before, or is this more of a first time exploring?"',
+    whyItWorks:
+      "Assuming too much knowledge makes people feel dumb. Assuming too little wastes their time and loses their respect. One question calibrates your entire pitch.",
+    whenToUse: "Any customer heading toward delta, kratom, or kanna products.",
+    avoidWhen: "Accessories purchases unless they\'re buying glass for the first time.",
+  },
+  {
+    id: "tech-3",
+    name: "The Lifestyle Match",
+    category: "discovery",
+    tagline: "Sell the outcome, not the ingredient",
+    description:
+      "Ask about the context, not the chemistry. Customers don\'t want to know about terpene profiles — they want to know if it will help them wind down on a Tuesday night.",
+    exactWords:
+      '"Is this more for like winding down after work, getting through a long day, or something for the weekend?"',
+    whyItWorks:
+      "Lifestyle context immediately maps to product categories: evening relaxation = red kratom, indica-leaning delta; daytime energy = green kratom, sativa-leaning delta, kanna; social/creative = kanna, hybrid delta.",
+    whenToUse: "Any customer who seems open to guidance or has said 'I\'m not sure what I want.'",
+    avoidWhen: "Customers who already know their strain/product by name.",
+  },
+  {
+    id: "tech-4",
+    name: "The Value Breakdown",
+    category: "recommendation",
+    tagline: "Make the price-per-use visible",
+    description:
+      "When a customer hesitates on price, break the product down to its per-use cost. A $45 jar suddenly feels different when it\'s $1.50 per dose.",
+    exactWords:
+      '"I totally get it — but if you break it down, each gummy is about a dollar fifty, and each one lasts you four to six hours. That\'s pretty solid for what you\'re getting."',
+    whyItWorks:
+      "Sticker shock comes from comparing a single number to nothing. Per-use math gives the brain a fair comparison and often reframes premium as value.",
+    whenToUse: "Any price objection on gummies, capsules, or higher-end glass.",
+    avoidWhen: "Never apply this to impulse items — keep those simple.",
+  },
+  {
+    id: "tech-5",
+    name: "The Soft Upsell",
+    category: "upsell",
+    tagline: "Add value, never pressure",
+    description:
+      "The best upsells feel like helpful suggestions, not pitches. At the register, mention one logical addition as a matter-of-fact recommendation — not a sales tactic.",
+    exactWords:
+      '"Oh, did you want to grab a battery for that? I always forget to mention it — that cart won\'t work without one and we\'ve got a good one right here."',
+    whyItWorks:
+      "Framing it as \'I always forget to mention\' makes it feel conversational, not salesy. It also genuinely helps the customer — they\'d be annoyed at home without the accessory.",
+    whenToUse: "At checkout, after the primary sale is made. Vape cart → battery. Glass → cleaning solution. Kratom powder → capsule machine or scoop.",
+    avoidWhen: "Never pile on multiple upsells. One, and only one, per transaction.",
+  },
+  {
+    id: "tech-6",
+    name: "The Two-Option Close",
+    category: "close",
+    tagline: "Give them a choice, not a decision",
+    description:
+      "When a customer is deciding between products, stop presenting options and instead offer two specific choices. This moves them from 'should I buy' to 'which one do I buy.'",
+    exactWords:
+      '"So it really comes down to this — do you want the one that hits faster with the vape, or the one that lasts longer with the gummy? Both are solid choices."',
+    whyItWorks:
+      "Open-ended browsing creates decision paralysis. Presenting exactly two options, both good, makes the decision feel manageable and keeps the sale moving without pressure.",
+    whenToUse: "When a customer has been comparing two products for more than a couple minutes.",
+    avoidWhen: "Don\'t use this too early — let them ask questions first or you\'ll seem pushy.",
+  },
+  {
+    id: "tech-7",
+    name: "The Kanna Introduction",
+    category: "recommendation",
+    tagline: "Lead with the story, close with the science",
+    description:
+      "Kanna is unknown to most customers. The fastest way to get them interested is a brief historical hook followed by the most relatable benefit for their situation.",
+    exactWords:
+      '"So this one\'s actually pretty cool — it\'s called Kanna, it\'s a plant from South Africa that\'s been used for thousands of years. Think of it like a natural mood lift and focus boost — no THC, no caffeine, just really smooth energy."',
+    whyItWorks:
+      "The history makes it feel legitimate and interesting. The \'no THC, no caffeine\' framing instantly addresses two common concerns before they\'re even raised.",
+    whenToUse: "Any customer who mentions stress, coffee dependence, wanting to cut back on caffeine, or wanting non-THC wellness options.",
+    avoidWhen:
+      "Always screen for SSRIs before continuing the pitch — this must happen before any sale.",
+  },
+  {
+    id: "tech-8",
+    name: "The First-Timer Safety Net",
+    category: "recommendation",
+    tagline: "Build trust by protecting them from themselves",
+    description:
+      "When someone is nervous about trying a new product, the most powerful thing you can do is give them an out. Tell them to start small and that less is always more.",
+    exactWords:
+      '"Honestly the biggest thing with edibles is start with half. I know everyone thinks they need a full one, but half is where most people find their sweet spot — especially the first time. You can always take more, you can\'t take less."',
+    whyItWorks:
+      "This builds enormous trust. You\'re actively protecting them from a bad experience. Customers who trust you come back — and they bring friends.",
+    whenToUse: "Every first-time edible or gummy customer, no exceptions.",
+    avoidWhen: "Experienced users who know their dose — over-cautioning them is condescending.",
+  },
+]
+
+// ── Role-Play Scenarios ───────────────────────────────────────────────────────
+export const rolePlayScenarios: RolePlayScenario[] = [
+  {
+    id: "rp-1",
+    title: "The First-Time Edible Buyer",
+    category: "first-timer",
+    difficulty: "beginner",
+    scenario:
+      "A customer in their mid-20s is browsing the delta section looking slightly uncertain. They haven\'t been helped yet.",
+    goal: "Qualify their experience level, set correct expectations, and guide them to an appropriate starter product.",
+    lines: [
+      { speaker: "employee", text: "Hey, welcome in! What brings you by today?", note: "Open with purpose — not \'can I help you?\'" },
+      { speaker: "customer", text: "Yeah, I\'m kind of looking at the gummies. My friend swears by them but I\'ve never tried anything like this." },
+      { speaker: "employee", text: "Oh nice, yeah your friend has good taste. So is this your first time trying delta or anything like that?", note: "Confirm experience level before recommending anything." },
+      { speaker: "customer", text: "Yeah, totally first time. I\'m a little nervous honestly." },
+      { speaker: "employee", text: "Totally normal — honestly the main thing is just starting low. I\'d point you toward these Delta-8s, they\'re 25mg each but I always tell first-timers start with half. Delta-8 is milder than D9 so it\'s a much more chill intro.", note: "Reassure + downgrade to the gentler option. Never upsell a first-timer to the stronger product." },
+      { speaker: "customer", text: "How long does it take to kick in?" },
+      { speaker: "employee", text: "Edibles take anywhere from 45 minutes to two hours depending on your metabolism and if you\'ve eaten. The number one mistake is taking more because you think it\'s not working — please wait the full two hours before you take any more.", note: "This is the most important safety point for all edible customers. Say it clearly." },
+      { speaker: "customer", text: "Okay yeah that makes sense. What about these Delta-9 ones, are those different?" },
+      { speaker: "employee", text: "Delta-9 is a bit stronger experience — it\'s great, but I\'d suggest starting with the Delta-8 just to see how your body responds. Once you know your dose there, the D9 makes total sense as a next step.", note: "Manage up to stronger products — don't start there. This protects the customer AND your store." },
+      { speaker: "customer", text: "Okay, I\'ll go with the Delta-8 then." },
+      { speaker: "employee", text: "Good call. Enjoy it — just remember, half to start, wait two hours. You\'ll have a great time.", note: "Reinforce the key safety instruction at close." },
+    ],
+    keyTakeaways: [
+      "Always confirm experience level before recommending",
+      "Start first-timers on Delta-8, not Delta-9",
+      "The 2-hour wait warning is non-negotiable — say it every time",
+      "Half a gummy for first-timers is the universal recommendation",
+    ],
+  },
+  {
+    id: "rp-2",
+    title: "The Price Objection",
+    category: "objection",
+    difficulty: "beginner",
+    scenario:
+      "A customer is looking at a $45 tin of kratom capsules and seems hesitant after seeing the price.",
+    goal: "Reframe the price using per-dose math and honest comparison without being defensive.",
+    lines: [
+      { speaker: "customer", text: "Forty-five dollars? That\'s kind of a lot." },
+      { speaker: "employee", text: "Yeah I totally get that — first glance it feels steep. What size are you looking at?", note: "Don't get defensive. Acknowledge and ask a clarifying question." },
+      { speaker: "customer", text: "The 120-count one." },
+      { speaker: "employee", text: "Okay so that\'s 120 capsules, each one is 500mg. Most people take somewhere between 4 and 8 per session — so you\'re looking at 15 to 30 uses out of this one jar. That works out to like a dollar fifty to three dollars per session.", note: "The per-use math reframe. Do this casually, not like a calculation." },
+      { speaker: "customer", text: "Hm. I hadn\'t thought about it that way." },
+      { speaker: "employee", text: "Yeah it\'s one of those things where the jar price sounds like a lot but when you stretch it out it\'s actually pretty reasonable. And these are third-party tested, which is something you really want to check for with kratom — a lot of cheaper stuff online isn\'t." },
+      { speaker: "customer", text: "What\'s the cheaper option you have?" },
+      { speaker: "employee", text: "We\'ve got the 60-count for about $26 — half the size, obviously. Honestly if it\'s your first time with this particular strain, that\'s a smart way to try it before committing to the big jar.", note: "Offer the smaller option genuinely. Don't push the bigger size if they\'re still hesitant." },
+      { speaker: "customer", text: "Yeah let\'s do the 60 then." },
+      { speaker: "employee", text: "Smart move. If you like it, we can always set you up with the bigger one next time — actually saves you more per capsule.", note: "Plant the seed for the upsell next visit, casually." },
+    ],
+    keyTakeaways: [
+      "Never be defensive about price — acknowledge and reframe",
+      "Per-use math is the most effective price objection tool",
+      "Offering the smaller size genuinely builds trust",
+      "Lab testing is a quality differentiator worth mentioning",
+    ],
+  },
+  {
+    id: "rp-3",
+    title: "Introducing Kanna to a Non-THC Customer",
+    category: "kanna",
+    difficulty: "intermediate",
+    scenario:
+      "A customer asks if you have anything for stress and focus that isn\'t weed or caffeine. They seem health-conscious and curious.",
+    goal: "Introduce Kanna compellingly, complete the SSRI safety screen naturally, and close on Kanna Gummies.",
+    lines: [
+      { speaker: "customer", text: "Do you guys have anything for like, stress and focus? But I don\'t want anything THC." },
+      { speaker: "employee", text: "Actually yeah — have you ever heard of Kanna?", note: "Lead with a question, not a product pitch. Let curiosity do the work." },
+      { speaker: "customer", text: "No, what is that?" },
+      { speaker: "employee", text: "So it\'s a plant from South Africa, been used for thousands of years. Totally non-THC, no caffeine. The way people describe it is like a really smooth mood lift and focus — calm energy without the jitters or crash. It\'s honestly one of my favorite things we carry.", note: "History + benefit summary. Personal endorsement adds authenticity." },
+      { speaker: "customer", text: "That actually sounds really interesting. Is it like CBD?" },
+      { speaker: "employee", text: "It works differently than CBD — Kanna works on serotonin pathways, so the effects are usually more noticeable. A lot of people who felt like CBD didn\'t do much for them find Kanna way more impactful.", note: "Distinguish from CBD without talking down CBD." },
+      { speaker: "customer", text: "Interesting. What does it come in?" },
+      { speaker: "employee", text: "We have it in gummies, which are great for like all-day support, and a snuff format which hits a lot faster if you want something more immediate.", note: "Present two formats, let them choose direction." },
+      { speaker: "customer", text: "The gummies sound better for me." },
+      {
+        speaker: "employee",
+        text: "Perfect — before I grab those, one quick thing I always ask: are you currently taking any antidepressants or mood medications? SSRIs, SNRIs, anything like that?",
+        note: "CRITICAL — always screen for SSRIs before selling any Kanna product. Make it casual and matter-of-fact.",
+      },
+      { speaker: "customer", text: "No, nothing like that." },
+      { speaker: "employee", text: "Great, just a standard check for this one. So the gummies — I\'d start with one, take it in the morning or whenever you want that focus window. Give it about an hour to an hour and a half to fully come on, and it lasts three to five hours.", note: "After clearing the screen, go straight into practical usage guidance." },
+      { speaker: "customer", text: "That sounds perfect actually." },
+      { speaker: "employee", text: "I think you\'ll really like it. Come back and let me know — most people are pretty pleasantly surprised." },
+    ],
+    keyTakeaways: [
+      "Lead with the historical hook — it makes Kanna feel credible and interesting",
+      "The SSRI screen is non-negotiable — phrase it naturally, but always ask",
+      "Distinguish Kanna from CBD without being dismissive of CBD",
+      "Set realistic onset expectations: 45–90 minutes for gummies",
+    ],
+  },
+  {
+    id: "rp-4",
+    title: "The Kratom Curious Customer",
+    category: "kratom",
+    difficulty: "intermediate",
+    scenario:
+      "A customer has heard about kratom online but doesn\'t know much. They seem interested but have some skepticism.",
+    goal: "Educate without overwhelming, recommend the right strain for their stated need, and close on a starter size.",
+    lines: [
+      { speaker: "customer", text: "So I keep hearing about kratom. What actually is it?" },
+      {
+        speaker: "employee",
+        text: "So kratom is a plant from Southeast Asia — same botanical family as coffee actually. It\'s been used for a long time over there. The interesting thing is different vein colors have really different effects.",
+        note: "Coffee comparison immediately makes kratom feel familiar and less intimidating.",
+      },
+      { speaker: "customer", text: "Oh interesting. Like what kind of effects?" },
+      { speaker: "employee", text: "So it breaks down basically like this — green vein is the most balanced, kind of like coffee but smoother, good for energy and mood. Red vein is way more relaxing, most people use that at night. White vein is the most stimulating but it\'s a bit strong for beginners usually.", note: "The traffic light system makes the categories instantly memorable." },
+      { speaker: "customer", text: "I mostly want something for energy during the day, maybe help with focus at work." },
+      { speaker: "employee", text: "Perfect — that\'s textbook green vein. Our Green Maeng Da is our best seller and honestly the best intro strain — it\'s potent, consistent, and the effects are that nice balance of energy and mood without going overboard.", note: "Specific recommendation with a reason. Don\'t offer a menu of options — commit to a recommendation." },
+      { speaker: "customer", text: "How do I take it?" },
+      { speaker: "employee", text: "So it comes in powder — most people do toss and wash, meaning you put a measured amount in your mouth and wash it down with water or juice. It\'s an acquired taste honestly. Or we have capsules if you\'d rather just swallow them without tasting it.", note: "Mention the taste honestly — surprises lead to bad first experiences and lost customers." },
+      { speaker: "customer", text: "How much do I take?" },
+      { speaker: "employee", text: "Start really low — like 1 to 2 grams. Give it 20 to 30 minutes on an empty stomach. Most people find their sweet spot at 2 to 4 grams but you want to find your baseline first. Kratom is one of those things where more isn\'t always better.", note: "Always give specific starting dose guidance. Vague advice leads to overconsumption." },
+      { speaker: "customer", text: "What size should I get?" },
+      { speaker: "employee", text: "Honestly for a first time I\'d do the 25 or 50 gram — just enough to find your dose without committing to a big jar before you know if you like it. Once you know your dose, the bigger sizes are way better value.", note: "Recommend the smaller size for first-timers. Trust over revenue." },
+    ],
+    keyTakeaways: [
+      "The coffee comparison makes kratom immediately relatable",
+      "Three-category system (green/red/white) is simple and memorable",
+      "Always give specific dosage guidance — vague advice = bad experiences",
+      "Recommend starter sizes for first-timers — it builds trust",
+    ],
+  },
+  {
+    id: "rp-5",
+    title: "The Kanna + Delta Upsell",
+    category: "upsell",
+    difficulty: "intermediate",
+    scenario:
+      "A returning customer is buying their usual Delta-8 gummies. They\'ve mentioned in the past that they sometimes get a bit anxious from edibles.",
+    goal: "Introduce the Kanna + Delta 9 combo as an upgrade that specifically solves their stated problem.",
+    lines: [
+      { speaker: "customer", text: "Hey, just grabbing my usual Delta-8 gummies." },
+      { speaker: "employee", text: "Of course — actually before I ring those up, can I show you something real quick? You mentioned before that you sometimes get a bit anxious from edibles, right?", note: "Reference previous conversations — it shows you listen and builds rapport." },
+      { speaker: "customer", text: "Yeah, it\'s hit or miss honestly." },
+      { speaker: "employee", text: "So we just got something in that I think might actually fix that for you — it\'s a combo gummy that has Delta-9 THC plus Kanna. And what Kanna does biochemically is it literally blocks the anxiety pathway that THC can trigger. So people who normally get anxious from edibles usually find this a much cleaner, smoother experience.", note: "Lead with the problem it solves, not the product name." },
+      { speaker: "customer", text: "Interesting. Is it stronger than what I\'ve been taking?" },
+      { speaker: "employee", text: "It\'s 10mg Delta-9 per gummy — so a bit more than the Delta-8 in terms of potency. But the Kanna kind of smooths it out, so people don\'t necessarily feel \'higher,\' they just feel better. Less edgy.", note: "Address the \'stronger\' concern honestly — don\'t oversell the potency if they\'re worried." },
+      { speaker: "customer", text: "Does it last longer?" },
+      { speaker: "employee", text: "Yeah actually — the Kanna extends the window a bit, so you\'re looking at four to six hours versus the usual three to four. It\'s a longer, smoother ride basically.", note: "Duration is a genuine value-add — mention it factually." },
+      { speaker: "customer", text: "What about munchies? That\'s always my other complaint." },
+      { speaker: "employee", text: "Yeah, Kanna actually modulates that too — people report way less of the munchie effect with this combo versus regular edibles. That\'s actually a big reason a lot of people prefer it.", note: "The anti-munchie effect is a real selling point — use it when relevant." },
+      { speaker: "customer", text: "Okay I\'m sold. But also I\'m on a Zoloft — is that fine?" },
+      {
+        speaker: "employee",
+        text: "Oh — good that you mentioned that. I actually can\'t sell you the Kanna product if you\'re on an SSRI — Zoloft is one of those. The Kanna alkaloids and SSRIs interact in a way that can cause issues. I\'d stick with your regular Delta-8 for now, and honestly chat with your doctor if you want to explore the Kanna stuff in the future.",
+        note: "CRITICAL: This is the correct response. Do not sell Kanna to anyone on SSRIs, even if the customer insists. Patient safety is paramount.",
+      },
+      { speaker: "customer", text: "Oh wow, I had no idea. Thanks for catching that." },
+      { speaker: "employee", text: "Of course — we always check for that with Kanna products. Let\'s get you your usual Delta-8." },
+    ],
+    keyTakeaways: [
+      "Reference previous conversations to show customers you listen",
+      "Lead with the problem the product solves, not the product itself",
+      "The SSRI safety screen must happen even mid-upsell — this scenario shows why it matters",
+      "Gracefully stepping back from a sale builds more trust than making it",
+    ],
+  },
+  {
+    id: "rp-6",
+    title: "Handling the Terminology Trap",
+    category: "compliance",
+    difficulty: "advanced",
+    scenario:
+      "A customer walks in and immediately uses incorrect terminology. The store has a compliance inspector who makes occasional visits.",
+    goal: "Naturally redirect to proper terminology without making the customer feel corrected or embarrassed.",
+    lines: [
+      { speaker: "customer", text: "Hey, do you guys have any good bongs? I want something that rips hard for weed." },
+      {
+        speaker: "employee",
+        text: "Hey, welcome in! Yeah definitely — our water pipes are actually really solid right now. Let me show you what we\'ve got.",
+        note: "Do NOT say \'we don\'t use that word here.\' Just naturally use the correct term in your response. The customer will follow your lead.",
+      },
+      { speaker: "customer", text: "Nice, this one looks cool. It\'s for smoking weed, so I want something that filters well." },
+      {
+        speaker: "employee",
+        text: "This one\'s great for tobacco — borosilicate glass, diffused downstem, so you get really smooth filtration. The ice catcher up top takes it to another level.",
+        note: "\'For tobacco\' is the correct phrase. Do not acknowledge or engage with \'weed.\' Just keep moving.",
+      },
+      { speaker: "customer", text: "Can I also grab some of those hemp papers? To roll joints?" },
+      {
+        speaker: "employee",
+        text: "Sure — we\'ve got rolling papers right over here for tobacco use.",
+        note: "Complete the papers transaction. Note: papers and glass cannot be sold in the same transaction. Complete one, have customer step out and return for the other. See sale restrictions policy.",
+      },
+      { speaker: "customer", text: "Can I just get them at the same time?" },
+      {
+        speaker: "employee",
+        text: "Yeah we actually do have to run those as separate transactions — it\'s just a policy we follow. Easiest thing is I can ring up the water pipe now, and just step outside for a second and come right back in and I\'ll grab the papers for you.",
+        note: "Explain the separation calmly and without making it weird. Do not say why the policy exists.",
+      },
+      { speaker: "customer", text: "That\'s a little annoying but okay, sure." },
+      { speaker: "employee", text: "I know, I\'m sorry about the extra step — it\'s just how we have to do it. I appreciate your patience." },
+    ],
+    keyTakeaways: [
+      "Never correct terminology directly — just use the right term in your response",
+      "\'For tobacco\' is your phrase for all glass and paper products",
+      "Restricted combination sale policy: separate transactions, customer must exit store between them",
+      "Treat every customer as a potential compliance inspector",
+    ],
+  },
+  {
+    id: "rp-7",
+    title: "The Heady Glass Close",
+    category: "upsell",
+    difficulty: "advanced",
+    scenario:
+      "A customer is looking at heady glass but is hesitant about the price compared to a standard scientific piece.",
+    goal: "Sell the artistry, uniqueness, and value proposition of heady glass without being pushy.",
+    lines: [
+      { speaker: "customer", text: "These heady ones are really cool but like... four hundred dollars for a pipe?" },
+      {
+        speaker: "employee",
+        text: "I know, the price is definitely a thing. Can I actually let you hold it for a second?",
+        note: "Get it in their hands. Tactile connection is your #1 closing tool for heady glass.",
+      },
+      { speaker: "customer", text: "(holds the piece) Okay it feels incredible actually." },
+      { speaker: "employee", text: "Right? So this is hand-blown by an American glassblower — probably took him a few hours just for this one piece. And the thing is, this specific piece is the only one that exists. There\'s not another one of these anywhere.", note: "One-of-a-kind is the single most powerful heady glass selling point." },
+      { speaker: "customer", text: "What\'s the technique on the color?" },
+      { speaker: "employee", text: "That\'s silver fuming — the glassblower literally vaporizes silver into the glass as it\'s being formed. The color shifts depending on the angle you look at it, and it actually deepens over time as it gets used. This piece will look different a year from now.", note: "Know the technique. The narrative closes heady sales." },
+      { speaker: "customer", text: "That\'s actually really cool. Is it functional though?" },
+      { speaker: "employee", text: "Completely functional — for tobacco use. The airflow on this one is actually dialed in really well, the base is stable, and the downstem is properly positioned. It\'s not just art, it works great.", note: "\'For tobacco use\' — always. Never miss this." },
+      { speaker: "customer", text: "What\'s your return policy on something like this?" },
+      { speaker: "employee", text: "Glass is final sale unfortunately — but honestly, these don\'t come back. People who buy heady keep them. Some of our customers have gotten pieces that ended up worth more than what they paid.", note: "Reframe \'no returns\' as a sign of quality and collectibility." },
+      { speaker: "customer", text: "Alright. I\'m going to do it." },
+      { speaker: "employee", text: "Good call. I\'ll wrap this up really well for you — I always double-box heady pieces. You\'re going to love it.", note: "The extra care in packaging reinforces that this was a premium purchase worth the price." },
+    ],
+    keyTakeaways: [
+      "Get heady glass in the customer\'s hands — tactile connection closes the sale",
+      "One-of-a-kind is the primary value proposition over scientific glass",
+      "Know the techniques: silver fuming, millie work, dichroic, UV-reactive",
+      "Always use \'for tobacco use\' even in heady glass sales conversations",
+    ],
+  },
+]
+
+// ── Objection Handling Cards ───────────────────────────────────────────────────
+export const objectionCards: ObjectionCard[] = [
+  {
+    id: "obj-1",
+    category: "price",
+    objection: '"That\'s way too expensive."',
+    wrongResponse: '"Well it\'s high quality so..." or getting defensive about the price.',
+    rightResponse:
+      '"I totally get that — can I break down the per-dose cost for you? At 120 capsules, you\'re actually looking at about $1.50 per use, which is cheaper than most supplements."',
+    whyItWorks:
+      "Per-dose math reframes the price. Defensive responses put you in an adversarial position. Acknowledging and pivoting keeps the conversation collaborative.",
+  },
+  {
+    id: "obj-2",
+    category: "hesitation",
+    objection: '"I\'m not sure, I need to think about it."',
+    wrongResponse: '"Okay, no problem!" (and letting them walk)',
+    rightResponse:
+      '"Of course — is there any specific question I can answer that might help? Sometimes there\'s one thing that makes it click."',
+    whyItWorks:
+      "Most \'I need to think about it\' situations have one unresolved question underneath. Asking opens that door without pressure. If they genuinely need time, respect it — they\'ll be back.",
+  },
+  {
+    id: "obj-3",
+    category: "product",
+    objection: '"Will this actually work for me? I\'ve tried things before that didn\'t."',
+    wrongResponse: '"Oh yeah, this definitely works!" (overclaiming)',
+    rightResponse:
+      '"Honestly, everyone\'s different — but if you tell me what you tried before and what didn\'t work, I can usually figure out why and point you somewhere better."',
+    whyItWorks:
+      "Overclaiming effects is a compliance risk and breaks trust if the product doesn\'t meet hyped expectations. Honest curiosity about past experiences lets you actually solve their problem.",
+  },
+  {
+    id: "obj-4",
+    category: "competitor",
+    objection: '"I can get this cheaper online."',
+    wrongResponse: '"We have to charge more because of overhead..." (weak excuse)',
+    rightResponse:
+      '"You can, for sure. The thing we can offer that online can\'t is you can see exactly what you\'re getting, I can answer your questions right now, and if anything\'s off you can come back in. Plus our stuff is third-party tested and we can show you the COA."',
+    whyItWorks:
+      "Never compete on price with online. Compete on service, transparency, and the in-person experience. These are advantages online literally cannot match.",
+  },
+  {
+    id: "obj-5",
+    category: "hesitation",
+    objection: '"I\'m worried about failing a drug test."',
+    wrongResponse: '"Oh you\'ll be fine, it\'s hemp-derived."',
+    rightResponse:
+      '"That\'s a real concern and I\'m not going to tell you it\'s definitely fine — Delta and kratom products can show up on standard drug tests. If that\'s a risk for you, I\'d hold off until you\'re past any testing window."',
+    whyItWorks:
+      "Honesty here is critical — if you minimize the risk and they fail a test, you\'ve destroyed trust and potentially harmed them. Straightforward honesty builds lasting customer relationships.",
+  },
+  {
+    id: "obj-6",
+    category: "product",
+    objection: '"I\'ve heard kratom is addictive / dangerous."',
+    wrongResponse: '"No it\'s totally safe, don\'t believe that stuff."',
+    rightResponse:
+      '"There\'s definitely a lot of information out there on kratom. Like most things, responsible use and starting low is key. It has a long history of use, but daily high-dose use over time can create dependence — which is why we always recommend starting low and not using it every single day."',
+    whyItWorks:
+      "Dismissing concerns makes you seem uninformed or dishonest. Acknowledging the nuance while providing accurate context is far more credible and builds genuine trust.",
+  },
+  {
+    id: "obj-7",
+    category: "compliance",
+    objection: '"Can you just tell me which one is best for getting high?"',
+    wrongResponse: "Answering the question or saying \'we don\'t sell it for that.\'",
+    rightResponse:
+      '"So I can tell you about the effects of each product and help you find what fits what you\'re looking for — what\'s the vibe you\'re going for? Relaxed, energized, social?"',
+    whyItWorks:
+      "Never confirm or engage with the \'high\' framing. Redirect to effect language — relaxed, energized, uplifted — and you\'re back in legal territory while still helping the customer.",
+  },
+  {
+    id: "obj-8",
+    category: "price",
+    objection: '"Why is the heady glass so much more than the scientific one?"',
+    wrongResponse: '"It\'s just more expensive because it\'s fancier."',
+    rightResponse:
+      '"So the scientific glass is machine-assisted and consistent. The heady piece is hand-blown by an individual artist — this specific piece took hours and there\'s not another one exactly like it in the world. You\'re paying for art that also works, not just a device."',
+    whyItWorks:
+      "Generic \'it\'s higher quality\' doesn\'t justify the price gap. The one-of-a-kind, handmade-by-an-artist framing does because it\'s a completely different value category.",
+  },
+]
+
+// ── Compliance Language Swaps ─────────────────────────────────────────────────
+export const languageSwaps: LanguageSwap[] = [
+  {
+    id: "lang-1",
+    context: "Customer is looking at a glass water pipe",
+    neverSay: "Bong",
+    alwaysSay: "Water pipe",
+    reason:
+      "\'Bong\' is legally associated with illicit drug use and can create liability for the store. \'Water pipe\' is the correct and legally safe terminology.",
+    severity: "critical",
+  },
+  {
+    id: "lang-2",
+    context: "Customer is looking at a hand pipe",
+    neverSay: "Bowl",
+    alwaysSay: "Hand pipe or dry pipe",
+    reason:
+      "\'Bowl\' as a standalone term implies drug paraphernalia. \'Hand pipe\' or \'dry pipe\' is the correct retail terminology.",
+    severity: "critical",
+  },
+  {
+    id: "lang-3",
+    context: "Customer mentions marijuana or weed",
+    neverSay: "Weed, marijuana, pot, cannabis (in a drug context)",
+    alwaysSay: "Legal hemp products, tobacco",
+    reason:
+      "Our products are sold for tobacco or legal hemp use only. Using street drug terminology implies illegal use and creates legal risk for the store.",
+    severity: "critical",
+  },
+  {
+    id: "lang-4",
+    context: "Customer asks if a product will get them high",
+    neverSay: "\'Yeah, this one really gets you high\' or \'It\'s pretty strong\'",
+    alwaysSay: "Describe effects: \'This one produces a relaxed, uplifted feeling\' or \'It\'s more calming versus energizing\'",
+    reason:
+      "Confirming or emphasizing \'getting high\' as the purpose of a product creates legal exposure and can be used as evidence of intent to sell for illicit purposes.",
+    severity: "critical",
+  },
+  {
+    id: "lang-5",
+    context: "Describing kratom effects",
+    neverSay: "\'It\'s like a natural painkiller\' or \'It cures anxiety\'",
+    alwaysSay: "\'Many customers find it helps them feel more comfortable and relaxed\' or \'People use it for general wellness\'",
+    reason:
+      "Medical claims — even informal ones — violate FDA guidelines and create liability. All wellness claims must be framed as customer experiences, not product promises.",
+    severity: "critical",
+  },
+  {
+    id: "lang-6",
+    context: "Customer asks what the dab rig is for",
+    neverSay: "Dab rig, dabs, wax pen",
+    alwaysSay: "Concentrate pipe or nectar collector for legal concentrates",
+    reason:
+      "\'Dab\' has strong associations with cannabis concentrates in the legal grey area. Correct terminology keeps us in a safer legal position.",
+    severity: "important",
+  },
+  {
+    id: "lang-7",
+    context: "Selling Kanna products",
+    neverSay: "\'This is like a natural antidepressant\' or \'It works like Prozac\'",
+    alwaysSay: "\'It works on serotonin pathways which is why people report uplifted mood and focus — but it\'s a dietary supplement, not a medication\'",
+    reason:
+      "Comparing Kanna to prescription medications makes an implicit medical claim and is inaccurate. Kanna is a dietary supplement and must be sold as such.",
+    severity: "important",
+  },
+  {
+    id: "lang-8",
+    context: "Any product discussion",
+    neverSay: "\'This will fix your anxiety / depression / pain / insomnia\'",
+    alwaysSay: "\'A lot of customers use this for general wellness / relaxation / sleep support\'",
+    reason:
+      "Disease claims (fix, cure, treat, prevent) are strictly prohibited on dietary supplements and hemp products under FTC and FDA guidelines. Always attribute effects to customer experiences, never product promises.",
+    severity: "critical",
   },
 ]
 
