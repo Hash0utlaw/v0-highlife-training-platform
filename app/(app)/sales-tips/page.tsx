@@ -448,11 +448,34 @@ export default function SalesTipsPage() {
 
       <div className="p-4 md:p-8 space-y-6 max-w-4xl mx-auto pb-24 md:pb-8">
         {/* Header */}
-        <div>
+        <div className="space-y-1">
           <h1 className="text-2xl md:text-3xl font-bold text-balance">Sales Training</h1>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Real-world techniques, role-play scripts, objection handling, and compliance language for Highlife staff.
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            Proven techniques, word-for-word role-play scripts, objection handling, and compliance language standards for every Highlife team member.
           </p>
+        </div>
+
+        {/* Stats bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { label: "Techniques", value: salesTechniques.length, icon: TrendingUp, color: "text-primary" },
+            { label: "Role Play Scripts", value: rolePlayScenarios.length, icon: Play, color: "text-emerald-400" },
+            { label: "Objections Covered", value: objectionCards.length, icon: ShieldAlert, color: "text-amber-400" },
+            { label: "Language Rules", value: languageSwaps.length, icon: Languages, color: "text-red-400" },
+          ].map((stat) => {
+            const Icon = stat.icon
+            return (
+              <div key={stat.label} className="bg-card border border-border rounded-xl p-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                  <Icon className={cn("h-4 w-4", stat.color)} />
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-foreground leading-none">{stat.value}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{stat.label}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
 
         {/* Tip of the Day */}
@@ -463,7 +486,7 @@ export default function SalesTipsPage() {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <Badge className="text-xs bg-primary/20 text-primary border-primary/30">Tip of the Day</Badge>
+                <Badge className="text-xs bg-primary/20 text-primary border-primary/30">Principle of the Day</Badge>
               </div>
               <h3 className="font-semibold text-sm text-foreground mb-1">{tipOfTheDay.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{tipOfTheDay.content}</p>
@@ -509,7 +532,7 @@ export default function SalesTipsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-semibold text-base">Sales Techniques</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">Tap any card to expand the full technique, exact words, and when to use it.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Tap any card to see the full technique, exact words to use, when to use it, and when to hold back.</p>
               </div>
             </div>
             <div className="space-y-3">
@@ -524,9 +547,9 @@ export default function SalesTipsPage() {
         {activeTab === "roleplay" && (
           <div className="space-y-4">
             <div>
-              <h2 className="font-semibold text-base">Role Play Scenarios</h2>
+              <h2 className="font-semibold text-base">Role Play Scripts</h2>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Step through real conversations line by line. Toggle Practice Mode to cover your lines and test yourself.
+                Word-for-word scripts based on real scenarios. Step through line by line. Toggle Practice Mode to cover your lines and test your recall.
               </p>
             </div>
 
@@ -598,7 +621,7 @@ export default function SalesTipsPage() {
             <div>
               <h2 className="font-semibold text-base">Objection Handling</h2>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Tap a card to flip it and see the right response plus why it works.
+                Tap a card to flip it — see exactly what not to say, what to say instead, and the psychology behind why it works.
               </p>
             </div>
 
@@ -632,9 +655,9 @@ export default function SalesTipsPage() {
         {activeTab === "language" && (
           <div className="space-y-4">
             <div>
-              <h2 className="font-semibold text-base">Compliance Language</h2>
+              <h2 className="font-semibold text-base">Compliance Language Standards</h2>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Words and phrases we must never use, with the correct alternatives and why it matters legally.
+                Every prohibited phrase, the correct alternative, and exactly why it matters legally. These are non-negotiable standards, not suggestions.
               </p>
             </div>
 
