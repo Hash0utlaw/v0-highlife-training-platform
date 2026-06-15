@@ -180,14 +180,14 @@ export default function DashboardPage() {
         {/* Quick Actions */}
         <div>
           <SectionLabel icon={<Zap className="h-3.5 w-3.5" />} text="Quick Access" />
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {quickActions.map((action) => (
               <Link key={action.href} href={action.href}>
-                <div className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl bg-card border border-border hover:border-primary/40 active:scale-95 transition-all text-center">
+                <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border hover:border-primary/40 active:scale-95 transition-all text-center">
                   <div className={cn("flex items-center justify-center w-9 h-9 rounded-lg", action.bg)}>
                     <action.icon className={cn("h-4 w-4", action.color)} />
                   </div>
-                  <span className="text-[10px] font-medium text-muted-foreground leading-tight">{action.label}</span>
+                  <span className="text-[11px] font-medium text-muted-foreground leading-tight">{action.label}</span>
                 </div>
               </Link>
             ))}
