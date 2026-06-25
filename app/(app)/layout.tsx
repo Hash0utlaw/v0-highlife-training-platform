@@ -27,7 +27,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }
 
   // Protect /admin routes — only admins may access them
-  if (pathname.startsWith("/admin") && !profile?.is_admin) {
+  // /admin/seed is exempt so it can be used to bootstrap the first accounts
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/seed") && !profile?.is_admin) {
     redirect("/dashboard")
   }
 
