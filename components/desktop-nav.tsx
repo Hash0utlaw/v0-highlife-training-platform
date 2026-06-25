@@ -1,10 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen, ShieldCheck, Trophy, Briefcase } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { Home, Package, GraduationCap, ClipboardCheck, User, Lightbulb, Leaf, BookOpen, ShieldCheck, Trophy, Briefcase, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { createClient } from "@/lib/supabase/client"
 
 const navItems = [
   { href: "/dashboard", icon: Home, label: "Dashboard" },
@@ -24,6 +25,14 @@ const adminNavItems = [
 
 export function DesktopNav() {
   const pathname = usePathname()
+  const router = useRouter()
+  const supabase = createClient()
+
+  async function handleSignOut() {
+    await supabase.auth.signOut()
+    router.push("/login")
+    router.refresh()
+  }
 
   return (
     <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-64 flex-col bg-sidebar border-r border-sidebar-border">
@@ -83,8 +92,16 @@ export function DesktopNav() {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-sidebar-border space-y-2">
         <ThemeToggle />
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors"
+        >
+          <LogOut className="h-5 w-5" />
+          Sign Out
+        </button>
       </div>
     </aside>
   )

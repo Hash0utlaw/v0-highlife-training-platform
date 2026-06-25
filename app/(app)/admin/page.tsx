@@ -556,6 +556,13 @@ export default function AdminPage() {
               <p className="text-xs text-muted-foreground">District & Regional Management</p>
             </div>
           </div>
+          <Link
+            href="/admin/seed"
+            className="flex items-center gap-2 text-xs font-medium bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors px-3 py-1.5 rounded-lg"
+          >
+            <Users className="h-3.5 w-3.5" />
+            Seed Employees
+          </Link>
         </div>
       </div>
 

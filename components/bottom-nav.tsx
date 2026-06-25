@@ -17,10 +17,13 @@ import {
   X,
   Moon,
   Sun,
+  LogOut,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 
 const primaryNav = [
   { href: "/dashboard", icon: Home, label: "Home" },
@@ -40,8 +43,17 @@ const moreNav = [
 
 export function BottomNav() {
   const pathname = usePathname()
+  const router = useRouter()
+  const supabase = createClient()
   const [moreOpen, setMoreOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+
+  async function handleSignOut() {
+    setMoreOpen(false)
+    await supabase.auth.signOut()
+    router.push("/login")
+    router.refresh()
+  }
 
   const isMoreActive = moreNav.some(
     (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
@@ -136,6 +148,18 @@ export function BottomNav() {
               </span>
               <span className="dark:hidden">Switch to dark mode</span>
               <span className="hidden dark:inline">Switch to light mode</span>
+            </button>
+
+            {/* Sign out */}
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="flex w-full items-center gap-3 rounded-xl border border-border bg-secondary/40 px-4 py-3 mt-1 text-sm font-medium text-red-500 active:scale-[0.99] transition-transform"
+            >
+              <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-secondary">
+                <LogOut className="h-4 w-4 text-red-500" />
+              </span>
+              Sign Out
             </button>
           </div>
         </div>
