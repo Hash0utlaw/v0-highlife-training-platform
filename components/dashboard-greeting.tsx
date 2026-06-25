@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from "react"
 
-export function DashboardGreeting({ firstName }: { firstName: string }) {
+export function DashboardGreeting({
+  firstName,
+  fullName,
+}: {
+  firstName: string
+  fullName: string
+}) {
   const [greeting, setGreeting] = useState("Good morning")
 
   useEffect(() => {
@@ -14,8 +20,12 @@ export function DashboardGreeting({ firstName }: { firstName: string }) {
 
   return (
     <>
-      <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-1">{greeting}</p>
-      <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">{firstName}</h1>
+      <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-1">
+        {greeting}, {firstName}
+      </p>
+      <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight text-balance">
+        {fullName || firstName}
+      </h1>
     </>
   )
 }

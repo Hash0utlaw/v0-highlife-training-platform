@@ -62,10 +62,23 @@ export default async function DashboardPage() {
   const quizResults = quizResultsResult.data ?? []
   const earnedBadges = badgesResult.data ?? []
 
+  // Fall back to auth user metadata when profile row not yet populated
+  const meta = user.user_metadata ?? {}
+  const firstName = profile?.first_name || meta.first_name || "there"
+  const lastName = profile?.last_name || meta.last_name || ""
+  const fullName = [firstName, lastName].filter(Boolean).join(" ")
+  const roleLine = profile?.role || meta.role || ""
+  const storeName = profile?.store_name || meta.store_name || ""
+  const storeNumber = profile?.store_number ?? meta.store_number ?? null
+  const storeLine = storeName
+    ? storeName === "District"
+      ? "District Office"
+      : `Store ${storeNumber} · ${storeName}`
+    : ""
+
   // Compute stats
   const totalModules = mockModules.length
   const completedModules = moduleProgress.filter((m) => m.completed).length
-  const inProgressModules = moduleProgress.filter((m) => !m.completed && m.progress > 0)
   const overallProgress = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0
 
   const avgScore =
@@ -94,14 +107,6 @@ export default async function DashboardPage() {
 
   const newProducts = mockProducts.slice(0, 3)
 
-  const firstName = profile?.display_name?.split(" ")[0] ?? profile?.first_name ?? "there"
-  const roleLine = profile?.role ?? ""
-  const storeLine = profile?.store_name
-    ? profile.store_name === "District"
-      ? "District Office"
-      : `Store ${profile.store_number} · ${profile.store_name}`
-    : ""
-
   const quickActions = [
     { href: "/products", icon: Package, label: "Products", color: "text-blue-400", bg: "bg-blue-400/10" },
     { href: "/training", icon: BookOpen, label: "Training", color: "text-primary", bg: "bg-primary/10" },
@@ -120,11 +125,15 @@ export default async function DashboardPage() {
           <div className="flex items-start justify-between gap-4">
             {/* Left: greeting + name */}
             <div className="min-w-0">
-              <DashboardGreeting firstName={firstName} />
-              <div className="flex items-center gap-2 mt-2 flex-wrap">
-                {roleLine && <span className="text-xs text-muted-foreground">{roleLine}</span>}
-                {roleLine && storeLine && <span className="text-muted-foreground/30">·</span>}
-                {storeLine && <span className="text-xs text-muted-foreground">{storeLine}</span>}
+              <DashboardGreeting firstName={firstName} fullName={fullName} />
+              <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                {roleLine && (
+                  <span className="text-sm font-semibold text-foreground/80">{roleLine}</span>
+                )}
+                {roleLine && storeLine && <span className="text-muted-foreground/40 text-sm">·</span>}
+                {storeLine && (
+                  <span className="text-sm text-muted-foreground">{storeLine}</span>
+                )}
               </div>
               {/* Earned badges row */}
               {earnedBadges.length > 0 && (
