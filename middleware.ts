@@ -1,8 +1,11 @@
-import { type NextRequest } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import { updateSession } from "@/lib/supabase/proxy"
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  const response = await updateSession(request)
+  // Forward the pathname so server layouts can read it without searchParams hacks
+  response.headers.set("x-pathname", request.nextUrl.pathname)
+  return response
 }
 
 export const config = {

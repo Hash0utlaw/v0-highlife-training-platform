@@ -15,10 +15,14 @@ type Employee = {
   role: string
   shirtSize: string
   hireDate: string | null
+  isAdmin?: boolean
 }
 
 // Active employees only (terminated/terminating excluded)
 const EMPLOYEES: Employee[] = [
+  // District Managers
+  { firstName: "Adam", lastName: "Stover", storeName: "District", storeNumber: 0, role: "District Manager", shirtSize: "", hireDate: null, isAdmin: true },
+  { firstName: "Amaya", lastName: "Tallent", storeName: "District", storeNumber: 0, role: "District Manager", shirtSize: "", hireDate: null, isAdmin: true },
   // 01 - Central
   { firstName: "Colten", lastName: "Stanford", storeName: "Central", storeNumber: 1, role: "Shift Lead", shirtSize: "Small", hireDate: "2025-05-06" },
   { firstName: "Madelyn", lastName: "Francois", storeName: "Central", storeNumber: 1, role: "Manager", shirtSize: "Small", hireDate: "2025-08-13" },
@@ -183,6 +187,7 @@ export async function POST(request: Request) {
         role: emp.role,
         shirt_size: emp.shirtSize,
         hire_date: emp.hireDate,
+        is_admin: emp.isAdmin ?? false,
       },
     })
 
