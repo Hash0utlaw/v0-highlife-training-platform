@@ -117,6 +117,7 @@ const STORES = ["Bossier City", "Shreveport", "Minden", "District"]
 function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: (emp: AdminEmployee) => void }) {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [createdUsername, setCreatedUsername] = useState<string | null>(null)
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -128,6 +129,10 @@ function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: 
     hireDate: new Date().toISOString().split("T")[0],
     isAdmin: false,
   })
+
+  // Preview of the login username the employee will use (first.last).
+  const usernamePreview =
+    `${form.firstName.toLowerCase().replace(/[^a-z0-9]/g, "")}.${form.lastName.toLowerCase().replace(/[^a-z0-9]/g, "")}`
 
   function set(key: keyof typeof form, value: string | boolean) {
     setForm((f) => ({ ...f, [key]: value }))
@@ -146,7 +151,7 @@ function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: 
       const newEmp: AdminEmployee = {
         id: crypto.randomUUID(),
         name: `${form.firstName} ${form.lastName}`.trim(),
-        email: form.email,
+        email: `${result.username}@highlifetraining.internal`,
         role: form.role as AdminEmployee["role"],
         storeLocation: form.storeName === "District"
           ? "District Office"
@@ -163,8 +168,43 @@ function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: 
         earnedBadgeIds: [],
       }
       onAdded(newEmp)
-      onClose()
+      // Show the generated login username so the admin can pass it on.
+      setCreatedUsername(result.username ?? usernamePreview)
     })
+  }
+
+  // Success confirmation screen showing the login credentials.
+  if (createdUsername) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+        <div className="relative z-10 w-full max-w-md bg-card border border-border rounded-xl shadow-2xl p-6 text-center">
+          <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <CheckCircle2 className="h-6 w-6 text-primary" />
+          </div>
+          <h2 className="font-semibold text-foreground">Employee Created</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Share these login details with {form.firstName}. They&apos;ll be asked to change their password on first sign-in.
+          </p>
+          <div className="mt-4 space-y-2 text-left bg-secondary/40 border border-border rounded-lg p-4">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-xs text-muted-foreground">Username</span>
+              <span className="text-sm font-mono font-medium text-foreground">{createdUsername}</span>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-xs text-muted-foreground">Temporary Password</span>
+              <span className="text-sm font-mono font-medium text-foreground">{form.password}</span>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="mt-5 w-full px-4 py-2.5 text-sm rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -198,8 +238,11 @@ function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: 
             </Field>
           </div>
 
-          <Field label="Email" required>
-            <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="jane@highlifesmokeshop.com" required />
+          <Field label="Login Username (auto-generated)">
+            <div className={cn(inputCls, "flex items-center text-muted-foreground")}>
+              <span className="font-mono text-foreground">{usernamePreview || "first.last"}</span>
+            </div>
+            <p className="text-[11px] text-muted-foreground">The employee signs in with this username. It updates automatically if you change their name.</p>
           </Field>
 
           <Field label="Temporary Password" required>
@@ -278,6 +321,7 @@ function EditEmployeeModal({
   const [isPending, startTransition] = useTransition()
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [newUsername, setNewUsername] = useState<string | null>(null)
 
   const parseStore = (loc: string) => {
     if (loc === "District Office") return { storeName: "District", storeNumber: "" }
@@ -302,6 +346,8 @@ function EditEmployeeModal({
     setForm((f) => ({ ...f, [key]: value }))
   }
 
+  const previousUsername = employee.email.split("@")[0]
+
   function handleSave(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
@@ -314,7 +360,14 @@ function EditEmployeeModal({
         : form.storeNumber
           ? `Store ${form.storeNumber} · ${form.storeName}`
           : form.storeName
-      onUpdated({ id: employee.id, name: newName, role: form.role as AdminEmployee["role"], storeLocation: newLocation, hireDate: form.hireDate })
+      const newEmail = `${result.username}@highlifetraining.internal`
+      onUpdated({ id: employee.id, name: newName, email: newEmail, role: form.role as AdminEmployee["role"], storeLocation: newLocation, hireDate: form.hireDate })
+      // If the rename changed their login username, tell the admin instead of
+      // silently closing — the employee must use the new username going forward.
+      if (result.username && result.username !== previousUsername) {
+        setNewUsername(result.username)
+        return
+      }
       onClose()
     })
   }
@@ -326,6 +379,34 @@ function EditEmployeeModal({
       onUpdated({ id: employee.id, name: "" }) // signal deletion via empty name
       onClose()
     })
+  }
+
+  // Shown when a rename changed the employee's login username.
+  if (newUsername) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+        <div className="relative z-10 w-full max-w-md bg-card border border-border rounded-xl shadow-2xl p-6 text-center">
+          <div className="mx-auto w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mb-4">
+            <AlertTriangle className="h-6 w-6 text-amber-500" />
+          </div>
+          <h2 className="font-semibold text-foreground">Login Username Changed</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Because you changed the name, this employee must now sign in with their new username. Their password is unchanged.
+          </p>
+          <div className="mt-4 flex items-center justify-between gap-3 text-left bg-secondary/40 border border-border rounded-lg p-4">
+            <span className="text-xs text-muted-foreground">New username</span>
+            <span className="text-sm font-mono font-medium text-foreground">{newUsername}</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="mt-5 w-full px-4 py-2.5 text-sm rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+          >
+            Got it
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -1187,7 +1268,7 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
         <EditEmployeeModal
           employee={editTarget}
           onClose={() => setEditTarget(null)}
-          onUpdated={(updated) => { handleEmployeeUpdated(updated); setEditTarget(null) }}
+          onUpdated={handleEmployeeUpdated}
         />
       )}
     </div>
