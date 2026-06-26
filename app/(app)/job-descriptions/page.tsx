@@ -12,7 +12,6 @@ import {
   ClipboardList,
   Target,
   Gift,
-  DollarSign,
   Building2,
   Phone,
   Info,
@@ -143,14 +142,7 @@ export default function JobDescriptionsPage() {
                     <TrendingUp className="h-3.5 w-3.5" />
                     Reports to {role.reportsTo}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <DollarSign className="h-3.5 w-3.5 text-primary" />
-                    <span className="font-semibold text-foreground">{role.compensation}</span>
-                  </span>
                 </div>
-                {role.compensationNote && (
-                  <p className="text-xs text-muted-foreground mt-2">{role.compensationNote}</p>
-                )}
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mt-5 pt-5 border-t border-border">
@@ -209,7 +201,7 @@ export default function JobDescriptionsPage() {
             <div className="flex items-center gap-2 mb-4">
               <Gift className="h-4 w-4 text-primary" />
               <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                Salary &amp; Benefits
+                Benefits
               </h3>
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
@@ -228,12 +220,6 @@ export default function JobDescriptionsPage() {
                 <Info className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <p className="text-xs text-muted-foreground leading-relaxed">{role.benefitsNote}</p>
               </div>
-            )}
-            {role.salaryEffectiveDate && (
-              <p className="text-xs text-muted-foreground mt-4">
-                Salary effective date:{" "}
-                <span className="font-medium text-foreground">{role.salaryEffectiveDate}</span>
-              </p>
             )}
           </section>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useTransition } from "react"
 import Link from "next/link"
 import {
   Users,
@@ -24,6 +24,12 @@ import {
   Square,
   Trophy,
   Award,
+  UserPlus,
+  Pencil,
+  Trash2,
+  AlertTriangle,
+  Loader2,
+  Shield,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
@@ -35,6 +41,7 @@ import {
   type AdminModule,
   type BadgeTier,
 } from "@/lib/data"
+import { addEmployee, editEmployee, deleteEmployee } from "@/app/(app)/admin/actions"
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function avgScore(emp: AdminEmployee): number {
@@ -78,6 +85,352 @@ const MODULE_CATEGORY_COLORS: Record<AdminModule["category"], string> = {
   compliance: "bg-red-500/10 text-red-400 border-red-500/20",
   sales: "bg-primary/10 text-primary border-primary/20",
   operations: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+}
+
+// ── Shared form field ─────────────────────────────────────────────────────
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string
+  required?: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-medium text-muted-foreground">
+        {label}{required && <span className="text-red-400 ml-0.5">*</span>}
+      </label>
+      {children}
+    </div>
+  )
+}
+
+const inputCls =
+  "w-full bg-secondary/50 border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+
+const ROLES = ["Sales Associate", "Senior Sales Associate", "Key Holder", "Assistant Manager", "Store Manager", "District Manager"]
+const STORES = ["Bossier City", "Shreveport", "Minden", "District"]
+
+// ── Add Employee Modal ─────────────────────────────────────────────────────
+function AddEmployeeModal({ onClose, onAdded }: { onClose: () => void; onAdded: (emp: AdminEmployee) => void }) {
+  const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    role: "Sales Associate",
+    storeNumber: "",
+    storeName: "Shreveport",
+    hireDate: new Date().toISOString().split("T")[0],
+    isAdmin: false,
+  })
+
+  function set(key: keyof typeof form, value: string | boolean) {
+    setForm((f) => ({ ...f, [key]: value }))
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    startTransition(async () => {
+      const result = await addEmployee(form)
+      if (!result.success) {
+        setError(result.error)
+        return
+      }
+      // Optimistic new employee object shown immediately in the table
+      const newEmp: AdminEmployee = {
+        id: crypto.randomUUID(),
+        name: `${form.firstName} ${form.lastName}`.trim(),
+        email: form.email,
+        role: form.role as AdminEmployee["role"],
+        storeLocation: form.storeName === "District"
+          ? "District Office"
+          : form.storeNumber
+            ? `Store ${form.storeNumber} · ${form.storeName}`
+            : form.storeName,
+        district: form.storeName,
+        hireDate: form.hireDate,
+        lastActive: new Date().toISOString(),
+        completedModules: [],
+        inProgressModules: [],
+        assignedModules: adminModules.map((m) => m.id),
+        quizAttempts: [],
+        earnedBadgeIds: [],
+      }
+      onAdded(newEmp)
+      onClose()
+    })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-lg bg-card border border-border rounded-xl shadow-2xl flex flex-col max-h-[90vh]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div>
+            <h2 className="font-semibold text-foreground">Add New Employee</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Create a login and profile for a new team member</p>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-secondary transition-colors">
+            <X className="h-4 w-4 text-muted-foreground" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+          {error && (
+            <div className="flex items-start gap-2 px-3 py-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <AlertTriangle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
+              <p className="text-xs text-red-400">{error}</p>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="First Name" required>
+              <input className={inputCls} value={form.firstName} onChange={(e) => set("firstName", e.target.value)} placeholder="Jane" required />
+            </Field>
+            <Field label="Last Name" required>
+              <input className={inputCls} value={form.lastName} onChange={(e) => set("lastName", e.target.value)} placeholder="Doe" required />
+            </Field>
+          </div>
+
+          <Field label="Email" required>
+            <input className={inputCls} type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="jane@highlifesmokeshop.com" required />
+          </Field>
+
+          <Field label="Temporary Password" required>
+            <input className={inputCls} type="password" value={form.password} onChange={(e) => set("password", e.target.value)} placeholder="Min 8 characters" minLength={8} required />
+          </Field>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Role" required>
+              <select className={inputCls} value={form.role} onChange={(e) => set("role", e.target.value)} required>
+                {ROLES.map((r) => <option key={r}>{r}</option>)}
+              </select>
+            </Field>
+            <Field label="Store">
+              <select className={inputCls} value={form.storeName} onChange={(e) => set("storeName", e.target.value)}>
+                {STORES.map((s) => <option key={s}>{s}</option>)}
+              </select>
+            </Field>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Store Number">
+              <input className={inputCls} type="number" value={form.storeNumber} onChange={(e) => set("storeNumber", e.target.value)} placeholder="e.g. 1" />
+            </Field>
+            <Field label="Hire Date">
+              <input className={inputCls} type="date" value={form.hireDate} onChange={(e) => set("hireDate", e.target.value)} />
+            </Field>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => set("isAdmin", !form.isAdmin)}
+            className={cn(
+              "w-full flex items-center gap-3 px-4 py-3 rounded-lg border text-left transition-colors",
+              form.isAdmin ? "border-primary/40 bg-primary/5" : "border-border bg-secondary/30 hover:bg-secondary/60"
+            )}
+          >
+            <Shield className={cn("h-4 w-4 shrink-0", form.isAdmin ? "text-primary" : "text-muted-foreground")} />
+            <div>
+              <p className={cn("text-sm font-medium", form.isAdmin ? "text-primary" : "text-foreground")}>Admin Access</p>
+              <p className="text-xs text-muted-foreground">Can view and manage all employee data</p>
+            </div>
+            <div className={cn("ml-auto w-4 h-4 rounded border flex items-center justify-center", form.isAdmin ? "bg-primary border-primary" : "border-border")}>
+              {form.isAdmin && <CheckSquare className="h-3 w-3 text-primary-foreground" />}
+            </div>
+          </button>
+
+          <div className="flex gap-3 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 text-sm rounded-lg border border-border text-foreground hover:bg-secondary transition-colors">
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isPending}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors disabled:opacity-60"
+            >
+              {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
+              {isPending ? "Creating..." : "Create Employee"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+// ── Edit Employee Modal ────────────────────────────────────────────────────
+function EditEmployeeModal({
+  employee,
+  onClose,
+  onUpdated,
+}: {
+  employee: AdminEmployee
+  onClose: () => void
+  onUpdated: (updated: Partial<AdminEmployee> & { id: string }) => void
+}) {
+  const [isPending, startTransition] = useTransition()
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const parseStore = (loc: string) => {
+    if (loc === "District Office") return { storeName: "District", storeNumber: "" }
+    const match = loc.match(/Store (\d+) · (.+)/)
+    if (match) return { storeName: match[2], storeNumber: match[1] }
+    return { storeName: loc, storeNumber: "" }
+  }
+
+  const { storeName: initStoreName, storeNumber: initStoreNumber } = parseStore(employee.storeLocation)
+
+  const [form, setForm] = useState({
+    firstName: employee.name.split(" ")[0] ?? "",
+    lastName: employee.name.split(" ").slice(1).join(" ") ?? "",
+    role: employee.role,
+    storeName: initStoreName,
+    storeNumber: initStoreNumber,
+    hireDate: employee.hireDate?.split("T")[0] ?? "",
+    isAdmin: false,
+  })
+
+  function set(key: keyof typeof form, value: string | boolean) {
+    setForm((f) => ({ ...f, [key]: value }))
+  }
+
+  function handleSave(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    startTransition(async () => {
+      const result = await editEmployee({ userId: employee.id, ...form })
+      if (!result.success) { setError(result.error); return }
+      const newName = `${form.firstName} ${form.lastName}`.trim()
+      const newLocation = form.storeName === "District"
+        ? "District Office"
+        : form.storeNumber
+          ? `Store ${form.storeNumber} · ${form.storeName}`
+          : form.storeName
+      onUpdated({ id: employee.id, name: newName, role: form.role as AdminEmployee["role"], storeLocation: newLocation, hireDate: form.hireDate })
+      onClose()
+    })
+  }
+
+  function handleDelete() {
+    startTransition(async () => {
+      const result = await deleteEmployee(employee.id)
+      if (!result.success) { setError(result.error); return }
+      onUpdated({ id: employee.id, name: "" }) // signal deletion via empty name
+      onClose()
+    })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-lg bg-card border border-border rounded-xl shadow-2xl flex flex-col max-h-[90vh]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div>
+            <h2 className="font-semibold text-foreground">Edit Employee</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">{employee.email}</p>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-secondary transition-colors">
+            <X className="h-4 w-4 text-muted-foreground" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSave} className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+          {error && (
+            <div className="flex items-start gap-2 px-3 py-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <AlertTriangle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
+              <p className="text-xs text-red-400">{error}</p>
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="First Name" required>
+              <input className={inputCls} value={form.firstName} onChange={(e) => set("firstName", e.target.value)} required />
+            </Field>
+            <Field label="Last Name" required>
+              <input className={inputCls} value={form.lastName} onChange={(e) => set("lastName", e.target.value)} required />
+            </Field>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Role" required>
+              <select className={inputCls} value={form.role} onChange={(e) => set("role", e.target.value)}>
+                {ROLES.map((r) => <option key={r}>{r}</option>)}
+              </select>
+            </Field>
+            <Field label="Store">
+              <select className={inputCls} value={form.storeName} onChange={(e) => set("storeName", e.target.value)}>
+                {STORES.map((s) => <option key={s}>{s}</option>)}
+              </select>
+            </Field>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Store Number">
+              <input className={inputCls} type="number" value={form.storeNumber} onChange={(e) => set("storeNumber", e.target.value)} placeholder="e.g. 1" />
+            </Field>
+            <Field label="Hire Date">
+              <input className={inputCls} type="date" value={form.hireDate} onChange={(e) => set("hireDate", e.target.value)} />
+            </Field>
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 text-sm rounded-lg border border-border text-foreground hover:bg-secondary transition-colors">
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isPending}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors disabled:opacity-60"
+            >
+              {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Pencil className="h-4 w-4" />}
+              {isPending ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+
+          {/* Danger zone */}
+          <div className="border-t border-border pt-4">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Danger Zone</p>
+            {!confirmDelete ? (
+              <button
+                type="button"
+                onClick={() => setConfirmDelete(true)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors"
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete Employee Account
+              </button>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-xs text-red-400 text-center">This will permanently delete {employee.name}&apos;s account and all training data. This cannot be undone.</p>
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => setConfirmDelete(false)} className="flex-1 px-4 py-2.5 text-sm rounded-lg border border-border text-foreground hover:bg-secondary transition-colors">
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    disabled={isPending}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition-colors disabled:opacity-60"
+                  >
+                    {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                    Confirm Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 // ── Assign Modules Modal ───────────────────────────────────────────────────
@@ -190,10 +543,12 @@ function EmployeePanel({
   employee,
   onClose,
   onAssign,
+  onEdit,
 }: {
   employee: AdminEmployee
   onClose: () => void
   onAssign: () => void
+  onEdit: () => void
 }) {
   const [tab, setTab] = useState<"overview" | "quizzes" | "badges">("overview")
   const score = avgScore(employee)
@@ -220,6 +575,13 @@ function EmployeePanel({
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <button
+                onClick={onEdit}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-foreground text-xs font-medium hover:bg-secondary transition-colors"
+              >
+                <Pencil className="h-3.5 w-3.5" />
+                Edit
+              </button>
               <button
                 onClick={onAssign}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors"
@@ -461,6 +823,8 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [selectedEmployee, setSelectedEmployee] = useState<AdminEmployee | null>(null)
   const [assignTarget, setAssignTarget] = useState<AdminEmployee | null>(null)
+  const [editTarget, setEditTarget] = useState<AdminEmployee | null>(null)
+  const [showAddModal, setShowAddModal] = useState(false)
   const [employees, setEmployees] = useState(initialEmployees)
   const [showFilters, setShowFilters] = useState(false)
 
@@ -525,6 +889,21 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
     }
   }
 
+  function handleEmployeeAdded(emp: AdminEmployee) {
+    setEmployees((prev) => [emp, ...prev])
+  }
+
+  function handleEmployeeUpdated(updated: Partial<AdminEmployee> & { id: string }) {
+    // Empty name signals deletion
+    if (updated.name === "") {
+      setEmployees((prev) => prev.filter((e) => e.id !== updated.id))
+      setSelectedEmployee(null)
+      return
+    }
+    setEmployees((prev) => prev.map((e) => e.id === updated.id ? { ...e, ...updated } : e))
+    setSelectedEmployee((prev) => prev && prev.id === updated.id ? { ...prev, ...updated } : prev)
+  }
+
   const SortButton = ({ field, label }: { field: typeof sortField; label: string }) => (
     <button
       onClick={() => handleSort(field)}
@@ -552,13 +931,22 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
               <p className="text-xs text-muted-foreground">Live employee training data</p>
             </div>
           </div>
-          <Link
-            href="/admin/seed"
-            className="flex items-center gap-2 text-xs font-medium bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors px-3 py-1.5 rounded-lg"
-          >
-            <Users className="h-3.5 w-3.5" />
-            Manage Accounts
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="flex items-center gap-2 text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-3 py-1.5 rounded-lg"
+            >
+              <UserPlus className="h-3.5 w-3.5" />
+              Add Employee
+            </button>
+            <Link
+              href="/admin/seed"
+              className="flex items-center gap-2 text-xs font-medium bg-secondary border border-border text-foreground hover:bg-secondary/80 transition-colors px-3 py-1.5 rounded-lg"
+            >
+              <Users className="h-3.5 w-3.5" />
+              Manage Accounts
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -771,11 +1159,12 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
         </div>
       </div>
 
-      {selectedEmployee && !assignTarget && (
+      {selectedEmployee && !assignTarget && !editTarget && (
         <EmployeePanel
           employee={selectedEmployee}
           onClose={() => setSelectedEmployee(null)}
           onAssign={() => setAssignTarget(selectedEmployee)}
+          onEdit={() => setEditTarget(selectedEmployee)}
         />
       )}
 
@@ -784,6 +1173,21 @@ export function AdminDashboardClient({ initialEmployees }: { initialEmployees: A
           employee={assignTarget}
           onClose={() => setAssignTarget(null)}
           onSave={handleSaveAssignments}
+        />
+      )}
+
+      {showAddModal && (
+        <AddEmployeeModal
+          onClose={() => setShowAddModal(false)}
+          onAdded={handleEmployeeAdded}
+        />
+      )}
+
+      {editTarget && (
+        <EditEmployeeModal
+          employee={editTarget}
+          onClose={() => setEditTarget(null)}
+          onUpdated={(updated) => { handleEmployeeUpdated(updated); setEditTarget(null) }}
         />
       )}
     </div>
